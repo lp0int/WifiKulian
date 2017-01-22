@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.xiaohong.wifikulian.ui.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/top_bar"
+            layout="@layout/app_toolbar">
+        </include>
+
+        <ImageView
+            android:id="@+id/img_head"
+            android:layout_width="63dp"
+            android:layout_height="63dp"
+            android:layout_below="@id/top_bar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="51dp"
+            android:src="@mipmap/nonprotraid"/>
+
+        <RelativeLayout
+            android:id="@+id/rel_input"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/img_head"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/app_task_item_bg_with_shadow">
+
+            <EditText
+                android:id="@+id/edt_username"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/white"
+                android:hint="@string/login_username_hint"
+                android:inputType="phone"
+                android:textColor="#595959"
+                android:textColorHint="#595959"
+                android:textSize="14sp"/>
+
+            <View
+                android:id="@+id/view_line1"
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_below="@id/edt_username"
+                android:layout_centerVertical="true"
+                android:background="#FFBFBFBF"/>
+
+            <EditText
+                android:id="@+id/edt_pwd"
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_below="@id/view_line1"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/white"
+                android:hint="@string/login_pwd_hint"
+                android:inputType="textPassword"
+                android:textColor="#595959"
+                android:textColorHint="#595959"
+                android:textSize="14sp"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txt_pwd_update"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rel_input"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/login_pwd_update"
+            android:textColor="#C0C0C0"
+            android:textSize="10sp"/>
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/txt_pwd_update"
+            android:layout_marginLeft="29dp"
+            android:layout_marginRight="29dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/btn_login"
+            android:text="@string/login_btn"
+            android:textColor="@color/white"
+            android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/txt_new_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="28dp"
+            android:text="@string/login_new_user"
+            android:textColor="@color/txt_bottom"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/txt_forget_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="28dp"
+            android:text="@string/login_forget_pwd"
+            android:textColor="@color/txt_bottom"
+            android:textSize="15sp" />
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

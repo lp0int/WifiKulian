@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">WifiKulian</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- 登录 -->
+    <string name="login_title">登录</string>
+    <string name="login_username_hint">手机号</string>
+    <string name="login_pwd_hint">密码</string>
+    <string name="login_pwd_update"><Data><![CDATA[<font color="#2C78D4">*</font>旧版本已注册手机号的用户密码默认为手机号后6位]]></Data></string>
+    <string name="login_btn">登录</string>
+    <string name="login_new_user">新用户注册</string>
+    <string name="login_forget_pwd">忘记密码</string>
+</resources>
