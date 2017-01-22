@@ -1,15 +1,12 @@
-package com.xiaohong.wifikulian.handler;
+package com.xiaohong.wifikulian.handlers;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
-import android.widget.Button;
 
 import com.xiaohong.wifikulian.Interface.ProgressCancelListener;
-
-import java.util.logging.LogRecord;
 
 /**
  * Created by Lpoint on 2017/1/20 14:48.
