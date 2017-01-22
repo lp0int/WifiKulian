@@ -1,10 +1,11 @@
-package com.xiaohong.wifikulian.Handler;
+package com.xiaohong.wifikulian.handler;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.Button;
 
 import com.xiaohong.wifikulian.Interface.ProgressCancelListener;
 
@@ -26,6 +27,7 @@ public class ProgressDialogHandler extends Handler {
 
     public ProgressDialogHandler(Context mContext, ProgressCancelListener mProgressCancelListener, boolean cancelable) {
         super();
+        int a = 10;
         this.mContext = mContext;
         this.mProgressCancelListener = mProgressCancelListener;
         this.cancelable = cancelable;
