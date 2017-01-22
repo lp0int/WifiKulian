@@ -1,4 +1,4 @@
-package com.xiaohong.wifikulian.handlers;
+package com.xiaohong.wifikulian.handler;
 
 import android.app.ProgressDialog;
 import android.content.Context;
