@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txtForgetPwd.setOnClickListener(this);
         txtNewUser.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
+        initRequestListenter();
     }
 
     @Override
@@ -72,9 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_login:
                 String strUserName = edtUserName.getText().toString();
                 String strPwd = edtPwd.getText().toString();
-                String encrypt_str = Utils.AESEncrypt("phone_number=" + strUserName + "&passwd=" + Utils.getMD5(strPwd));
-                NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(LoginListener, MainActivity.this), strUserName,Utils.getMD5(strPwd));
-                initRequestListenter();
+                NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(LoginListener, MainActivity.this), strUserName,strPwd);
                 break;
             default:
                 break;

@@ -12,5 +12,5 @@ import rx.Observable;
 
 public interface RequestServiceInterface {
     @GET("cb/applogin")
-    Observable<LoginBean> login(@Query("phone_number") String userName,@Query("passwd") String str);
+    Observable<LoginBean> login(@Query("encrypt_str") String encrypt_str);
 }

@@ -2,13 +2,22 @@ package com.xiaohong.wifikulian.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.xiaohong.wifikulian.Constants;
+import com.xiaohong.wifikulian.R;
+
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -54,21 +63,46 @@ public class Utils {
         return "";
     }
     public static String getMD5(String val) {
+        byte[] hash;
+
         try {
-            MessageDigest md5 = MessageDigest.getInstance("MD5");
-            md5.update(val.getBytes());
-            byte[] m = md5.digest();//加密
-            return bytes2String(m);
-        }
-        catch (Exception e){
+            hash = MessageDigest.getInstance("MD5").digest(val.getBytes("UTF-8"));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return "";
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
             return "";
         }
-    }
-    private static String bytes2String(byte[] b){
-        StringBuffer sb = new StringBuffer();
-        for(int i = 0; i < b.length; i ++){
-            sb.append(b[i]);
+
+        StringBuilder hex = new StringBuilder(hash.length * 2);
+        for (byte b : hash) {
+            if ((b & 0xFF) < 0x10)
+                hex.append("0");
+            hex.append(Integer.toHexString(b & 0xFF));
         }
-        return sb.toString();
+
+        return hex.toString();
+    }
+
+    public static String getVersion()//获取版本号
+    {
+        try {
+            PackageInfo pi= Constants.BASECONTEXT.getPackageManager().getPackageInfo(Constants.BASECONTEXT.getPackageName(), 0);
+            return pi.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return  Constants.BASECONTEXT.getString(R.string.version_unknown);
+        }
+    }
+    public static int getVersionCode()//获取版本号(内部识别号)
+    {
+        try {
+            PackageInfo pi= Constants.BASECONTEXT.getPackageManager().getPackageInfo( Constants.BASECONTEXT.getPackageName(), 0);
+            return pi.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 }
