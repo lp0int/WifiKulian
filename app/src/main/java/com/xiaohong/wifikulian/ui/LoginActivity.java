@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.Html;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +21,7 @@ import com.xiaohong.wifikulian.utils.NetworkRequestMethods1;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
 import com.xiaohong.wifikulian.utils.Utils;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView txtPwdUpdate;
     private EditText edtUserName;
     private EditText edtPwd;
@@ -47,7 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txtNewUser = (TextView) findViewById(R.id.txt_new_user);
         btnLogin = (Button) findViewById(R.id.btn_login);
         edtPwd = (EditText) findViewById(R.id.edt_pwd);
+        edtPwd.addTextChangedListener(watcher);
         edtUserName = (EditText) findViewById(R.id.edt_username);
+        edtUserName.addTextChangedListener(watcher);
         String exchange = getResources().getString(R.string.login_pwd_update);
         txtPwdUpdate.setText(Html.fromHtml(exchange));
         txtForgetPwd.setOnClickListener(this);
@@ -61,19 +65,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.txt_forget_pwd:
-                intent.setClass(MainActivity.this, ActivityForgetPwd.class);
+                intent.setClass(LoginActivity.this, ActivityForgetPwd.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.x_minus100_2_0, R.anim.x_0_2_0);
                 break;
             case R.id.txt_new_user:
-                intent.setClass(MainActivity.this, ActivityNewUser.class);
+                intent.setClass(LoginActivity.this, ActivityNewUser.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.x_100_2_0, R.anim.x_0_2_0);
                 break;
             case R.id.btn_login:
                 String strUserName = edtUserName.getText().toString();
                 String strPwd = edtPwd.getText().toString();
-                NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(LoginListener, MainActivity.this), strUserName,strPwd);
+                NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(LoginListener, LoginActivity.this), strUserName,strPwd);
                 break;
             default:
                 break;
@@ -85,10 +89,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onNext(LoginBean loginBean) {
                 if (loginBean.getRet_code() == 0)
-                    Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(MainActivity.this, "登录失败；" + loginBean.getRet_msg(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "登录失败；" + loginBean.getRet_msg(), Toast.LENGTH_SHORT).show();
             }
         };
     }
+
+    private TextWatcher watcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            if(edtUserName.getText().toString().length() != 0 && edtPwd.getText().toString().length() != 0)
+                btnLogin.setEnabled(true);
+            else
+                btnLogin.setEnabled(false);
+        }
+    };
 }

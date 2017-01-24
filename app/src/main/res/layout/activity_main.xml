@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xiaohong.wifikulian.ui.MainActivity">
+    tools:context="com.xiaohong.wifikulian.ui.LoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -89,6 +89,7 @@
             android:layout_marginRight="29dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/btn_login"
+            android:enabled="false"
             android:text="@string/login_btn"
             android:textColor="@color/white"
             android:textSize="14sp"/>

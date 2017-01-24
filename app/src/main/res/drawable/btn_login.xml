@@ -2,6 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:drawable="@color/btn_login_click" android:state_pressed="true"/>
+    <item android:drawable="@color/btn_login_disable" android:state_enabled="false"/>
     <item android:drawable="@color/btn_login_normal"/>
 
 </selector>
