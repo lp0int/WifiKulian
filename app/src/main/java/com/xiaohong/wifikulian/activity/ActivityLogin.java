@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.SubscriberOnNextListener;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.base.BaseActivity;
@@ -58,6 +59,10 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
         txtNewUser.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         initRequestListenter();
+        if(Constants.GOD_MODE){
+            edtUserName.setText("15105609453");
+            edtPwd.setText("123456");
+        }
     }
 
     @Override
