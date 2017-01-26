@@ -4,9 +4,8 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/txt_test"
+        android:text="FragmentMine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FragmentConn"
         android:layout_centerInParent="true"/>
 </RelativeLayout>
