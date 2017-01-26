@@ -1,4 +1,4 @@
-package com.xiaohong.wifikulian.ui;
+package com.xiaohong.wifikulian.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -6,16 +6,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.widget.TextView;
 
-import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.base.BaseActivity;
 import com.xiaohong.wifikulian.utils.Utils;
 
 /**
- * Created by Lpoint on 2017/1/20 13:29.
+ * Created by Lpoint on 2017/1/20 10:53.
  */
 
-public class ActivityNewUser extends BaseActivity {
+public class ActivityForgetPwd extends BaseActivity {
+
     private TextView txtTitle;
 
     @SuppressLint("InlinedApi")
@@ -32,14 +32,14 @@ public class ActivityNewUser extends BaseActivity {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         txtTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        txtTitle.setText("注册");
+        txtTitle.setText("忘记密码");
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK){
             this.finish();
-            overridePendingTransition(R.anim.x_0_2_0,R.anim.x_0_2_100);
-            sendEventModel(Constants.CODE_REGISTER_OVER);
+            overridePendingTransition(R.anim.x_0_2_0,R.anim.x_0_2_minus100);
             return true;
         }
         return super.onKeyDown(keyCode, event);

@@ -8,6 +8,7 @@ import android.content.Context;
 
 public class Constants {
     public static final boolean DEBUG_MODE = true;
+    public static final boolean GOD_MODE = true;
     public static final String PLATFORM = "android";
     public static Context BASECONTEXT;
 

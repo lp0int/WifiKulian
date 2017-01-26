@@ -1,4 +1,4 @@
-package com.xiaohong.wifikulian.ui;
+package com.xiaohong.wifikulian.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

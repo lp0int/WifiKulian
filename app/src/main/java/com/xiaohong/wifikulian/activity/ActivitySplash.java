@@ -1,4 +1,4 @@
-package com.xiaohong.wifikulian.ui;
+package com.xiaohong.wifikulian.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
