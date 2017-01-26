@@ -36,7 +36,7 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Utils.hideActiconBar(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         initView();
     }
 
@@ -88,8 +88,13 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
         LoginListener = new SubscriberOnNextListener<LoginBean>() {
             @Override
             public void onNext(LoginBean loginBean) {
-                if (loginBean.getRet_code() == 0)
+                if (loginBean.getRet_code() == 0) {
                     Toast.makeText(ActivityLogin.this, "登录成功", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.setClass(ActivityLogin.this,ActivityHome.class);
+                    startActivity(intent);
+                    finish();
+                }
                 else
                     Toast.makeText(ActivityLogin.this, "登录失败；" + loginBean.getRet_msg(), Toast.LENGTH_SHORT).show();
             }

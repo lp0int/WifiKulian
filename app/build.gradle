@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "com.xiaohong.wifikulian"
-        minSdkVersion 9
+        minSdkVersion 14
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -35,4 +35,5 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.squareup:otto:+'
+    compile 'com.ashokvarma.android:bottom-navigation-bar:1.2.0'        //此依赖需要API14以上的SDK，所以将minSdkVersion更改为14
 }

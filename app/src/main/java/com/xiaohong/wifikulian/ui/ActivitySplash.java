@@ -19,5 +19,6 @@ public class ActivitySplash extends BaseActivity {
         Intent intent  = new Intent();
         intent.setClass(ActivitySplash.this,ActivityLogin.class);
         startActivity(intent);
+        finish();
     }
 }

@@ -46,4 +46,9 @@ public class BaseActivity extends AppCompatActivity {
         AppEvent.getInstance().postQueue(new AppEventModel(eventCode));
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppEvent.getInstance().unregister(mEventSubscriber);
+    }
 }
