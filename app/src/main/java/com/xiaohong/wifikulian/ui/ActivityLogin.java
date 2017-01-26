@@ -77,7 +77,7 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
             case R.id.btn_login:
                 String strUserName = edtUserName.getText().toString();
                 String strPwd = edtPwd.getText().toString();
-                NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(LoginListener, ActivityLogin.this), strUserName,strPwd);
+                NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(LoginListener, ActivityLogin.this,"努力登陆中..."), strUserName,strPwd);
                 break;
             default:
                 break;

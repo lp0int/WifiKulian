@@ -11,6 +11,7 @@ public class Constants {
     public static final String PLATFORM = "android";
     public static Context BASECONTEXT;
 
+    public static final String PROGRESS_MESSAGE = "数据请求中，请稍等";
     /**
      * otto的code值
      */

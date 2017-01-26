@@ -21,19 +21,21 @@ public class ProgressDialogHandler extends Handler {
     private Context mContext;
     private boolean cancelable;
     private ProgressCancelListener mProgressCancelListener;
+    private String mProgressMsg;
 
-    public ProgressDialogHandler(Context mContext, ProgressCancelListener mProgressCancelListener, boolean cancelable) {
+    public ProgressDialogHandler(Context mContext, ProgressCancelListener mProgressCancelListener, boolean cancelable,String mProgressMsg) {
         super();
         int a = 10;
         this.mContext = mContext;
         this.mProgressCancelListener = mProgressCancelListener;
+        this.mProgressMsg = mProgressMsg;
         this.cancelable = cancelable;
     }
 
     private void initProgressDialog() {
         if (pd == null) {
             pd = new ProgressDialog(mContext);
-            pd.setMessage("数据请求中，请稍等");
+            pd.setMessage(mProgressMsg);
             pd.setCancelable(cancelable);
             pd.setCanceledOnTouchOutside(false);
             if (cancelable) {

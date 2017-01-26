@@ -1,8 +1,10 @@
 package com.xiaohong.wifikulian.utils;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.ProgressCancelListener;
 import com.xiaohong.wifikulian.Interface.SubscriberOnNextListener;
 import com.xiaohong.wifikulian.handler.ProgressDialogHandler;
@@ -17,11 +19,13 @@ public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCanc
     private SubscriberOnNextListener mSubscriberOnNextListener;
     private ProgressDialogHandler mProgressDialogHandler;
     private Context mContext;
+    private String mProgressMsg;
 
-    public ProgressSubscriber(SubscriberOnNextListener mSubscriberOnNextListener, Context mContext) {
+    public ProgressSubscriber(SubscriberOnNextListener mSubscriberOnNextListener, Context mContext, String... progressMsgs) {
         this.mSubscriberOnNextListener = mSubscriberOnNextListener;
         this.mContext = mContext;
-        mProgressDialogHandler = new ProgressDialogHandler(mContext, this, true);
+        mProgressMsg = progressMsgs.length > 0 ? progressMsgs[0] : Constants.PROGRESS_MESSAGE;
+        mProgressDialogHandler = new ProgressDialogHandler(mContext, this, true, mProgressMsg);
     }
 
     private void showProgressDialog() {
