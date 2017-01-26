@@ -2,19 +2,19 @@ package com.xiaohong.wifikulian.ui;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.widget.TextView;
 
 import com.xiaohong.wifikulian.R;
+import com.xiaohong.wifikulian.base.BaseActivity;
 import com.xiaohong.wifikulian.utils.Utils;
 
 /**
  * Created by Lpoint on 2017/1/20 10:53.
  */
 
-public class ActivityForgetPwd extends AppCompatActivity {
+public class ActivityForgetPwd extends BaseActivity {
 
     private TextView txtTitle;
 

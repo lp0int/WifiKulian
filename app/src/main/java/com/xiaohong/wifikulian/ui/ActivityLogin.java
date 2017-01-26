@@ -3,7 +3,6 @@ package com.xiaohong.wifikulian.ui;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Html;
@@ -16,12 +15,13 @@ import android.widget.Toast;
 
 import com.xiaohong.wifikulian.Interface.SubscriberOnNextListener;
 import com.xiaohong.wifikulian.R;
+import com.xiaohong.wifikulian.base.BaseActivity;
 import com.xiaohong.wifikulian.models.LoginBean;
 import com.xiaohong.wifikulian.utils.NetworkRequestMethods1;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
 import com.xiaohong.wifikulian.utils.Utils;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class ActivityLogin extends BaseActivity implements View.OnClickListener {
     private TextView txtPwdUpdate;
     private EditText edtUserName;
     private EditText edtPwd;
@@ -65,19 +65,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.txt_forget_pwd:
-                intent.setClass(LoginActivity.this, ActivityForgetPwd.class);
+                intent.setClass(ActivityLogin.this, ActivityForgetPwd.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.x_minus100_2_0, R.anim.x_0_2_0);
                 break;
             case R.id.txt_new_user:
-                intent.setClass(LoginActivity.this, ActivityNewUser.class);
+                intent.setClass(ActivityLogin.this, ActivityNewUser.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.x_100_2_0, R.anim.x_0_2_0);
                 break;
             case R.id.btn_login:
                 String strUserName = edtUserName.getText().toString();
                 String strPwd = edtPwd.getText().toString();
-                NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(LoginListener, LoginActivity.this), strUserName,strPwd);
+                NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(LoginListener, ActivityLogin.this), strUserName,strPwd);
                 break;
             default:
                 break;
@@ -89,9 +89,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onNext(LoginBean loginBean) {
                 if (loginBean.getRet_code() == 0)
-                    Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityLogin.this, "登录成功", Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(LoginActivity.this, "登录失败；" + loginBean.getRet_msg(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityLogin.this, "登录失败；" + loginBean.getRet_msg(), Toast.LENGTH_SHORT).show();
             }
         };
     }

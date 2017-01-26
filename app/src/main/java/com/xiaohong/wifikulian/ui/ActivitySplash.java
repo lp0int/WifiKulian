@@ -3,21 +3,21 @@ package com.xiaohong.wifikulian.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import com.xiaohong.wifikulian.Constants;
+import com.xiaohong.wifikulian.base.BaseActivity;
 
 /**
  * Created by Lpoint on 2017/1/24.
  */
 
-public class SplashActivity extends AppCompatActivity {
+public class ActivitySplash extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Constants.BASECONTEXT = getBaseContext();
         Intent intent  = new Intent();
-        intent.setClass(SplashActivity.this,LoginActivity.class);
+        intent.setClass(ActivitySplash.this,ActivityLogin.class);
         startActivity(intent);
     }
 }
