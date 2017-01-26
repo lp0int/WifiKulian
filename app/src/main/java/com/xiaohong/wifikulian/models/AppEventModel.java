@@ -10,24 +10,24 @@ public class AppEventModel {
     private int eventCode;
     private Bundle bundle;
 
-    public AppEventModel(int eventCode){
+    public AppEventModel(int eventCode) {
         this.eventCode = eventCode;
     }
 
-    public AppEventModel(int eventCode,Bundle bundle){
+    public AppEventModel(int eventCode, Bundle bundle) {
         this.eventCode = eventCode;
         this.bundle = bundle;
     }
 
-    public int getEventCode(){
+    public int getEventCode() {
         return eventCode;
     }
 
-    public void setBundle(Bundle bundle){
+    public void setBundle(Bundle bundle) {
         this.bundle = bundle;
     }
 
-    public Bundle getBundle(){
+    public Bundle getBundle() {
         return bundle;
     }
 }

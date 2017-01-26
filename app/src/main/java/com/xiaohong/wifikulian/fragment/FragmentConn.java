@@ -13,7 +13,7 @@ import com.xiaohong.wifikulian.base.BaseFragment;
  * Created by Lpoint on 2017/1/26.
  */
 
-public class FragmentConn extends BaseFragment{
+public class FragmentConn extends BaseFragment {
 
 
     @Override
@@ -24,7 +24,7 @@ public class FragmentConn extends BaseFragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_conn,container,false);
+        View view = inflater.inflate(R.layout.fragment_conn, container, false);
         return view;
     }
 

@@ -23,7 +23,7 @@ public class ProgressDialogHandler extends Handler {
     private ProgressCancelListener mProgressCancelListener;
     private String mProgressMsg;
 
-    public ProgressDialogHandler(Context mContext, ProgressCancelListener mProgressCancelListener, boolean cancelable,String mProgressMsg) {
+    public ProgressDialogHandler(Context mContext, ProgressCancelListener mProgressCancelListener, boolean cancelable, String mProgressMsg) {
         super();
         int a = 10;
         this.mContext = mContext;

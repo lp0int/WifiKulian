@@ -41,7 +41,7 @@ public class BaseActivity extends AppCompatActivity {
         AppEvent.getInstance().postQueue(new AppEventModel(eventCode, bundle));
     }
 
-    protected void sendEventModel(int eventCode){
+    protected void sendEventModel(int eventCode) {
         AppEvent.getInstance().postQueue(new AppEventModel(eventCode));
     }
 

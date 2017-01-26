@@ -12,15 +12,15 @@ import com.squareup.otto.Bus;
 public class AppEvent extends Bus {
     private static AppEvent instance;
 
-    public static AppEvent getInstance(){
-        if(instance == null)
+    public static AppEvent getInstance() {
+        if (instance == null)
             instance = new AppEvent();
         return instance;
     }
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
-    public void postQueue(final Object object){
+    public void postQueue(final Object object) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {

@@ -13,7 +13,7 @@ import com.xiaohong.wifikulian.Constants;
 
 public class PhoneInfo {
     public static WifiManager wifiManager = (WifiManager) Constants.BASECONTEXT.getSystemService(Context.WIFI_SERVICE);
-    public static TelephonyManager telephonyManager=(TelephonyManager) Constants.BASECONTEXT.getSystemService(Context.TELEPHONY_SERVICE);
+    public static TelephonyManager telephonyManager = (TelephonyManager) Constants.BASECONTEXT.getSystemService(Context.TELEPHONY_SERVICE);
     public static WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 
     public static String Mac() {
@@ -26,25 +26,25 @@ public class PhoneInfo {
     public static String SSID() {
         String ssid = "-1";
         if (wifiManager != null && wifiInfo != null)
-                ssid = wifiInfo.getSSID();
+            ssid = wifiInfo.getSSID();
         return ssid.replace("\"", "");
     }
 
     public static String IMEI() {
         String imei = "-1";
-        if(telephonyManager != null)
+        if (telephonyManager != null)
             imei = telephonyManager.getDeviceId();
-        return  imei;
+        return imei;
     }
 
-    public static String PHONENUM(){
+    public static String PHONENUM() {
         String phoneNumber = "-1";
-        if(telephonyManager != null)
+        if (telephonyManager != null)
             phoneNumber = telephonyManager.getLine1Number();
         return phoneNumber;
     }
 
-    public static String PHONEMODEL(){
+    public static String PHONEMODEL() {
         return android.os.Build.MODEL;
     }
 }

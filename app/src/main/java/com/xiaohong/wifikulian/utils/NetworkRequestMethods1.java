@@ -66,7 +66,7 @@ public class NetworkRequestMethods1 {
         String imei = PhoneInfo.IMEI();
         String model = PhoneInfo.PHONEMODEL();
         String ssid = PhoneInfo.SSID();
-        String encrypt_str = EncodeParameter.getLoginParameter(userName,pwd,ver,phone_mac,imei,model, Constants.PLATFORM,ssid);
+        String encrypt_str = EncodeParameter.getLoginParameter(userName, pwd, ver, phone_mac, imei, model, Constants.PLATFORM, ssid);
         mRequestServiceInterface.login(encrypt_str)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

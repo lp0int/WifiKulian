@@ -17,7 +17,7 @@ public class FragmentMine extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mine,container,false);
+        View view = inflater.inflate(R.layout.fragment_mine, container, false);
         return view;
     }
 }

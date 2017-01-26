@@ -16,7 +16,7 @@ public class BaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            AppEvent.getInstance().register(mEventSubscriber);
+        AppEvent.getInstance().register(mEventSubscriber);
     }
 
     @Override

@@ -62,6 +62,7 @@ public class Utils {
         }
         return "";
     }
+
     public static String getMD5(String val) {
         byte[] hash;
 
@@ -88,17 +89,18 @@ public class Utils {
     public static String getVersion()//获取版本号
     {
         try {
-            PackageInfo pi= Constants.BASECONTEXT.getPackageManager().getPackageInfo(Constants.BASECONTEXT.getPackageName(), 0);
+            PackageInfo pi = Constants.BASECONTEXT.getPackageManager().getPackageInfo(Constants.BASECONTEXT.getPackageName(), 0);
             return pi.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            return  Constants.BASECONTEXT.getString(R.string.version_unknown);
+            return Constants.BASECONTEXT.getString(R.string.version_unknown);
         }
     }
+
     public static int getVersionCode()//获取版本号(内部识别号)
     {
         try {
-            PackageInfo pi= Constants.BASECONTEXT.getPackageManager().getPackageInfo( Constants.BASECONTEXT.getPackageName(), 0);
+            PackageInfo pi = Constants.BASECONTEXT.getPackageManager().getPackageInfo(Constants.BASECONTEXT.getPackageName(), 0);
             return pi.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
