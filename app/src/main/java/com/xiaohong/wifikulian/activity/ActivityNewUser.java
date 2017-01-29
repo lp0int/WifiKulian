@@ -23,7 +23,7 @@ public class ActivityNewUser extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Utils.hideActiconBar(this);
-        setContentView(R.layout.activity_forget_pwd);
+        setContentView(R.layout.activity_new_user);
         initView();
     }
 

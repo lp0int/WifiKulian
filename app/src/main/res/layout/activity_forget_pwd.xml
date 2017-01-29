@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -8,4 +8,115 @@
         android:id="@+id/top_bar"
         layout="@layout/app_toolbar">
     </include>
-</android.support.design.widget.CoordinatorLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_username_pwd"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/top_bar"
+        android:background="@drawable/app_task_item_bg_with_shadow" >
+
+        <EditText
+            android:id="@+id/et_username"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:background="@null"
+            android:hint="@string/forget_pwd_username"
+            android:inputType="number"
+            android:maxLength="16"
+            android:textColor="#FF595959"
+            android:textColorHint="#FF595959"
+            android:textSize="14sp" />
+
+        <View
+            android:id="@+id/line_username"
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/et_username"
+            android:background="#FFBFBFBF" />
+
+        <EditText
+            android:id="@+id/edt_password"
+            android:layout_width="fill_parent"
+            android:layout_height="49dp"
+            android:layout_below="@id/et_username"
+            android:layout_marginLeft="15dp"
+            android:background="@null"
+            android:hint="@string/forget_pwd_new_pwd"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:textColor="#FF595959"
+            android:textColorHint="#FF595959"
+            android:textSize="14sp" />
+
+        <View
+            android:id="@+id/line_password"
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/edt_password"
+            android:background="#FFBFBFBF" />
+
+        <EditText
+            android:id="@+id/edt_confirm_password"
+            android:layout_width="fill_parent"
+            android:layout_height="49dp"
+            android:layout_below="@id/edt_password"
+            android:layout_marginLeft="15dp"
+            android:background="@null"
+            android:hint="@string/forget_pwd_confirm_pwd"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:textColor="#FF595959"
+            android:textColorHint="#FF595959"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_verify_code"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/rel_username_pwd"
+        android:background="@drawable/app_task_item_bg_with_shadow"
+        android:layout_marginTop="15dp" >
+
+        <EditText
+            android:id="@+id/et_verify_code"
+            android:layout_width="150dip"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:layout_marginLeft="15dp"
+            android:hint="@string/forget_pwd_verify_code"
+            android:inputType="number"
+            android:textSize="14sp"
+            android:textColor="#FF595959"
+            android:textColorHint="#FF595959"
+            android:maxLength="4" />
+
+        <Button
+            android:id="@+id/btn_verify_code"
+            android:layout_width="92dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:background="#F5A623"
+            android:text="获取验证码"
+            android:layout_centerVertical="true"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_reset_pwd"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/rel_verify_code"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="29dp"
+        android:layout_marginRight="29dp"
+        android:background="@drawable/btn_login"
+        android:text="@string/register_label"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp" />
+
+</RelativeLayout>

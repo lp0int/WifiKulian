@@ -5,6 +5,7 @@
     <color name="colorAccent">#2C78D4</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="background_color">#F3F3F3</color>
 
     <!-- login -->
     <color name="colorTitleWhite">#FFFFFF</color>

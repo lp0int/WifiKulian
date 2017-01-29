@@ -2,6 +2,7 @@
     <string name="app_name">WifiKulian</string>
     <string name="action_settings">Settings</string>
     <string name="version_unknown">unknownVersionName</string>
+    <string name="register_label">提交</string>
 
     <!-- 登录 -->
     <string name="login_title">登录</string>
@@ -11,4 +12,42 @@
     <string name="login_btn">登录</string>
     <string name="login_new_user">新用户注册</string>
     <string name="login_forget_pwd">忘记密码</string>
+
+
+    <!-- 重置密码 -->
+    <string name="forget_pwd_title">重置密码</string>
+    <string name="forget_pwd_username">手机号</string>
+    <string name="forget_pwd_new_pwd">新密码</string>
+    <string name="forget_pwd_confirm_pwd">确认新密码</string>
+    <string name="forget_pwd_verify_code">验证码</string>
+
+    <!-- 注册页 -->
+    <string name="register">注册</string>
+    <string name="register_ok">注册成功</string>
+    <string name="registering">注册中，请稍候</string>
+    <string name="hint_username">用户名</string>
+    <string name="hint_password">密码</string>
+    <string name="hint_confirm_password">确认密码</string>
+    <string name="hint_email">邮箱</string>
+    <string name="error_username_empty">手机号不能为空</string>
+    <string name="error_username_length_invalid">用户名必须为手机号码</string>
+    <string name="error_email_empty">邮箱不能为空</string>
+    <string name="error_email_format_invalid">邮箱格式不正确</string>
+    <string name="error_email_length_invalid">邮箱必须大于6个字符，小于40个字符</string>
+    <string name="error_verifycode_empty">请填写验证码</string>
+    <string name="error_verifycode_length_invalid">验证码为4位数字</string>
+    <string name="error_invitecode_length_invalid">邀请码为6位数字</string>
+    <string name="error_password_not_same">密码不匹配</string>
+    <string name="error_username_invalid">用户名不合法，请重新输入</string>
+    <string name="error_username_exist">用户名已经被注册，请尝试其他的用户名。</string>
+    <string name="error_email_invalid">您输入的邮箱格式不正确。</string>
+    <string name="error_email_exist">邮箱已经被注册，请尝试其他的邮箱。</string>
+    <string name="error_password_invalid">密码不合法。</string>
+    <string name="error_other">注册失败，未知原因。</string>
+    <string name="register_tip">还没有机锋账号？\n立即创建</string>
+    <string name="register_username">手机号</string>
+    <string name="register_verifycode">验证码</string>
+    <string name="register_invite_code">邀请码</string>
+    <string name="register_can_null">可不填</string>
+    <string name="register_license_hint"><Data><![CDATA[点击上面按钮“提交”即表示您同意<font color="#2C78D4">《服务协议》</font>]]></Data></string>
 </resources>
