@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.RequestServiceInterface;
+import com.xiaohong.wifikulian.models.GetVerifyCodeBean;
 import com.xiaohong.wifikulian.models.LoginBean;
 
 import java.io.IOException;
@@ -68,6 +69,15 @@ public class NetworkRequestMethods1 {
         String ssid = PhoneInfo.SSID();
         String encrypt_str = EncodeParameter.getLoginParameter(userName, pwd, ver, phone_mac, imei, model, Constants.PLATFORM, ssid);
         mRequestServiceInterface.login(encrypt_str)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+
+    }
+
+    public void getVerifyCode(Subscriber<GetVerifyCodeBean> subscriber, String userName){
+        mRequestServiceInterface.getVerifyCode(userName,Utils.getVersionCode() + "")
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -1,7 +1,6 @@
 package com.xiaohong.wifikulian.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -12,11 +11,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.xiaohong.wifikulian.Constants;
+import com.xiaohong.wifikulian.Interface.SubscriberOnNextListener;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.base.BaseActivity;
+import com.xiaohong.wifikulian.models.GetVerifyCodeBean;
+import com.xiaohong.wifikulian.utils.NetworkRequestMethods1;
+import com.xiaohong.wifikulian.utils.ProgressSubscriber;
 import com.xiaohong.wifikulian.utils.Utils;
 
 /**
@@ -30,6 +32,8 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
     private EditText edtUserName, edtPassword, edtConfirmPassword, edtVerifyCode;
     private Button btnGetVerifyCode,btnResetPassword;
 
+    private SubscriberOnNextListener getVerifyCodeListener;
+
     @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
         setContentView(R.layout.activity_forget_pwd);
         initView();
         initData();
+        initRequestListener();
     }
 
     private void initView() {
@@ -91,6 +96,7 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
                     Utils.showToastStr(ActivityForgetPwd.this,Constants.PHONENUMBER_WRONGFUL);
                     break;
                 }
+                NetworkRequestMethods1.getInstance().getVerifyCode(new ProgressSubscriber<GetVerifyCodeBean>(getVerifyCodeListener, ActivityForgetPwd.this, "正在获取验证码..."),edtUserName.getText().toString());
                 break;
             default:
                 break;
@@ -121,4 +127,16 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
                 btnResetPassword.setEnabled(true);
         }
     };
+
+    private void initRequestListener(){
+        getVerifyCodeListener = new SubscriberOnNextListener<GetVerifyCodeBean>(){
+            @Override
+            public void onNext(GetVerifyCodeBean getVerifyCodeBean) {
+                if(getVerifyCodeBean.getRet_code() == 0){
+                    Utils.showToastStr(ActivityForgetPwd.this, "验证码已发送");
+                }else
+                    Utils.showToastStr(ActivityForgetPwd.this, "验证码获取失败；" + getVerifyCodeBean.getRet_msg());
+            }
+        };
+    }
 }

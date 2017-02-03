@@ -103,7 +103,7 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
                     startActivity(intent);
                     finish();
                 } else
-                    Toast.makeText(ActivityLogin.this, "登录失败；" + loginBean.getRet_msg(), Toast.LENGTH_SHORT).show();
+                    Utils.showToastStr(ActivityLogin.this, "登录失败；" + loginBean.getRet_msg());
             }
         };
     }

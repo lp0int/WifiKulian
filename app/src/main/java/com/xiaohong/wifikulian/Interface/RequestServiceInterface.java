@@ -1,5 +1,6 @@
 package com.xiaohong.wifikulian.Interface;
 
+import com.xiaohong.wifikulian.models.GetVerifyCodeBean;
 import com.xiaohong.wifikulian.models.LoginBean;
 
 import retrofit2.http.GET;
@@ -13,4 +14,7 @@ import rx.Observable;
 public interface RequestServiceInterface {
     @GET("cb/applogin")
     Observable<LoginBean> login(@Query("encrypt_str") String encrypt_str);
+
+    @GET("cb/appverifycode")
+    Observable<GetVerifyCodeBean> getVerifyCode(@Query("phone_number") String phone_str, @Query("ver") String ver);
 }
