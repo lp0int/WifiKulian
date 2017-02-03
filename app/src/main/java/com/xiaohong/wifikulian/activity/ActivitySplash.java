@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.xiaohong.wifikulian.Constants;
+import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.base.BaseActivity;
 
 /**
@@ -15,7 +16,7 @@ public class ActivitySplash extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Constants.BASECONTEXT = getBaseContext();
+        Variable.BASECONTEXT = getBaseContext();
         Intent intent  = new Intent();
         intent.setClass(ActivitySplash.this,ActivityLogin.class);
         startActivity(intent);

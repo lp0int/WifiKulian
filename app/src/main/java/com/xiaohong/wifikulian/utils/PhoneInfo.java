@@ -6,14 +6,15 @@ import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 
 import com.xiaohong.wifikulian.Constants;
+import com.xiaohong.wifikulian.Variable;
 
 /**
  * Created by Lpoint on 2017/1/24.
  */
 
 public class PhoneInfo {
-    public static WifiManager wifiManager = (WifiManager) Constants.BASECONTEXT.getSystemService(Context.WIFI_SERVICE);
-    public static TelephonyManager telephonyManager = (TelephonyManager) Constants.BASECONTEXT.getSystemService(Context.TELEPHONY_SERVICE);
+    public static WifiManager wifiManager = (WifiManager) Variable.BASECONTEXT.getSystemService(Context.WIFI_SERVICE);
+    public static TelephonyManager telephonyManager = (TelephonyManager) Variable.BASECONTEXT.getSystemService(Context.TELEPHONY_SERVICE);
     public static WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 
     public static String Mac() {

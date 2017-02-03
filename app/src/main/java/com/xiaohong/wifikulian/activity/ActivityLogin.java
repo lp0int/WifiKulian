@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Html;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -59,7 +60,7 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
         txtNewUser.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         initRequestListenter();
-        if(Constants.GOD_MODE){
+        if (Constants.GOD_MODE) {
             edtUserName.setText("15105609453");
             edtPwd.setText("123456");
         }
@@ -71,6 +72,8 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.txt_forget_pwd:
                 intent.setClass(ActivityLogin.this, ActivityForgetPwd.class);
+                if (!TextUtils.isEmpty(edtUserName.getText()))
+                    intent.putExtra(Constants.LOGIN_USERNAME, edtUserName.getText().toString());
                 startActivity(intent);
                 overridePendingTransition(R.anim.x_minus100_2_0, R.anim.x_0_2_0);
                 break;
@@ -82,7 +85,7 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
             case R.id.btn_login:
                 String strUserName = edtUserName.getText().toString();
                 String strPwd = edtPwd.getText().toString();
-                NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(LoginListener, ActivityLogin.this,"努力登陆中..."), strUserName,strPwd);
+                NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(LoginListener, ActivityLogin.this, "努力登陆中..."), strUserName, strPwd);
                 break;
             default:
                 break;
@@ -96,11 +99,10 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
                 if (loginBean.getRet_code() == 0) {
                     Toast.makeText(ActivityLogin.this, "登录成功", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
-                    intent.setClass(ActivityLogin.this,ActivityHome.class);
+                    intent.setClass(ActivityLogin.this, ActivityHome.class);
                     startActivity(intent);
                     finish();
-                }
-                else
+                } else
                     Toast.makeText(ActivityLogin.this, "登录失败；" + loginBean.getRet_msg(), Toast.LENGTH_SHORT).show();
             }
         };
@@ -119,7 +121,7 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
 
         @Override
         public void afterTextChanged(Editable editable) {
-            if(edtUserName.getText().toString().length() != 0 && edtPwd.getText().toString().length() != 0)
+            if (edtUserName.getText().toString().length() != 0 && edtPwd.getText().toString().length() != 0)
                 btnLogin.setEnabled(true);
             else
                 btnLogin.setEnabled(false);

@@ -13,5 +13,10 @@
     <color name="btn_login_click">#46BCEA</color>
     <color name="btn_login_normal">#2C78D4</color>
     <color name="btn_login_disable">#D3D3D3</color>
+    
+    <!-- 获取验证码按钮颜色 -->
+    <color name="btn_verify_code_normal">#F5A623</color>
+    <color name="btn_verify_code_disable">#D3D3D3</color>
+    
     <color name="txt_bottom">#367ED6</color>
 </resources>

@@ -13,13 +13,18 @@ import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.R;
+import com.xiaohong.wifikulian.Variable;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -89,22 +94,49 @@ public class Utils {
     public static String getVersion()//获取版本号
     {
         try {
-            PackageInfo pi = Constants.BASECONTEXT.getPackageManager().getPackageInfo(Constants.BASECONTEXT.getPackageName(), 0);
+            PackageInfo pi = Variable.BASECONTEXT.getPackageManager().getPackageInfo(Variable.BASECONTEXT.getPackageName(), 0);
             return pi.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            return Constants.BASECONTEXT.getString(R.string.version_unknown);
+            return Variable.BASECONTEXT.getString(R.string.version_unknown);
         }
     }
 
     public static int getVersionCode()//获取版本号(内部识别号)
     {
         try {
-            PackageInfo pi = Constants.BASECONTEXT.getPackageManager().getPackageInfo(Constants.BASECONTEXT.getPackageName(), 0);
+            PackageInfo pi = Variable.BASECONTEXT.getPackageManager().getPackageInfo(Variable.BASECONTEXT.getPackageName(), 0);
             return pi.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return 0;
         }
+    }
+
+    public static boolean isChinaPhoneLegal(String str) throws PatternSyntaxException {
+        String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
+        Pattern p = Pattern.compile(regExp);
+        Matcher m = p.matcher(str);
+        return m.matches();
+    }
+
+    public static void showToastStr(Context context, String s) {
+        if (Variable.toast == null) {
+            Variable.toast = Toast.makeText(context, s, Toast.LENGTH_SHORT);
+            Variable.toast.show();
+            Variable.oneTime = System.currentTimeMillis();
+        } else {
+            Variable.twoTime = System.currentTimeMillis();
+            if (s.equals(Variable.oldMsg)) {
+                if (Variable.twoTime - Variable.oneTime > Toast.LENGTH_SHORT) {
+                    Variable.toast.show();
+                }
+            } else {
+                Variable.oldMsg = s;
+                Variable.toast.setText(s);
+                Variable.toast.show();
+            }
+        }
+        Variable.oneTime = Variable.twoTime;
     }
 }
