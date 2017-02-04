@@ -15,10 +15,16 @@ public class Constants {
      */
     public static final int CODE_LOGOUT = 0x000;
     public static final int CODE_REGISTER_OVER = 0x001;
+    public static final int CODE_CHANGE_PWD = 0x002;
     /**
      * ActivityLogin的相关数据
      */
     public static final String LOGIN_USERNAME = "loginUserName";
+    /**
+     * ActivityForgetPwd的相关数据
+     */
+    public static final String RESET_PWD_USERNAME = "resetPwdUserName";
+    public static final String RESET_PWD_PASSWORD = "resetPwdPassword";
     /**
      * 相关提示信息
      */

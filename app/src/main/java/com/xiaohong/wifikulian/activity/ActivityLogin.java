@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.SubscriberOnNextListener;
 import com.xiaohong.wifikulian.R;
+import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.base.BaseActivity;
 import com.xiaohong.wifikulian.models.LoginBean;
 import com.xiaohong.wifikulian.utils.NetworkRequestMethods1;
@@ -83,9 +84,7 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
                 overridePendingTransition(R.anim.x_100_2_0, R.anim.x_0_2_0);
                 break;
             case R.id.btn_login:
-                String strUserName = edtUserName.getText().toString();
-                String strPwd = edtPwd.getText().toString();
-                NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(LoginListener, ActivityLogin.this, "努力登陆中..."), strUserName, strPwd);
+                doLogin();
                 break;
             default:
                 break;
@@ -97,6 +96,7 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
             @Override
             public void onNext(LoginBean loginBean) {
                 if (loginBean.getRet_code() == 0) {
+                    Variable.loginBean = loginBean;
                     Toast.makeText(ActivityLogin.this, "登录成功", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
                     intent.setClass(ActivityLogin.this, ActivityHome.class);
@@ -127,4 +127,20 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
                 btnLogin.setEnabled(false);
         }
     };
+
+    @Override
+    protected void onAppBusEvent(int code, Bundle data) {
+        switch (code){
+            case Constants.CODE_CHANGE_PWD:
+                edtUserName.setText(data.getString(Constants.RESET_PWD_USERNAME));
+                edtPwd.setText(data.getString(Constants.RESET_PWD_PASSWORD));
+                doLogin();
+        }
+    }
+
+    private void doLogin(){
+        String strUserName = edtUserName.getText().toString();
+        String strPwd = edtPwd.getText().toString();
+        NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(LoginListener, ActivityLogin.this, "努力登陆中..."), strUserName, strPwd);
+    }
 }

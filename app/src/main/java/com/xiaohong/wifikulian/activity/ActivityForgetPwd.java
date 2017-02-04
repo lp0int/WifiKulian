@@ -161,7 +161,12 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
             @Override
             public void onNext(ResetPasswordBean resetPasswordBean) {
                 if (resetPasswordBean.getRet_code() == 0) {
-
+                    Utils.showToastStr(ActivityForgetPwd.this, "密码修改成功");
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constants.RESET_PWD_USERNAME,edtUserName.getText().toString());
+                    bundle.putString(Constants.RESET_PWD_PASSWORD,edtPassword.getText().toString());
+                    sendEventModel(Constants.CODE_CHANGE_PWD,bundle);
+                    ActivityForgetPwd.this.finish();
                 } else {
                     Utils.showToastStr(ActivityForgetPwd.this, "密码修改失败：" + resetPasswordBean.getRet_msg());
                 }
