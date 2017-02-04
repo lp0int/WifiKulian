@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.base.BaseActivity;
@@ -17,6 +18,7 @@ public class ActivitySplash extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Variable.BASECONTEXT = getBaseContext();
+        Fresco.initialize(this);
         Intent intent  = new Intent();
         intent.setClass(ActivitySplash.this,ActivityLogin.class);
         startActivity(intent);

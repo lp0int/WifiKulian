@@ -13,6 +13,7 @@ import com.xiaohong.wifikulian.base.BaseActivity;
 import com.xiaohong.wifikulian.fragment.FragmentConn;
 import com.xiaohong.wifikulian.fragment.FragmentFind;
 import com.xiaohong.wifikulian.fragment.FragmentMine;
+import com.xiaohong.wifikulian.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,7 @@ public class ActivityHome extends BaseActivity implements BottomNavigationBar.On
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.hideActiconBar(this);
         setContentView(R.layout.activity_home);
         initView();
     }

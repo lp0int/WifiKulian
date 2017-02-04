@@ -50,4 +50,9 @@
     <string name="register_invite_code">邀请码</string>
     <string name="register_can_null">可不填</string>
     <string name="register_license_hint"><Data><![CDATA[点击上面按钮“提交”即表示您同意<font color="#2C78D4">《服务协议》</font>]]></Data></string>
+
+    <!-- 个人中心 -->
+    <string name="person_account_hint_name">Lpoint</string>
+    <string name="sign_in_everyday">每日签到</string>
+
 </resources>

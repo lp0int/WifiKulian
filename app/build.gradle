@@ -36,4 +36,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.squareup:otto:+'
     compile 'com.ashokvarma.android:bottom-navigation-bar:1.2.0'        //此依赖需要API14以上的SDK，所以将minSdkVersion更改为14
+    compile 'com.facebook.fresco:fresco:1.0.1'
 }
