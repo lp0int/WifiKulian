@@ -139,4 +139,9 @@ public class Utils {
         }
         Variable.oneTime = Variable.twoTime;
     }
+
+    public static void showDebugToast(Context context, String s){
+        if(Constants.DEBUG_MODE)
+            showToastStr(context,s);
+    }
 }
