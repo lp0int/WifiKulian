@@ -18,6 +18,7 @@ import com.xiaohong.wifikulian.Interface.SubscriberOnNextListener;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.base.BaseActivity;
 import com.xiaohong.wifikulian.models.GetVerifyCodeBean;
+import com.xiaohong.wifikulian.models.ResetPasswordBean;
 import com.xiaohong.wifikulian.utils.NetworkRequestMethods1;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
 import com.xiaohong.wifikulian.utils.Utils;
@@ -41,7 +42,9 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
     private EditText edtUserName, edtPassword, edtConfirmPassword, edtVerifyCode;
     private Button btnGetVerifyCode, btnResetPassword;
 
-    private SubscriberOnNextListener getVerifyCodeListener;
+    private Boolean btnVerifyCanClick = true;
+
+    private SubscriberOnNextListener getVerifyCodeListener, resetPasswordListener;
 
     private int waitSecond = 0;
 
@@ -101,6 +104,9 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
             case R.id.btn_reset_pwd:
                 if (!edtPassword.getText().toString().equals(edtConfirmPassword.getText().toString()))
                     Utils.showToastStr(ActivityForgetPwd.this, Constants.PASSWORD_UNLIKELINESS);
+                else {
+                    NetworkRequestMethods1.getInstance().resetPwd(new ProgressSubscriber<ResetPasswordBean>(resetPasswordListener, ActivityForgetPwd.this, "提交中..."), edtUserName.getText().toString(), edtPassword.getText().toString(), edtVerifyCode.getText().toString());
+                }
                 break;
             case R.id.btn_verify_code:
                 if (!Utils.isChinaPhoneLegal(edtUserName.getText().toString())) {
@@ -129,7 +135,7 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
         public void afterTextChanged(Editable editable) {
             if (TextUtils.isEmpty(edtUserName.getText()))
                 btnGetVerifyCode.setEnabled(false);
-            else
+            else if(btnVerifyCanClick)
                 btnGetVerifyCode.setEnabled(true);
 
             if (TextUtils.isEmpty(edtPassword.getText()) || TextUtils.isEmpty(edtConfirmPassword.getText()) || TextUtils.isEmpty(edtVerifyCode.getText()) || TextUtils.isEmpty(edtUserName.getText()))
@@ -151,20 +157,31 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
                     Utils.showToastStr(ActivityForgetPwd.this, "验证码获取失败；" + getVerifyCodeBean.getRet_msg());
             }
         };
+        resetPasswordListener = new SubscriberOnNextListener<ResetPasswordBean>() {
+            @Override
+            public void onNext(ResetPasswordBean resetPasswordBean) {
+                if (resetPasswordBean.getRet_code() == 0) {
+
+                } else {
+                    Utils.showToastStr(ActivityForgetPwd.this, "密码修改失败：" + resetPasswordBean.getRet_msg());
+                }
+            }
+        };
     }
 
     private void handleTimeIntervalClick() {
+        btnVerifyCanClick = false;
         btnGetVerifyCode.setEnabled(false);
         btnGetVerifyCode.setText((60 - waitSecond) + "秒后重试");
         Observable mObservable = Observable.interval(1, TimeUnit.SECONDS);
         mObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .take(61,TimeUnit.SECONDS)
+                .take(61, TimeUnit.SECONDS)
                 .subscribe(new Observer() {
                     @Override
                     public void onCompleted() {
-
+                        btnVerifyCanClick = true;
                     }
 
                     @Override
@@ -177,7 +194,7 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
                         waitSecond++;
                         btnGetVerifyCode.setEnabled(false);
                         btnGetVerifyCode.setText((60 - waitSecond) + "秒后重试");
-                        if(waitSecond == 60){
+                        if (waitSecond == 60) {
                             btnGetVerifyCode.setEnabled(true);
                             btnGetVerifyCode.setText("获取验证码");
                         }

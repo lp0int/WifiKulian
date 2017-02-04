@@ -6,6 +6,7 @@ import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.RequestServiceInterface;
 import com.xiaohong.wifikulian.models.GetVerifyCodeBean;
 import com.xiaohong.wifikulian.models.LoginBean;
+import com.xiaohong.wifikulian.models.ResetPasswordBean;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -62,12 +63,11 @@ public class NetworkRequestMethods1 {
 
     //登录
     public void login(Subscriber<LoginBean> subscriber, String userName, String pwd) {
-        int ver = Utils.getVersionCode();
         String phone_mac = PhoneInfo.Mac();
         String imei = PhoneInfo.IMEI();
         String model = PhoneInfo.PHONEMODEL();
         String ssid = PhoneInfo.SSID();
-        String encrypt_str = EncodeParameter.getLoginParameter(userName, pwd, ver, phone_mac, imei, model, Constants.PLATFORM, ssid);
+        String encrypt_str = EncodeParameter.getLoginParameter(userName, pwd, Utils.getVersionCode(), phone_mac, imei, model, Constants.PLATFORM, ssid);
         mRequestServiceInterface.login(encrypt_str)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -77,11 +77,20 @@ public class NetworkRequestMethods1 {
     }
 
     public void getVerifyCode(Subscriber<GetVerifyCodeBean> subscriber, String userName){
-        mRequestServiceInterface.getVerifyCode(userName,Utils.getVersionCode() + "")
+        String encrypt_str = EncodeParameter.getVerifyCodeParameter(userName,Utils.getVersionCode());
+        mRequestServiceInterface.getVerifyCode(encrypt_str)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
+    }
 
+    public void resetPwd(Subscriber<ResetPasswordBean> subscriber, String userName, String newPwd, String verifyCode){
+        String encrypt_str = EncodeParameter.getResetPwdParameter(userName,Utils.getMD5(newPwd),verifyCode,Utils.getVersionCode() + "",Constants.PLATFORM);
+        mRequestServiceInterface.resetPwd(encrypt_str)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
     }
 }

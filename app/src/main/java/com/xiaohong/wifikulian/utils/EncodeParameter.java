@@ -13,4 +13,16 @@ public class EncodeParameter {
         String encrypt_str = Utils.AESEncrypt(original_str).replace("\n", "");
         return encrypt_str;
     }
+
+    public static String getVerifyCodeParameter(String phone_number,int ver){
+        String original_str = "phone_number=" + phone_number + "&ver=" + ver;
+        String encrypt_str = Utils.AESEncrypt(original_str).replace("\n", "");
+        return encrypt_str;
+    }
+
+    public static String getResetPwdParameter(String phone_number,String new_passwd,String verify_code,String ver,String pl){
+        String original_str = "phone_number=" + phone_number + "&new_passwd=" + new_passwd + "&verify_code=" + verify_code + "&ver=" + ver + "&pl=" + pl;
+        String encrypt_str = Utils.AESEncrypt(original_str).replace("\n", "");
+        return encrypt_str;
+    }
 }
