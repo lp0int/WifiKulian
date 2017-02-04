@@ -54,5 +54,6 @@
     <!-- 个人中心 -->
     <string name="person_account_hint_name">Lpoint</string>
     <string name="sign_in_everyday">每日签到</string>
+    <string name="coin_hint">0</string>
 
 </resources>

@@ -5,27 +5,57 @@
                 android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rel_sign_in_everyday"
         android:layout_width="120dp"
         android:layout_height="30dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/app_task_item_bg_with_shadow">
+
         <ImageView
             android:id="@+id/img_sign_in_everyday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="21dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="21dp"
             android:src="@mipmap/calendar"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="@string/sign_in_everyday"
-            android:layout_toRightOf="@+id/img_sign_in_everyday"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:textColor="@color/sign_txt_color"/>
+            android:layout_toRightOf="@+id/img_sign_in_everyday"
+            android:text="@string/sign_in_everyday"
+            android:textColor="@color/sign_txt_color"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_coin"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/rel_sign_in_everyday"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/app_task_item_bg_with_shadow">
+
+        <TextView
+            android:id="@+id/txt_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/coin_hint"
+            android:textSize="24sp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/txt_coin"
+            android:layout_alignBottom="@+id/txt_coin"
+            android:layout_marginLeft="3dp"
+            android:layout_marginBottom="3dp"
+            android:src="@mipmap/goldcoin_big"/>
     </RelativeLayout>
 
 </RelativeLayout>
