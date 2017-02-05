@@ -19,7 +19,16 @@
     <color name="btn_verify_code_disable">#D3D3D3</color>
     
     <color name="txt_bottom">#367ED6</color>
-    <!-- 每日签到字体颜色 -->
-    <color name="sign_txt_color">#2c78d4</color> <!-- todo tmp -->
+    <!-- 一般蓝色字体 -->
+    <color name="text_color_blue">#2C78D4</color> <!-- todo tmp -->
+    <!-- 购买时间字体颜色 -->
+    <color name="buy_coin_txt_color">#60AF0A</color>
+    
+    <!-- 一般灰色字体 -->
+    <color name="text_color_gray_deep">#595959</color>
+    <!-- 一半浅灰色字体 -->
+    <color name="text_color_gray_tint">#A5A5A5</color>
+    <!-- 版本号字体颜色 -->
+    <color name="text_color_blue_tint">#CCDDF2</color>
 
 </resources>

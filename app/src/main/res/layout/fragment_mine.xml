@@ -25,25 +25,316 @@
             android:layout_marginBottom="-10dp"
             android:layout_marginLeft="30dp"
             fresco:placeholderImage="@mipmap/protrait"
-            fresco:roundAsCircle="true"/>
+            fresco:roundAsCircle="true"
+            fresco:roundingBorderColor="@color/white"
+            fresco:roundingBorderWidth="1dp"/>
+
         <TextView
             android:id="@+id/txt_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/img_portrait"
-            android:layout_marginLeft="14dp"
-            android:text="@string/person_account_hint_name"
-            android:textSize="20sp"
             android:layout_alignBottom="@+id/img_mine_title"
             android:layout_marginBottom="10dp"
-            android:textColor="@android:color/white"/>
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@+id/img_portrait"
+            android:text="@string/person_account_hint_name"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"/>
     </RelativeLayout>
 
     <include
         android:id="@+id/rel_control"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         layout="@layout/fragment_mine_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/rel_mine_title"
         />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rel_control">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/rel_invite_code"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/app_task_item_bg_with_shadow">
+
+                <ImageView
+                    android:id="@+id/img_invite_code"
+                    android:layout_width="13dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="17dp"
+                    android:src="@mipmap/invite_code"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/img_invite_code"
+                    android:text="@string/my_invite_code"
+                    android:textColor="@color/text_color_gray_deep"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/txt_invite_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="14dp"
+                    android:textColor="@color/text_color_blue"
+                    android:textSize="12sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_binding_wechat"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@+id/rel_invite_code"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/app_task_item_bg_with_shadow">
+
+                <ImageView
+                    android:id="@+id/img_binding_wechat"
+                    android:layout_width="13dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="17dp"
+                    android:src="@mipmap/setting_wechat_logo"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/img_binding_wechat"
+                    android:text="@string/binding_wechat"
+                    android:textColor="@color/text_color_gray_deep"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/txt_binding_wechat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="14dp"
+                    android:text="@string/un_binding_wechat"
+                    android:textColor="@color/text_color_blue"
+                    android:textSize="12sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_task_center"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@+id/rel_binding_wechat"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/app_task_item_bg_with_shadow">
+
+                <ImageView
+                    android:id="@+id/img_task_center"
+                    android:layout_width="13dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="17dp"
+                    android:src="@mipmap/task_icon_gray"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/img_task_center"
+                    android:text="@string/task_center"
+                    android:textColor="@color/text_color_gray_deep"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/txt_task_center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="14dp"
+                    android:text="@string/having_task"
+                    android:textColor="@color/text_color_gray_tint"
+                    android:textSize="12sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_message_center"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@+id/rel_task_center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/app_task_item_bg_with_shadow">
+
+                <ImageView
+                    android:id="@+id/img_message_center"
+                    android:layout_width="13dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="17dp"
+                    android:src="@mipmap/info_icon"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/img_message_center"
+                    android:text="@string/message_center"
+                    android:textColor="@color/text_color_gray_deep"
+                    android:textSize="15sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_wallet"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@+id/rel_message_center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/app_task_item_bg_with_shadow">
+
+                <ImageView
+                    android:id="@+id/img_wallet"
+                    android:layout_width="13dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="17dp"
+                    android:src="@mipmap/wallet_icon"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/img_wallet"
+                    android:text="@string/wallet"
+                    android:textColor="@color/text_color_gray_deep"
+                    android:textSize="15sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_coin_detail"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@+id/rel_wallet"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/app_task_item_bg_with_shadow">
+
+                <ImageView
+                    android:id="@+id/img_coin_detail"
+                    android:layout_width="13dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="17dp"
+                    android:src="@mipmap/goldcoin_person"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/img_coin_detail"
+                    android:text="@string/coin_detail"
+                    android:textColor="@color/text_color_gray_deep"
+                    android:textSize="15sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_frequently_asked_questions"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@+id/rel_coin_detail"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/app_task_item_bg_with_shadow">
+
+                <ImageView
+                    android:id="@+id/img_frequently_asked_questions"
+                    android:layout_width="13dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="17dp"
+                    android:src="@mipmap/faq_icon"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/img_frequently_asked_questions"
+                    android:text="@string/frequently_asked_questions"
+                    android:textColor="@color/text_color_gray_deep"
+                    android:textSize="15sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_setting"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@+id/rel_frequently_asked_questions"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/app_task_item_bg_with_shadow">
+
+                <ImageView
+                    android:id="@+id/img_setting"
+                    android:layout_width="13dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="17dp"
+                    android:src="@mipmap/setting"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/img_setting"
+                    android:text="@string/setting"
+                    android:textColor="@color/text_color_gray_deep"
+                    android:textSize="15sp"/>
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/img_version"
+                android:layout_width="45dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/rel_setting"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+                android:src="@mipmap/about_wifi_logo"/>
+
+            <TextView
+                android:id="@+id/txt_version"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_blue_tint"
+                android:layout_below="@+id/img_version"
+                android:layout_marginTop="5dp"
+                android:paddingBottom="10dp"/>
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

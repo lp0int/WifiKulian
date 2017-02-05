@@ -54,6 +54,17 @@
     <!-- 个人中心 -->
     <string name="person_account_hint_name">Lpoint</string>
     <string name="sign_in_everyday">每日签到</string>
-    <string name="coin_hint">0</string>
+    <string name="coin_hint">000</string>
+    <string name="get_coin">赚金币</string>
+    <string name="my_invite_code">我的邀请码</string>
+    <string name="binding_wechat">绑定微信</string>
+    <string name="un_binding_wechat">未绑定微信</string>
+    <string name="task_center">任务中心</string>
+    <string name="having_task">您有任务正在进行中</string>
+    <string name="message_center">消息中心</string>
+    <string name="wallet">个人钱包</string>
+    <string name="coin_detail">金币明细</string>
+    <string name="frequently_asked_questions">常见问题</string>
+    <string name="setting">设置</string>
 
 </resources>

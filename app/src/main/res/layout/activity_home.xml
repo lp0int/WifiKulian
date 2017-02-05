@@ -6,7 +6,8 @@
     <RelativeLayout
         android:id="@+id/lin_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation_bar"/>
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
         android:layout_alignParentBottom="true"
         android:id="@+id/bottom_navigation_bar"
