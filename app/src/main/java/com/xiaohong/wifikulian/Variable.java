@@ -3,6 +3,7 @@ package com.xiaohong.wifikulian;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.xiaohong.wifikulian.models.GetTabListBean;
 import com.xiaohong.wifikulian.models.LoginBean;
 
 /**
@@ -22,4 +23,6 @@ public class Variable {
      * 个人信息相关
      */
     public static LoginBean loginBean;
+    public static String userPhone;
+    public static GetTabListBean tabListBean;
 }

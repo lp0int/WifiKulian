@@ -1,5 +1,6 @@
 package com.xiaohong.wifikulian.Interface;
 
+import com.xiaohong.wifikulian.models.GetTabListBean;
 import com.xiaohong.wifikulian.models.GetVerifyCodeBean;
 import com.xiaohong.wifikulian.models.LoginBean;
 import com.xiaohong.wifikulian.models.ResetPasswordBean;
@@ -21,5 +22,8 @@ public interface RequestServiceInterface {
 
     @GET("cb/reset_passwd")
     Observable<ResetPasswordBean> resetPwd(@Query("encrypt_str") String encrypt_str);
+
+    @GET("index.php/Home/Satnav/Satnav")
+    Observable<GetTabListBean> getTabList(@Query("Class") String list, @Query("user_phone") String userphone, @Query("pl") String pl, @Query("ver") String ver);
 
 }

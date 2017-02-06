@@ -1,10 +1,11 @@
-package com.xiaohong.wifikulian.Adapter;
+package com.xiaohong.wifikulian.adapter;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.fragment.FragmentFindPageTest;
 
 /**
@@ -12,13 +13,16 @@ import com.xiaohong.wifikulian.fragment.FragmentFindPageTest;
  */
 
 public class FragmentTestPageAdapter extends FragmentPagerAdapter {
-    public final int COUNT = 5;
-    private String[] titles = new String[]{"Tab1", "Tab2", "Tab3", "Tab4", "Tab555555555555555"};
+    public final int COUNT;
+    private String[] titles;
     private Context context;
 
     public FragmentTestPageAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
+        titles = new String[Variable.tabListBean.getContent().size()];
+        COUNT = Variable.tabListBean.getContent().size();
+        initTitles();
     }
 
     @Override
@@ -34,5 +38,11 @@ public class FragmentTestPageAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return titles[position];
+    }
+
+    private void initTitles() {
+        for (int i = 0 ; i < Variable.tabListBean.getContent().size() ; i++){
+            titles[i] = Variable.tabListBean.getContent().get(i).getTabName();
+        }
     }
 }
