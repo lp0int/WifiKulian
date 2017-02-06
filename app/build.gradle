@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -35,6 +35,8 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.squareup:otto:+'
-    compile 'com.ashokvarma.android:bottom-navigation-bar:1.2.0'        //此依赖需要API14以上的SDK，所以将minSdkVersion更改为14
+    compile 'com.ashokvarma.android:bottom-navigation-bar:1.2.0'
+    //此依赖需要API14以上的SDK，所以将minSdkVersion更改为14
     compile 'com.facebook.fresco:fresco:1.0.1'
+    compile files('libs/tbs_sdk_thirdapp_v3.0.0.1038_43000_sharewithdownload_obfs_20170110_144724.jar')
 }

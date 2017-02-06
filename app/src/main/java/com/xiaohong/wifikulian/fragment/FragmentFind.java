@@ -54,7 +54,6 @@ public class FragmentFind extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initRequestListener();
-
         NetworkRequestMethods2.getInstance().getTabList(new ProgressSubscriber<GetTabListBean>(getTabListListener,getActivity(),"数据请求中，请稍等..."), Variable.userPhone);
     }
 
@@ -68,6 +67,5 @@ public class FragmentFind extends BaseFragment {
                 mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
             }
         };
-
     }
 }
