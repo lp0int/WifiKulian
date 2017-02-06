@@ -8,17 +8,15 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.xiaohong.wifikulian.Interface.SubscriberOnNextListener;
+import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.adapter.FragmentTestPageAdapter;
-import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.base.BaseFragment;
 import com.xiaohong.wifikulian.models.GetTabListBean;
 import com.xiaohong.wifikulian.utils.NetworkRequestMethods2;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
-import com.xiaohong.wifikulian.utils.Utils;
 
 /**
  * Created by Lpoint on 2017/1/26.
