@@ -3,7 +3,6 @@ package com.xiaohong.wifikulian.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,12 +38,9 @@ public class FragmentFind extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_find, container, false);
 
         mViewPager = (ViewPager) view.findViewById(R.id.viewpage);
-//        FragmentTestPageAdapter mFragmentPagerAdapter = new FragmentTestPageAdapter(getActivity().getSupportFragmentManager(),getActivity());
-//        viewPager.setAdapter(mFragmentPagerAdapter);
 
         mTabLayout = (TabLayout) view.findViewById(R.id.tablayout);
         mTabLayout.setupWithViewPager(mViewPager);
-//        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         return view;
     }
 
@@ -52,17 +48,20 @@ public class FragmentFind extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initRequestListener();
-        NetworkRequestMethods2.getInstance().getTabList(new ProgressSubscriber<GetTabListBean>(getTabListListener,getActivity(),"数据请求中，请稍等..."), Variable.userPhone);
+        NetworkRequestMethods2.getInstance().getTabList(new ProgressSubscriber<GetTabListBean>(getTabListListener, getActivity(), "数据请求中，请稍等..."), Variable.userPhone);
     }
 
-    private void initRequestListener(){
+    private void initRequestListener() {
         getTabListListener = new SubscriberOnNextListener<GetTabListBean>() {
             @Override
             public void onNext(GetTabListBean bean) {
                 Variable.tabListBean = bean;
-                FragmentPagerAdapter mFragmentPagerAdapter = new FragmentTestPageAdapter(FragmentFind.this.getActivity().getSupportFragmentManager(),FragmentFind.this.getActivity());
+                FragmentTestPageAdapter mFragmentPagerAdapter = new FragmentTestPageAdapter(FragmentFind.this.getActivity().getSupportFragmentManager(), FragmentFind.this.getActivity());
                 mViewPager.setAdapter(mFragmentPagerAdapter);
-                mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+                if (Variable.tabListBean.getContent().size() <= 3)
+                    mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+                else
+                    mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
             }
         };
     }

@@ -36,10 +36,13 @@ public class FragmentWebView extends BaseFragment {
     private ValueCallback<Uri> uploadMessage;
     private ValueCallback<Uri[]> uploadMessageAboveL;
 
+    public FragmentWebView(String url) {
+        mUrl = url;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mUrl = getArguments().getString(Constants.EXTERNAL_URL);
     }
 
     @Nullable

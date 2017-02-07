@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.base.BaseFragment;
+import com.xiaohong.wifikulian.utils.DialogUtils;
 
 /**
  * Created by Lpoint on 2017/2/6 10:54.

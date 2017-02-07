@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.fragment.FragmentFindPageTest;
+import com.xiaohong.wifikulian.fragment.FragmentWebView;
 
 /**
  * Created by Lpoint on 2017/2/6 10:57.
@@ -27,6 +28,8 @@ public class FragmentTestPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        if(Variable.tabListBean.getContent().get(position).getLink().startsWith("http"))
+            return new FragmentWebView(Variable.tabListBean.getContent().get(position).getLink());
         return FragmentFindPageTest.newInstance(position + 1);
     }
 
