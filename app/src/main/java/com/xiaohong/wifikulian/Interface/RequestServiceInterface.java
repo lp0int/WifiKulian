@@ -26,4 +26,7 @@ public interface RequestServiceInterface {
     @GET("index.php/Home/Satnav/Satnav")
     Observable<GetTabListBean> getTabList(@Query("Class") String list, @Query("user_phone") String userphone, @Query("pl") String pl, @Query("ver") String ver);
 
+    @GET("index.php/api/api/index")
+    Observable<Object> getRecommendList(@Query("p") String p);
+
 }

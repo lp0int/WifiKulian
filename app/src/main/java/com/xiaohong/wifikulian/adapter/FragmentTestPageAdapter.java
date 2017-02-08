@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.fragment.FragmentFindPageTest;
+import com.xiaohong.wifikulian.fragment.FragmentFindRecommendListView;
 import com.xiaohong.wifikulian.fragment.FragmentWebView;
 
 /**
@@ -30,6 +31,8 @@ public class FragmentTestPageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         if(Variable.tabListBean.getContent().get(position).getLink().startsWith("http"))
             return new FragmentWebView(Variable.tabListBean.getContent().get(position).getLink());
+        if(Variable.tabListBean.getContent().get(position).getLink().startsWith("Native"))
+            return new FragmentFindRecommendListView();
         return FragmentFindPageTest.newInstance(position + 1);
     }
 
