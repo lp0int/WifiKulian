@@ -62,7 +62,8 @@ public class ProgressDialogHandler extends Handler {
     public void handleMessage(Message msg) {
         switch (msg.what) {
             case SHOW_PROGRESS_DIALOG:
-                initProgressDialog();
+                if (!mProgressMsg.equals("null"))
+                    initProgressDialog();
                 break;
             case DISMISS_PROGRESS_DIALOG:
                 dismissProgressDialog();

@@ -3,6 +3,7 @@ package com.xiaohong.wifikulian.Interface;
 import com.xiaohong.wifikulian.models.GetTabListBean;
 import com.xiaohong.wifikulian.models.GetVerifyCodeBean;
 import com.xiaohong.wifikulian.models.LoginBean;
+import com.xiaohong.wifikulian.models.RecommendListBean;
 import com.xiaohong.wifikulian.models.ResetPasswordBean;
 
 import retrofit2.http.GET;
@@ -27,6 +28,6 @@ public interface RequestServiceInterface {
     Observable<GetTabListBean> getTabList(@Query("Class") String list, @Query("user_phone") String userphone, @Query("pl") String pl, @Query("ver") String ver);
 
     @GET("index.php/api/api/index")
-    Observable<Object> getRecommendList(@Query("p") String p);
+    Observable<RecommendListBean> getRecommendList(@Query("p") String p);
 
 }

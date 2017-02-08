@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.xiaohong.wifikulian.models.GetTabListBean;
 import com.xiaohong.wifikulian.models.LoginBean;
+import com.xiaohong.wifikulian.models.RecommendListBean;
 
 /**
  * Created by Lpoint on 2017/2/3.
@@ -25,4 +26,5 @@ public class Variable {
     public static LoginBean loginBean;
     public static String userPhone;
     public static GetTabListBean tabListBean;
+    public static RecommendListBean recommendListBean;
 }

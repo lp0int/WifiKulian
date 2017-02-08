@@ -1,6 +1,7 @@
 package com.xiaohong.wifikulian.utils;
 
 import com.xiaohong.wifikulian.Interface.RequestServiceInterface;
+import com.xiaohong.wifikulian.models.RecommendListBean;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -21,7 +22,7 @@ import rx.schedulers.Schedulers;
  */
 
 public class NetworkRequestMethods3 {
-    public static final String BASE_URL = "https://kulian.exiaohong.com/index.php";
+    public static final String BASE_URL = "https://kulian.exiaohong.com/";
     private static final int DEFAULT_TIMEOUT = 20;
     private Retrofit mRetrofit;
     private RequestServiceInterface mRequestServiceInterface;
@@ -55,7 +56,7 @@ public class NetworkRequestMethods3 {
         return NetworkRequestMethods3.SingletonHolder.INSTANCE;
     }
 
-    public void getRecommendList(Subscriber<Object> subscriber, String p) {
+    public void getRecommendList(Subscriber<RecommendListBean> subscriber, String p) {
         mRequestServiceInterface.getRecommendList(p)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
