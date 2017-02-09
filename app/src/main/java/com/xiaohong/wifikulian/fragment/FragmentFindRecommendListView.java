@@ -1,5 +1,6 @@
 package com.xiaohong.wifikulian.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,9 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.xiaohong.wifikulian.Constants;
+import com.xiaohong.wifikulian.Interface.RecommendItemClickListener;
 import com.xiaohong.wifikulian.Interface.SubscriberOnNextListener;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
+import com.xiaohong.wifikulian.activity.ActivityWevView;
 import com.xiaohong.wifikulian.adapter.RecommendListAdapter;
 import com.xiaohong.wifikulian.base.BaseFragment;
 import com.xiaohong.wifikulian.models.RecommendListBean;
@@ -27,7 +31,7 @@ import com.xiaohong.wifikulian.utils.Utils;
  * Created by Lpoint on 2017/2/7 18:34.
  */
 
-public class FragmentFindRecommendListView extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class FragmentFindRecommendListView extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,RecommendItemClickListener {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private SubscriberOnNextListener getRecommendListListener;
@@ -62,6 +66,7 @@ public class FragmentFindRecommendListView extends BaseFragment implements Swipe
     private void initData() {
         initRequestListener();
         mRecommendListAdapter = new RecommendListAdapter(getActivity());
+        mRecommendListAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mRecommendListAdapter);
         onRefresh();
     }
@@ -83,4 +88,11 @@ public class FragmentFindRecommendListView extends BaseFragment implements Swipe
     }
 
 
+    @Override
+    public void onItemClick(View view, int position) {
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), ActivityWevView.class);
+        intent.putExtra(Constants.EXTERNAL_URL,Variable.recommendListBean.getAppList().get(position).getUrl());
+        startActivity(intent);
+    }
 }

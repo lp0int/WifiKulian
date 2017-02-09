@@ -11,7 +11,7 @@ import android.text.TextUtils;
 
 public class DialogUtils {
 
-    public static void showDialog(Context context, String Title, String Message, String NegativeButton, DialogInterface.OnClickListener negativeButtonClick
+    public static AlertDialog.Builder getDialog(Context context, String Title, String Message, String NegativeButton, DialogInterface.OnClickListener negativeButtonClick
             , String PositiveButton, DialogInterface.OnClickListener positiveButtonClick) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         if (!TextUtils.isEmpty(Title))
@@ -22,6 +22,6 @@ public class DialogUtils {
             builder.setNegativeButton(NegativeButton, (negativeButtonClick == null ? null : negativeButtonClick));
         if (!TextUtils.isEmpty(PositiveButton))
             builder.setPositiveButton(PositiveButton, (positiveButtonClick == null ? null : positiveButtonClick));
-        builder.show();
+        return builder;
     }
 }

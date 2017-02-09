@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "com.xiaohong.wifikulian"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 24
         versionCode 153
         versionName "3.0"
@@ -24,7 +24,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     compile 'com.android.support:design:24.2.1'
     testCompile 'junit:junit:4.12'
@@ -35,8 +34,10 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.squareup:otto:+'
-    compile 'com.ashokvarma.android:bottom-navigation-bar:1.2.0'
     //此依赖需要API14以上的SDK，所以将minSdkVersion更改为14
+    compile 'com.ashokvarma.android:bottom-navigation-bar:1.2.0'
     compile 'com.facebook.fresco:fresco:1.0.1'
+    //此依赖需要API16以上的SDK，所以将minSdkVersion更改为16
+    compile 'com.airbnb.android:lottie:1.0.1'
     compile files('libs/tbs_sdk_thirdapp_v3.0.0.1038_43000_sharewithdownload_obfs_20170110_144724.jar')
 }

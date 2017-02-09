@@ -8,11 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.xiaohong.wifikulian.Interface.RecommendItemClickListener;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
-import com.xiaohong.wifikulian.fragment.FragmentFindRecommendListView;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by Lpoint on 2017/2/8 16:31.
@@ -20,6 +18,7 @@ import org.w3c.dom.Text;
 
 public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdapter.RecommendViewHolder> {
     private Context mContext;
+    private RecommendItemClickListener mRecommendItemClickListener;
 
     public RecommendListAdapter(Context context) {
         mContext = context;
@@ -29,7 +28,7 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
     public RecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecommendListAdapter.RecommendViewHolder holder = new RecommendListAdapter.RecommendViewHolder(LayoutInflater.from(
                 mContext).inflate(R.layout.item_adapter_recommend_list, parent,
-                false));
+                false),mRecommendItemClickListener );
         return holder;
     }
 
@@ -55,20 +54,33 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
         }
     }
 
-    class RecommendViewHolder extends RecyclerView.ViewHolder {
+    public void setOnItemClickListener(RecommendItemClickListener listener){
+        this.mRecommendItemClickListener = listener;
+    }
+
+    class RecommendViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView txtTitle;
         TextView txtSummary;
         TextView txtSize;
         TextView txtGetCoin;
         SimpleDraweeView imgIcon;
+        RecommendItemClickListener mOnClickListener;
 
-        public RecommendViewHolder(View view) {
+        public RecommendViewHolder(View view, RecommendItemClickListener mOnClickListener) {
             super(view);
             txtTitle = (TextView) view.findViewById(R.id.txt_title);
             txtSummary = (TextView) view.findViewById(R.id.txt_summary);
             txtSize = (TextView) view.findViewById(R.id.txt_size);
             txtGetCoin = (TextView) view.findViewById(R.id.txt_get_coin);
             imgIcon = (SimpleDraweeView) view.findViewById(R.id.img_icon);
+            this.mOnClickListener = mOnClickListener;
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mOnClickListener != null)
+                mOnClickListener.onItemClick(v, getPosition());
         }
     }
 }

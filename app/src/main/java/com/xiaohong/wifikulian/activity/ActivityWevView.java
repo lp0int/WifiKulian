@@ -1,4 +1,4 @@
-package com.xiaohong.wifikulian.fragment;
+package com.xiaohong.wifikulian.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -8,10 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.tencent.smtt.export.external.interfaces.JsResult;
@@ -23,53 +20,36 @@ import com.tencent.smtt.sdk.WebViewClient;
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.JsCallJavaInterface;
 import com.xiaohong.wifikulian.R;
-import com.xiaohong.wifikulian.base.BaseFragment;
+import com.xiaohong.wifikulian.base.BaseActivity;
 import com.xiaohong.wifikulian.utils.DialogUtils;
 import com.xiaohong.wifikulian.utils.Utils;
 
 /**
- * Created by Lpoint on 2017/2/6 19:11.
+ * Created by Lpoint on 2017/2/9 14:43.
  */
 
-public class FragmentWebView extends BaseFragment {
+public class ActivityWevView extends BaseActivity {
     private WebView webView;
     private String mUrl = "";
     private ProgressBar webViewProgressBar;
     private ValueCallback<Uri> uploadMessage;
     private ValueCallback<Uri[]> uploadMessageAboveL;
 
-    public static FragmentWebView getInstance(String url){
-        FragmentWebView instance = new FragmentWebView();
-        Bundle args = new Bundle();
-        args.putString(Constants.EXTERNAL_URL,url);
-        instance.setArguments(args);
-        return instance;
-    }
-
-    public FragmentWebView(){
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_webview, null);
-        mUrl = getArguments().getString(Constants.EXTERNAL_URL);
-        initView(view);
+        setContentView(R.layout.activity_webview);
+        mUrl = getIntent().getStringExtra(Constants.EXTERNAL_URL);
+        initView();
         if (webView != null)
             webView.loadUrl("javascript:OnCreate()");
-        return view;
     }
 
-    private void initView(View view) {
-        webView = (WebView) view.findViewById(R.id.webview);
+    private void initView() {
+        webView = (WebView) findViewById(R.id.webview);
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.setVerticalScrollBarEnabled(false);
-        webViewProgressBar = (ProgressBar) view.findViewById(R.id.webview_progress);
+        webViewProgressBar = (ProgressBar) findViewById(R.id.webview_progress);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setBuiltInZoomControls(false);
@@ -99,7 +79,7 @@ public class FragmentWebView extends BaseFragment {
                         startActivity(intent);
                     } catch (ActivityNotFoundException e) {
                         if (url.startsWith("weixin://")) {
-                            Utils.showToastStr(getActivity(), "未安装微信");
+                            Utils.showToastStr(ActivityWevView.this, "未安装微信");
                             webView.loadUrl("http://weixin.qq.com");
                             return false;
                         }
@@ -125,7 +105,7 @@ public class FragmentWebView extends BaseFragment {
 
         @Override
         public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
-            DialogUtils.getDialog(getActivity(), "提示信息", message, "确认", new DialogInterface.OnClickListener() {
+            DialogUtils.getDialog(ActivityWevView.this, "提示信息", message, "确认", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     result.cancel();
@@ -138,7 +118,7 @@ public class FragmentWebView extends BaseFragment {
         @Override
         public boolean onJsConfirm(WebView arg0, String url, String message, final JsResult result) {
             // TODO Auto-generated method stub
-            DialogUtils.getDialog(getActivity(), "提示信息", message, "确认", new DialogInterface.OnClickListener() {
+            DialogUtils.getDialog(ActivityWevView.this, "提示信息", message, "确认", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     result.confirm();
@@ -241,5 +221,4 @@ public class FragmentWebView extends BaseFragment {
         if (webView != null)
             webView.loadUrl("javascript:OnResume()");
     }
-
 }
