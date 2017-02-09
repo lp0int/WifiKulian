@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.fragment.FragmentFindRecommendListView;
@@ -35,9 +36,13 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
     @Override
     public void onBindViewHolder(RecommendViewHolder holder, int position) {
         try {
-            holder.txt.setText(Variable.recommendListBean.getAppList().get(position).getName());
-        }catch (Exception e){
-            holder.txt.setText("Exception");
+            holder.txtTitle.setText(Variable.recommendListBean.getAppList().get(position).getName());
+            holder.imgIcon.setImageURI(Variable.recommendListBean.getAppList().get(position).getLogo());
+            holder.txtGetCoin.setText("+" + Variable.recommendListBean.getAppList().get(position).getGold());
+            holder.txtSize.setText(Variable.recommendListBean.getAppList().get(position).getSize());
+            holder.txtSummary.setText(Variable.recommendListBean.getAppList().get(position).getSummary());
+        } catch (Exception e) {
+            holder.txtTitle.setText("Exception");
         }
     }
 
@@ -45,17 +50,25 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
     public int getItemCount() {
         try {
             return Variable.recommendListBean.getAppList().size();
-        }catch (Exception e){
+        } catch (Exception e) {
             return 0;
         }
     }
 
     class RecommendViewHolder extends RecyclerView.ViewHolder {
-        TextView txt;
+        TextView txtTitle;
+        TextView txtSummary;
+        TextView txtSize;
+        TextView txtGetCoin;
+        SimpleDraweeView imgIcon;
 
         public RecommendViewHolder(View view) {
             super(view);
-            txt = (TextView) view.findViewById(R.id.txt);
+            txtTitle = (TextView) view.findViewById(R.id.txt_title);
+            txtSummary = (TextView) view.findViewById(R.id.txt_summary);
+            txtSize = (TextView) view.findViewById(R.id.txt_size);
+            txtGetCoin = (TextView) view.findViewById(R.id.txt_get_coin);
+            imgIcon = (SimpleDraweeView) view.findViewById(R.id.img_icon);
         }
     }
 }

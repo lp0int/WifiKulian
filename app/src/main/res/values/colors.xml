@@ -13,22 +13,30 @@
     <color name="btn_login_click">#46BCEA</color>
     <color name="btn_login_normal">#2C78D4</color>
     <color name="btn_login_disable">#D3D3D3</color>
-    
+
     <!-- 获取验证码按钮颜色 -->
     <color name="btn_verify_code_normal">#F5A623</color>
     <color name="btn_verify_code_disable">#D3D3D3</color>
-    
+
     <color name="txt_bottom">#367ED6</color>
     <!-- 一般蓝色字体 -->
     <color name="text_color_blue">#2C78D4</color> <!-- todo tmp -->
     <!-- 购买时间字体颜色 -->
     <color name="buy_coin_txt_color">#60AF0A</color>
-    
+
     <!-- 一般灰色字体 -->
     <color name="text_color_gray_deep">#595959</color>
     <!-- 一半浅灰色字体 -->
     <color name="text_color_gray_tint">#A5A5A5</color>
     <!-- 版本号字体颜色 -->
     <color name="text_color_blue_tint">#CCDDF2</color>
+    <!-- 推荐列表ITEM标题颜色 -->
+    <color name="text_color_recomment_title">#333333</color>
+    <!-- 推荐列表ITEM介绍颜色 -->
+    <color name="text_color_recomment_summary">#595959</color>
+    <!-- 推荐列表ITEM大小颜色 -->
+    <color name="text_color_recomment_size">#A5A5A5</color>
+    <!-- 推荐列表ITEM金币颜色 -->
+    <color name="text_color_recomment_coin">#FF4C00</color>
 
 </resources>
