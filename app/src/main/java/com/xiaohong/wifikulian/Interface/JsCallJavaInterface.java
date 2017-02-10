@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 
+import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.utils.DialogUtils;
 import com.xiaohong.wifikulian.utils.PhoneInfo;
@@ -23,25 +24,29 @@ public class JsCallJavaInterface {
     }
 
     @JavascriptInterface
-    public void ToastMsg(final String info){
+    public void ToastMsg(final String info) {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                Utils.showToastStr(Variable.BASECONTEXT,info);
+                Utils.showToastStr(Variable.BASECONTEXT, info);
             }
         });
     }
 
     @JavascriptInterface
-    public void DialogMsg(final String title,final String info){
+    public void DialogMsg(final String title, final String info) {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                DialogUtils.getDialog(Variable.BASECONTEXT,title,info,"",null,"确认",null).setCancelable(true).show();
+                DialogUtils.getDialog(Variable.BASECONTEXT, title, info, "", null, "确认", null).setCancelable(true).show();
             }
         });
     }
 
+    @JavascriptInterface
+    public String GetVersionName() {
+        return Utils.getVersion();
+    }
 
 
 }
