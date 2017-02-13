@@ -48,5 +48,4 @@ public class JsCallJavaInterface {
         return Utils.getVersion();
     }
 
-
 }
