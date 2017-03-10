@@ -66,5 +66,9 @@
     <string name="coin_detail">金币明细</string>
     <string name="frequently_asked_questions">常见问题</string>
     <string name="setting">设置</string>
+    
+    <!-- 首页 -->
+    <string name="conn_ssid_current">当前连接：</string>
+    <string name="surplus_coin">剩余金币：</string>
 
 </resources>

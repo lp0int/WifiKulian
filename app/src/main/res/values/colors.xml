@@ -38,5 +38,7 @@
     <color name="text_color_recomment_size">#A5A5A5</color>
     <!-- 推荐列表ITEM金币颜色 -->
     <color name="text_color_recomment_coin">#FF4C00</color>
+    <!-- 个人中心当前连接字体颜色 -->
+    <color name="text_color_current_connect">#174E9D</color>
 
 </resources>

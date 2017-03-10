@@ -12,10 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import com.xiaohong.wifikulian.Interface.AppBarStateChangeListener;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.base.BaseFragment;
+import com.xiaohong.wifikulian.utils.PhoneInfo;
 
 /**
  * Created by Lpoint on 2017/1/26.
@@ -28,6 +30,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     private Toolbar mToolbar;
     private AppBarStateChangeListener mAppBarStateChangeListener;
     private WebView mWebView;
+    private TextView txtConnCurrentSsid;
 
 
     @Override
@@ -70,9 +73,11 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                 android.R.color.holo_green_light,
                 android.R.color.holo_red_light);
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        mWebView = (WebView) view.findViewById( R.id.webview);
+        mWebView = (WebView) view.findViewById(R.id.webview);
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.loadUrl("http://www.baidu.com");
+        txtConnCurrentSsid = (TextView) view.findViewById(R.id.txt_conn_current_ssid);
+        txtConnCurrentSsid.setText(PhoneInfo.SSID());
     }
 
     @Override

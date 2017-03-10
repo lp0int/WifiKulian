@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.xiaohong.wifikulian.R;
@@ -20,7 +21,7 @@ import com.xiaohong.wifikulian.utils.Util;
 
 public class FragmentConnAppBarHavior extends CoordinatorLayout.Behavior<View> {
     private final float DEPENDENCY_Y_START_LOCATION_DP = 0f;
-    private final float DEPENDENCY_Y_END_LOCATION_DP = -60f;
+    private final float DEPENDENCY_Y_END_LOCATION_DP = -65f;
     private final float IMG_CONN_SUCCESS_X_START_LOCATION_DP = 85f;
     private final float IMG_CONN_SUCCESS_OVER_PADDING_DP = 7f;
     private final float IMG_CONN_SUCCESS_Y_START_LOCATION_DP = 35f;
@@ -60,18 +61,27 @@ public class FragmentConnAppBarHavior extends CoordinatorLayout.Behavior<View> {
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, View child, View dependency) {
         setImgConn(child, dependency);
+        setTextAlpha(child, dependency);
         return true;
+    }
+
+    private void setTextAlpha(View child, View dependency) {
+        TextView txtCurrentConn = (TextView) ((AppBarLayout) dependency).findViewById(R.id.txt_conn_current);
+        TextView txtCurrentConnSsid = (TextView) ((AppBarLayout) dependency).findViewById(R.id.txt_conn_current_ssid);
+        float ratio = Math.abs((float) dependency.getTop()) / Math.abs((float) Util.dip2px(Variable.BASECONTEXT, DEPENDENCY_Y_END_LOCATION_DP));
+        txtCurrentConn.setAlpha(1 - ratio);
+        txtCurrentConnSsid.setAlpha(1 - ratio);
     }
 
     private void setImgConn(View child, View dependency) {
         SimpleDraweeView imgConn = (SimpleDraweeView) ((AppBarLayout) dependency).findViewById(R.id.img_conn);
-        float ratio = Math.abs((float) dependency.getTop())/Math.abs((float) Util.dip2px(Variable.BASECONTEXT,DEPENDENCY_Y_END_LOCATION_DP));
-        Log.i("info",ratio + "");
+        float ratio = Math.abs((float) dependency.getTop()) / Math.abs((float) Util.dip2px(Variable.BASECONTEXT, DEPENDENCY_Y_END_LOCATION_DP));
+        Log.i("info", ratio + "");
         Uri uriImagSuccBig = Uri.parse("res://com.xiaohong.wifikulian/" + R.mipmap.link_success);
         Uri uriImagSuccSmall = Uri.parse("res://com.xiaohong.wifikulian/" + R.mipmap.connection_success);
-        if(ratio < 0.5){
+        if (ratio < 0.5) {
             imgConn.setImageURI(uriImagSuccBig);
-        }else{
+        } else {
             imgConn.setImageURI(uriImagSuccSmall);
         }
         imgConn.setAlpha(2 * Math.abs(0.5f - ratio));
