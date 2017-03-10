@@ -40,5 +40,6 @@ dependencies {
     compile 'com.facebook.fresco:fresco:1.0.1'
     //此依赖需要API16以上的SDK，所以将minSdkVersion更改为16
     compile 'com.airbnb.android:lottie:1.0.1'
+    compile 'com.android.support:cardview-v7:24.0.0'
     compile files('libs/tbs_sdk_thirdapp_v3.0.0.1038_43000_sharewithdownload_obfs_20170110_144724.jar')
 }
