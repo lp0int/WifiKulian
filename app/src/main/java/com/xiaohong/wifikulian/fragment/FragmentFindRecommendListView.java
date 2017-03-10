@@ -7,12 +7,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.ViewHolder;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.RecommendItemClickListener;
@@ -25,7 +22,6 @@ import com.xiaohong.wifikulian.base.BaseFragment;
 import com.xiaohong.wifikulian.models.RecommendListBean;
 import com.xiaohong.wifikulian.utils.NetworkRequestMethods3;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
-import com.xiaohong.wifikulian.utils.Utils;
 
 /**
  * Created by Lpoint on 2017/2/7 18:34.

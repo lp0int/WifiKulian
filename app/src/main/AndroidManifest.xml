@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
+        android:name=".KulianApplication"
         android:allowBackup="true"
         android:icon="@mipmap/push"
         android:label="@string/app_name"

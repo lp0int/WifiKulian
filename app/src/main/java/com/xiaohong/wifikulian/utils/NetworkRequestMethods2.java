@@ -3,7 +3,6 @@ package com.xiaohong.wifikulian.utils;
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.RequestServiceInterface;
 import com.xiaohong.wifikulian.models.GetTabListBean;
-import com.xiaohong.wifikulian.models.GetVerifyCodeBean;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -59,7 +58,7 @@ public class NetworkRequestMethods2 {
     }
 
     public void getTabList(Subscriber<GetTabListBean> subscriber, String userPhone) {
-        mRequestServiceInterface.getTabList("List", userPhone, Constants.PLATFORM, Utils.getVersionCode() + "")
+        mRequestServiceInterface.getTabList("List", userPhone, Constants.PLATFORM, Util.getVersionCode() + "")
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

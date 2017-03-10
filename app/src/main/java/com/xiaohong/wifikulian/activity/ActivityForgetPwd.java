@@ -1,7 +1,6 @@
 package com.xiaohong.wifikulian.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -21,13 +20,12 @@ import com.xiaohong.wifikulian.models.GetVerifyCodeBean;
 import com.xiaohong.wifikulian.models.ResetPasswordBean;
 import com.xiaohong.wifikulian.utils.NetworkRequestMethods1;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
-import com.xiaohong.wifikulian.utils.Utils;
+import com.xiaohong.wifikulian.utils.Util;
 
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Observer;
-import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -52,7 +50,7 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Utils.hideActiconBar(this);
+        Util.hideActiconBar(this);
         setContentView(R.layout.activity_forget_pwd);
         initView();
         initData();
@@ -103,14 +101,14 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.btn_reset_pwd:
                 if (!edtPassword.getText().toString().equals(edtConfirmPassword.getText().toString()))
-                    Utils.showToastStr(ActivityForgetPwd.this, Constants.PASSWORD_UNLIKELINESS);
+                    Util.showToastStr(ActivityForgetPwd.this, Constants.PASSWORD_UNLIKELINESS);
                 else {
                     NetworkRequestMethods1.getInstance().resetPwd(new ProgressSubscriber<ResetPasswordBean>(resetPasswordListener, ActivityForgetPwd.this, "提交中..."), edtUserName.getText().toString(), edtPassword.getText().toString(), edtVerifyCode.getText().toString());
                 }
                 break;
             case R.id.btn_verify_code:
-                if (!Utils.isChinaPhoneLegal(edtUserName.getText().toString())) {
-                    Utils.showToastStr(ActivityForgetPwd.this, Constants.PHONENUMBER_WRONGFUL);
+                if (!Util.isChinaPhoneLegal(edtUserName.getText().toString())) {
+                    Util.showToastStr(ActivityForgetPwd.this, Constants.PHONENUMBER_WRONGFUL);
                     break;
                 }
                 NetworkRequestMethods1.getInstance().getVerifyCode(new ProgressSubscriber<GetVerifyCodeBean>(getVerifyCodeListener, ActivityForgetPwd.this, "正在获取验证码..."), edtUserName.getText().toString());
@@ -150,25 +148,25 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
             @Override
             public void onNext(GetVerifyCodeBean getVerifyCodeBean) {
                 if (getVerifyCodeBean.getRet_code() == 0) {
-                    Utils.showToastStr(ActivityForgetPwd.this, "验证码已发送");
+                    Util.showToastStr(ActivityForgetPwd.this, "验证码已发送");
                     waitSecond = 0;
                     handleTimeIntervalClick();
                 } else
-                    Utils.showToastStr(ActivityForgetPwd.this, "验证码获取失败；" + getVerifyCodeBean.getRet_msg());
+                    Util.showToastStr(ActivityForgetPwd.this, "验证码获取失败；" + getVerifyCodeBean.getRet_msg());
             }
         };
         resetPasswordListener = new SubscriberOnNextListener<ResetPasswordBean>() {
             @Override
             public void onNext(ResetPasswordBean resetPasswordBean) {
                 if (resetPasswordBean.getRet_code() == 0) {
-                    Utils.showToastStr(ActivityForgetPwd.this, "密码修改成功");
+                    Util.showToastStr(ActivityForgetPwd.this, "密码修改成功");
                     Bundle bundle = new Bundle();
                     bundle.putString(Constants.RESET_PWD_USERNAME,edtUserName.getText().toString());
                     bundle.putString(Constants.RESET_PWD_PASSWORD,edtPassword.getText().toString());
                     sendEventModel(Constants.CODE_CHANGE_PWD,bundle);
                     ActivityForgetPwd.this.finish();
                 } else {
-                    Utils.showToastStr(ActivityForgetPwd.this, "密码修改失败：" + resetPasswordBean.getRet_msg());
+                    Util.showToastStr(ActivityForgetPwd.this, "密码修改失败：" + resetPasswordBean.getRet_msg());
                 }
             }
         };

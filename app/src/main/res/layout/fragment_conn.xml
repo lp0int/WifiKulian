@@ -1,12 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                              xmlns:app="http://schemas.android.com/apk/res-auto"
+                                              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                                              xmlns:tools="http://schemas.android.com/tools"
+                                              android:id="@+id/swipe_refresh_widget"
+                                              android:layout_width="match_parent"
+                                              android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txt_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="FragmentConn"
-        android:layout_centerInParent="true"/>
-</RelativeLayout>
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:fitsSystemWindows="true">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@mipmap/account_header_bg"
+                android:fitsSystemWindows="true"
+                app:contentScrim="#00000000"
+                app:expandedTitleMarginStart="38dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/img_conn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="85dp"
+                    android:layout_marginTop="32dp"
+                    fresco:placeholderImage="@mipmap/link_success"/>
+
+                <include
+                    android:id="@+id/rel_control"
+                    layout="@layout/fragment_conn_show_coin"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="90dp"
+                    />
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    app:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin">
+                </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <WebView
+                android:id="@+id/webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></WebView>
+        </android.support.v4.widget.NestedScrollView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.xiaohong.wifikulian.utils.view.FragmentConnAppBarHavior"/>
+    </android.support.design.widget.CoordinatorLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

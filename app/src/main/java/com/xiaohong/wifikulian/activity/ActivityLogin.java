@@ -22,7 +22,7 @@ import com.xiaohong.wifikulian.base.BaseActivity;
 import com.xiaohong.wifikulian.models.LoginBean;
 import com.xiaohong.wifikulian.utils.NetworkRequestMethods1;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
-import com.xiaohong.wifikulian.utils.Utils;
+import com.xiaohong.wifikulian.utils.Util;
 
 public class ActivityLogin extends BaseActivity implements View.OnClickListener {
     private TextView txtPwdUpdate;
@@ -38,7 +38,7 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Utils.hideActiconBar(this);
+        Util.hideActiconBar(this);
         setContentView(R.layout.activity_login);
         initView();
     }
@@ -103,7 +103,7 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
                     startActivity(intent);
                     finish();
                 } else
-                    Utils.showToastStr(ActivityLogin.this, "登录失败；" + loginBean.getRet_msg());
+                    Util.showToastStr(ActivityLogin.this, "登录失败；" + loginBean.getRet_msg());
             }
         };
     }

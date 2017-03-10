@@ -1,8 +1,6 @@
 package com.xiaohong.wifikulian.utils;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.widget.Toast;
 
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.ProgressCancelListener;
@@ -60,7 +58,7 @@ public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCanc
     @Override
     public void onError(Throwable throwable) {
         dismissProgressDialog();
-        Utils.showDebugToast(mContext,"error:" + throwable.getMessage());
+        Util.showDebugToast(mContext,"error:" + throwable.getMessage());
     }
 
     @Override

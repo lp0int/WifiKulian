@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="90dp"
+                android:background="#10FFFFFF">
+
+    <RelativeLayout
+        android:id="@+id/rel_coin"
+        android:layout_width="180dp"
+        android:layout_height="match_parent"></RelativeLayout>
+
+    <View
+        android:id="@+id/view_line1"
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/rel_coin"
+        android:background="#A0D4D4D4"/>
+
+    <RelativeLayout
+        android:layout_width="179dp"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/view_line1"></RelativeLayout>
+</RelativeLayout>

@@ -5,11 +5,10 @@ import android.os.Looper;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 
-import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.utils.DialogUtils;
 import com.xiaohong.wifikulian.utils.PhoneInfo;
-import com.xiaohong.wifikulian.utils.Utils;
+import com.xiaohong.wifikulian.utils.Util;
 
 public class JsCallJavaInterface {
 
@@ -28,7 +27,7 @@ public class JsCallJavaInterface {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                Utils.showToastStr(Variable.BASECONTEXT, info);
+                Util.showToastStr(Variable.BASECONTEXT, info);
             }
         });
     }
@@ -45,7 +44,7 @@ public class JsCallJavaInterface {
 
     @JavascriptInterface
     public String GetVersionName() {
-        return Utils.getVersion();
+        return Util.getVersion();
     }
 
 }

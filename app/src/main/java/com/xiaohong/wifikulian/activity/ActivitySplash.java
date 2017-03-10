@@ -5,6 +5,7 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -23,15 +24,12 @@ public class ActivitySplash extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        Variable.BASECONTEXT = getBaseContext();
-        Fresco.initialize(this);
-        QbSdk.initX5Environment(this, null);
         initView();
 
     }
 
-    private void initView(){
-        LottieAnimationView animationView = (LottieAnimationView) findViewById(R.id.animation_view);
+    private void initView() {
+        final LottieAnimationView animationView = (LottieAnimationView) findViewById(R.id.animation_view);
         animationView.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
@@ -54,6 +52,17 @@ public class ActivitySplash extends BaseActivity {
             @Override
             public void onAnimationRepeat(Animator animation) {
 
+            }
+        });
+        animationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animationView.cancelAnimation();
+                animationView.clearAnimation();
+                Intent intent = new Intent();
+                intent.setClass(ActivitySplash.this, ActivityLogin.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
