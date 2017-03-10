@@ -70,5 +70,6 @@
     <!-- 首页 -->
     <string name="conn_ssid_current">当前连接：</string>
     <string name="surplus_coin">剩余金币：</string>
+    <string name="surplus_time">剩余时长：</string>
 
 </resources>

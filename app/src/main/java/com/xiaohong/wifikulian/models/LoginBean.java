@@ -7,25 +7,25 @@ package com.xiaohong.wifikulian.models;
 public class LoginBean {
 
     /**
-     * account : 0
-     * birth_month : 0
-     * birth_year : 1980
-     * city_name : 温州
-     * coin_num : 44247
-     * fac_name : 温州皮鞋厂
-     * gender : U
-     * icon_url : http://cs.dspmind.com/upload/head/15105609453.jpg
-     * invite_code : 609453
-     * is_sign : false
+     * account : 100
+     * birth_month : 5
+     * birth_year : 1992
+     * city_name : 其他
+     * coin_num : 52029
+     * fac_name : 上海
+     * gender : M
+     * icon_url : http://cs.dspmind.com/upload/head/15517503498.jpg?t=20170227174524
+     * invite_code : 503498
+     * is_sign : true
      * is_wolan_ssid : false
-     * nick_name : 嘿嘿
-     * remain_time : 0
+     * nick_name : 星星
+     * remain_time : 35683273
      * ret_code : 0
      * ret_msg : success
-     * show_countdown : false
-     * token : JNGdT3H0dB6v5gaz2KANmRJaaIDYw9JveVk5iyq3XpkBm3fICdBwNk+VYD3ZhwrQ
-     * wx_id : 123434
-     * wx_openid : ouo50s0MnIrdo_Wz-SDOtS5BM-SA
+     * show_countdown : true
+     * token : JNGdT3H0dB4cYKCIZ3uYPVJBcYop3K8D3wczOlWEIQIBm3fICdBwNh27zTclomFL
+     * wx_id : 133565236
+     * wx_openid : ouo50s5Zuqg_UrtrN_CuH8SVWKQg
      */
 
     private int account;
@@ -40,7 +40,7 @@ public class LoginBean {
     private String is_sign;
     private String is_wolan_ssid;
     private String nick_name;
-    private int remain_time;
+    private long remain_time;
     private int ret_code;
     private String ret_msg;
     private String show_countdown;
@@ -144,11 +144,11 @@ public class LoginBean {
         this.nick_name = nick_name;
     }
 
-    public int getRemain_time() {
+    public long getRemain_time() {
         return remain_time;
     }
 
-    public void setRemain_time(int remain_time) {
+    public void setRemain_time(long remain_time) {
         this.remain_time = remain_time;
     }
 

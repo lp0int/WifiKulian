@@ -140,9 +140,9 @@ public class Util {
         Variable.oneTime = Variable.twoTime;
     }
 
-    public static void showDebugToast(Context context, String s){
-        if(Constants.DEBUG_MODE)
-            showToastStr(context,s);
+    public static void showDebugToast(Context context, String s) {
+        if (Constants.DEBUG_MODE)
+            showToastStr(context, s);
     }
 
     /**
@@ -159,5 +159,25 @@ public class Util {
     public static int px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
+    }
+
+    /**
+     * 将秒数转换为对应的天数供显示
+     */
+    public static String formatSurplusTime(long senconds) {
+        String surplusTime;
+        int times[] = new int[3];
+        int _times[] = new int[3];
+        _times[0] = (int) senconds;
+        times[0] = _times[0] / (60 * 60 * 24);
+        _times[1] = _times[0] % (60 * 60 * 24);
+        times[1] = _times[1] / (60 * 60);
+        _times[2] = _times[1] % (60 * 60);
+        times[2] = _times[2] / 60;
+        if (times[0] != 0)
+            surplusTime = times[0] + Constants.DAY + times[1] + Constants.HOUR;
+        else
+            surplusTime = times[1] + Constants.HOUR + times[1] + Constants.MINUTE;
+        return surplusTime;
     }
 }

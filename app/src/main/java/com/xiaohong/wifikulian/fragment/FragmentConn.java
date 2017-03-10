@@ -16,8 +16,10 @@ import android.widget.TextView;
 
 import com.xiaohong.wifikulian.Interface.AppBarStateChangeListener;
 import com.xiaohong.wifikulian.R;
+import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.base.BaseFragment;
 import com.xiaohong.wifikulian.utils.PhoneInfo;
+import com.xiaohong.wifikulian.utils.Util;
 
 /**
  * Created by Lpoint on 2017/1/26.
@@ -31,6 +33,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     private AppBarStateChangeListener mAppBarStateChangeListener;
     private WebView mWebView;
     private TextView txtConnCurrentSsid;
+    private TextView txtSurplusCoin, txtSurplusTime;
 
 
     @Override
@@ -78,6 +81,10 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
         mWebView.loadUrl("http://www.baidu.com");
         txtConnCurrentSsid = (TextView) view.findViewById(R.id.txt_conn_current_ssid);
         txtConnCurrentSsid.setText(PhoneInfo.SSID());
+        txtSurplusCoin = (TextView) view.findViewById(R.id.txt_surplus_coin);
+        txtSurplusCoin.setText(getContext().getResources().getString(R.string.surplus_coin) + "" + Variable.loginBean.getCoin_num());
+        txtSurplusTime = (TextView) view.findViewById(R.id.txt_surplus_time);
+        txtSurplusTime.setText(getContext().getResources().getString(R.string.surplus_time) + Util.formatSurplusTime(Variable.loginBean.getRemain_time()));
     }
 
     @Override

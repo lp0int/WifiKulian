@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -36,6 +38,9 @@ public class FragmentConnAppBarHavior extends CoordinatorLayout.Behavior<View> {
     float ratioY;
     float ratioWidth;
     float ratioHeight;
+    float ratioRelControlWidth;
+    SimpleDraweeView imgConn;
+    int relControlWidthOffset;
 
     public FragmentConnAppBarHavior(Context mContext, AttributeSet attrs) {
         super(mContext, attrs);
@@ -47,10 +52,12 @@ public class FragmentConnAppBarHavior extends CoordinatorLayout.Behavior<View> {
                 IMG_CONN_SUCCESS_Y_END_LOCATION_DP + (IMG_CONN_SUCCESS_HEIGHT_END_DP + IMG_CONN_SUCCESS_OVER_PADDING_DP));
         int imgConnWidthOffset = Util.dip2px(Variable.BASECONTEXT, IMG_CONN_SUCCESS_WIDTH_START_DP) - Util.dip2px(Variable.BASECONTEXT, IMG_CONN_SUCCESS_WIDTH_END_DP);
         int imgConnHeightOffset = Util.dip2px(Variable.BASECONTEXT, IMG_CONN_SUCCESS_HEIGHT_START_DP) - Util.dip2px(Variable.BASECONTEXT, IMG_CONN_SUCCESS_HEIGHT_END_DP);
+        relControlWidthOffset = Util.dip2px(Variable.BASECONTEXT, IMG_CONN_SUCCESS_WIDTH_END_DP + 2 * IMG_CONN_SUCCESS_OVER_PADDING_DP);
         ratioX = (float) imgConnXOffset / (float) dependencyOffset;
         ratioY = (float) imgConnYOffset / (float) dependencyOffset;
         ratioWidth = (float) imgConnWidthOffset / (float) dependencyOffset;
         ratioHeight = (float) imgConnHeightOffset / (float) dependencyOffset;
+        ratioRelControlWidth = (float) relControlWidthOffset / (float) dependencyOffset;
     }
 
     @Override
@@ -62,7 +69,16 @@ public class FragmentConnAppBarHavior extends CoordinatorLayout.Behavior<View> {
     public boolean onDependentViewChanged(CoordinatorLayout parent, View child, View dependency) {
         setImgConn(child, dependency);
         setTextAlpha(child, dependency);
+        setControlWidth(child, dependency);
         return true;
+    }
+
+    private void setControlWidth(View child, View dependency) {
+        LinearLayout relControl = (LinearLayout)((AppBarLayout)dependency).findViewById(R.id.rel_control);
+        float ratio = Math.abs((float) dependency.getTop()) / Math.abs((float) Util.dip2px(Variable.BASECONTEXT, DEPENDENCY_Y_END_LOCATION_DP));
+        CoordinatorLayout.MarginLayoutParams layoutParams = (CoordinatorLayout.MarginLayoutParams) relControl.getLayoutParams();
+        layoutParams.leftMargin = (int) (relControlWidthOffset * ratio);
+        relControl.setLayoutParams(layoutParams);
     }
 
     private void setTextAlpha(View child, View dependency) {
@@ -74,9 +90,8 @@ public class FragmentConnAppBarHavior extends CoordinatorLayout.Behavior<View> {
     }
 
     private void setImgConn(View child, View dependency) {
-        SimpleDraweeView imgConn = (SimpleDraweeView) ((AppBarLayout) dependency).findViewById(R.id.img_conn);
+        imgConn = (SimpleDraweeView) ((AppBarLayout) dependency).findViewById(R.id.img_conn);
         float ratio = Math.abs((float) dependency.getTop()) / Math.abs((float) Util.dip2px(Variable.BASECONTEXT, DEPENDENCY_Y_END_LOCATION_DP));
-        Log.i("info", ratio + "");
         Uri uriImagSuccBig = Uri.parse("res://com.xiaohong.wifikulian/" + R.mipmap.link_success);
         Uri uriImagSuccSmall = Uri.parse("res://com.xiaohong.wifikulian/" + R.mipmap.connection_success);
         if (ratio < 0.5) {

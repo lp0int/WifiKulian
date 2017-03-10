@@ -10,6 +10,9 @@ public class Constants {
     public static final String PLATFORM = "android";
     public static final String PROGRESS_MESSAGE = "数据请求中，请稍等";
     public static final int FILE_CHOOSER_RESULT_CODE = 10000;
+    public static final String DAY = "日";
+    public static final String HOUR = "时";
+    public static final String MINUTE = "分";
     /**
      * otto的code值
      */
