@@ -6,10 +6,8 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -74,7 +72,7 @@ public class FragmentConnAppBarHavior extends CoordinatorLayout.Behavior<View> {
     }
 
     private void setControlWidth(View child, View dependency) {
-        LinearLayout relControl = (LinearLayout)((AppBarLayout)dependency).findViewById(R.id.rel_control);
+        LinearLayout relControl = (LinearLayout) ((AppBarLayout) dependency).findViewById(R.id.rel_control);
         float ratio = Math.abs((float) dependency.getTop()) / Math.abs((float) Util.dip2px(Variable.BASECONTEXT, DEPENDENCY_Y_END_LOCATION_DP));
         CoordinatorLayout.MarginLayoutParams layoutParams = (CoordinatorLayout.MarginLayoutParams) relControl.getLayoutParams();
         layoutParams.leftMargin = (int) (relControlWidthOffset * ratio);
