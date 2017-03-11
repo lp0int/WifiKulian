@@ -20,6 +20,8 @@ import com.xiaohong.wifikulian.base.BaseActivity;
  */
 
 public class ActivitySplash extends BaseActivity {
+    private boolean animationCancel = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,8 @@ public class ActivitySplash extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                if (animationCancel)
+                    return;
                 Intent intent = new Intent();
                 intent.setClass(ActivitySplash.this, ActivityLogin.class);
                 startActivity(intent);
@@ -57,6 +61,7 @@ public class ActivitySplash extends BaseActivity {
         animationView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                animationCancel = true;
                 animationView.cancelAnimation();
                 animationView.clearAnimation();
                 Intent intent = new Intent();

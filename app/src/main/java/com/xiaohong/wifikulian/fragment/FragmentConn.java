@@ -31,7 +31,6 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
     private Toolbar mToolbar;
     private AppBarStateChangeListener mAppBarStateChangeListener;
-    private WebView mWebView;
     private TextView txtConnCurrentSsid;
     private TextView txtSurplusCoin, txtSurplusTime;
 
@@ -76,9 +75,6 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                 android.R.color.holo_green_light,
                 android.R.color.holo_red_light);
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        mWebView = (WebView) view.findViewById(R.id.webview);
-        mWebView.setWebViewClient(new WebViewClient());
-        mWebView.loadUrl("http://www.baidu.com");
         txtConnCurrentSsid = (TextView) view.findViewById(R.id.txt_conn_current_ssid);
         txtConnCurrentSsid.setText(PhoneInfo.SSID());
         txtSurplusCoin = (TextView) view.findViewById(R.id.txt_surplus_coin);

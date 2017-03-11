@@ -40,5 +40,9 @@
     <color name="text_color_recomment_coin">#FF4C00</color>
     <!-- 个人中心当前连接字体颜色 -->
     <color name="text_color_current_connect">#174E9D</color>
+    <!-- 首页推荐任务全部按钮颜色 -->
+    <color name="text_color_all">#939393</color>
+    <!-- 首页推荐任务分割线颜色 -->
+    <color name="view_color_split_line">#BCBCBC</color>
 
 </resources>
