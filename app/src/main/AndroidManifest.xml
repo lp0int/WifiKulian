@@ -38,6 +38,11 @@
         <activity
             android:name=".activity.ActivityWevView"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="test" >
+        </meta-data>
     </application>
 
 </manifest>

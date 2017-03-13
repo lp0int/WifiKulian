@@ -28,7 +28,7 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
     public RecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecommendListAdapter.RecommendViewHolder holder = new RecommendListAdapter.RecommendViewHolder(LayoutInflater.from(
                 mContext).inflate(R.layout.item_adapter_recommend_list, parent,
-                false),mRecommendItemClickListener );
+                false), mRecommendItemClickListener);
         return holder;
     }
 
@@ -54,7 +54,7 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
         }
     }
 
-    public void setOnItemClickListener(RecommendItemClickListener listener){
+    public void setOnItemClickListener(RecommendItemClickListener listener) {
         this.mRecommendItemClickListener = listener;
     }
 

@@ -3,6 +3,7 @@ package com.xiaohong.wifikulian;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.xiaohong.wifikulian.models.AdOrdersBean;
 import com.xiaohong.wifikulian.models.GetTabListBean;
 import com.xiaohong.wifikulian.models.LoginBean;
 import com.xiaohong.wifikulian.models.RecommendListBean;
@@ -25,6 +26,10 @@ public class Variable {
      */
     public static LoginBean loginBean;
     public static String userPhone;
+    /**
+     * APP内需要展示的信息
+     */
     public static GetTabListBean tabListBean;
     public static RecommendListBean recommendListBean;
+    public static AdOrdersBean galleryFunctionList;
 }

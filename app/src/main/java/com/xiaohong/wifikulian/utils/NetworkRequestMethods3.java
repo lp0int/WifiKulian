@@ -1,6 +1,10 @@
 package com.xiaohong.wifikulian.utils;
 
+import com.xiaohong.wifikulian.ApplicationInfo;
+import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.RequestServiceInterface;
+import com.xiaohong.wifikulian.Variable;
+import com.xiaohong.wifikulian.models.AdOrdersBean;
 import com.xiaohong.wifikulian.models.RecommendListBean;
 
 import java.io.IOException;
@@ -58,6 +62,18 @@ public class NetworkRequestMethods3 {
 
     public void getRecommendList(Subscriber<RecommendListBean> subscriber, String p) {
         mRequestServiceInterface.getRecommendList(p)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void getAdOrder(Subscriber<AdOrdersBean> subscriber, int adType, int adAdvertising) {
+        String userPhone = Variable.userPhone;
+        String PL = Constants.PLATFORM;
+        int ver = Util.getVersionCode();
+        String p = EncodeParameter.getAdOrder(adType, adAdvertising, userPhone, PL, ver, ApplicationInfo.channel);
+        mRequestServiceInterface.getAdOrder(p)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

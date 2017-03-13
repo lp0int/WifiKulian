@@ -22,7 +22,7 @@ public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCanc
     public ProgressSubscriber(SubscriberOnNextListener mSubscriberOnNextListener, Context mContext, String... progressMsgs) {
         this.mSubscriberOnNextListener = mSubscriberOnNextListener;
         this.mContext = mContext;
-        mProgressMsg = progressMsgs.length > 0 ? progressMsgs[0] : Constants.PROGRESS_MESSAGE;
+        mProgressMsg = progressMsgs.length > 0 ? progressMsgs[0] : Constants.DEFAULT_PROGRESS_MESSAGE;
         mProgressDialogHandler = new ProgressDialogHandler(mContext, this, true, mProgressMsg);
     }
 

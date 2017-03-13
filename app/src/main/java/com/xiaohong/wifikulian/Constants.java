@@ -8,11 +8,15 @@ public class Constants {
     public static final boolean DEBUG_MODE = true;
     public static final boolean GOD_MODE = true;
     public static final String PLATFORM = "android";
-    public static final String PROGRESS_MESSAGE = "数据请求中，请稍等";
     public static final int FILE_CHOOSER_RESULT_CODE = 10000;
     public static final String DAY = "日";
     public static final String HOUR = "时";
     public static final String MINUTE = "分";
+    /**
+     * 网络请求提示信息
+     */
+    public static final String DEFAULT_PROGRESS_MESSAGE = "数据请求中，请稍等";
+    public static final String GET_GALLERY_FUNCTION_PROGRESS_MESSAGE = "更新功能按钮中";
     /**
      * otto的code值
      */
@@ -37,4 +41,9 @@ public class Constants {
      * WebViewFragment相关数据
      */
     public static final String EXTERNAL_URL = "external.url";
+    /**
+     * 请求AdOrder的相关值
+     */
+    public static final int AD_TYPE_GET_GALLERY_FUNCTION = 7;
+    public static final int AD_ADVERTISING_GET_GALLERY_FUNCTION = 16;
 }

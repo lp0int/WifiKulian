@@ -1,5 +1,6 @@
 package com.xiaohong.wifikulian.utils;
 
+import com.xiaohong.wifikulian.ApplicationInfo;
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.RequestServiceInterface;
 import com.xiaohong.wifikulian.models.GetVerifyCodeBean;
@@ -65,7 +66,7 @@ public class NetworkRequestMethods1 {
         String imei = PhoneInfo.IMEI();
         String model = PhoneInfo.PHONEMODEL();
         String ssid = PhoneInfo.SSID();
-        String encrypt_str = EncodeParameter.getLoginParameter(userName, pwd, Util.getVersionCode(), phone_mac, imei, model, Constants.PLATFORM, ssid);
+        String encrypt_str = EncodeParameter.getLoginParameter(userName, pwd, Util.getVersionCode(), phone_mac, imei, model, Constants.PLATFORM, ssid, ApplicationInfo.channel);
         mRequestServiceInterface.login(encrypt_str)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -75,7 +76,7 @@ public class NetworkRequestMethods1 {
     }
 
     public void getVerifyCode(Subscriber<GetVerifyCodeBean> subscriber, String userName){
-        String encrypt_str = EncodeParameter.getVerifyCodeParameter(userName, Util.getVersionCode());
+        String encrypt_str = EncodeParameter.getVerifyCodeParameter(userName, Util.getVersionCode(),ApplicationInfo.channel);
         mRequestServiceInterface.getVerifyCode(encrypt_str)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -84,7 +85,7 @@ public class NetworkRequestMethods1 {
     }
 
     public void resetPwd(Subscriber<ResetPasswordBean> subscriber, String userName, String newPwd, String verifyCode){
-        String encrypt_str = EncodeParameter.getResetPwdParameter(userName, Util.getMD5(newPwd),verifyCode, Util.getVersionCode() + "",Constants.PLATFORM);
+        String encrypt_str = EncodeParameter.getResetPwdParameter(userName, Util.getMD5(newPwd),verifyCode, Util.getVersionCode() + "",Constants.PLATFORM,ApplicationInfo.channel);
         mRequestServiceInterface.resetPwd(encrypt_str)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
