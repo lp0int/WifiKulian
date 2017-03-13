@@ -1,4 +1,4 @@
-# WifiKulian
-Rewrite this porject using some new technology.
-Use retrofit and rxandroid to realization the network request.
-Load images using fresco.
+# WifiKulian</br>
+Rewrite this porject using some new technology.</br>
+Use retrofit and rxandroid to realization the network request.</br>
+Load images using fresco.</br>
