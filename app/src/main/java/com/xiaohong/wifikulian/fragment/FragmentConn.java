@@ -24,6 +24,7 @@ import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.activity.ActivityWevView;
 import com.xiaohong.wifikulian.adapter.GalleryFunctionAdapter;
+import com.xiaohong.wifikulian.adapter.QQReadAdapter;
 import com.xiaohong.wifikulian.adapter.RecommendListFragmentConnAdapter;
 import com.xiaohong.wifikulian.base.BaseFragment;
 import com.xiaohong.wifikulian.models.AdControlBean;
@@ -54,13 +55,14 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     private AppBarStateChangeListener mAppBarStateChangeListener;
     private TextView txtConnCurrentSsid;
     private TextView txtSurplusCoin, txtSurplusTime;
-    private RecyclerView galleryFunction, recommendTask,qqReadList;
+    private RecyclerView galleryFunction, recommendTask, qqReadList;
     private SubscriberOnNextListener getGalleryFunctionListListener;
     private SubscriberOnNextListener getRecommendTaskListListener;
     private SubscriberOnNextListener getAdControlListener;
     private SubscriberOnNextListener getQQReadListListener;
     private GalleryFunctionAdapter mGalleryFunctionAdapter;
     private RecommendListFragmentConnAdapter mRecommendListFragmentConnAdapter;
+    private QQReadAdapter mQQReadAdapter;
 
 
     @Override
@@ -119,6 +121,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     private void initData() {
         mGalleryFunctionAdapter = new GalleryFunctionAdapter(getContext());
         mRecommendListFragmentConnAdapter = new RecommendListFragmentConnAdapter(getContext());
+        mQQReadAdapter = new QQReadAdapter(getActivity());
         mRecommendListFragmentConnAdapter.setOnItemClickListener(this);
         LinearLayoutManager galleryLayoutManager = new LinearLayoutManager(getActivity());
         galleryLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -130,6 +133,11 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
         recommendTask.setLayoutManager(recommendTaskLayoutManager);
         recommendTask.setNestedScrollingEnabled(false);
         recommendTask.setAdapter(mRecommendListFragmentConnAdapter);
+        LinearLayoutManager qqReadLayoutManager = new LinearLayoutManager(getActivity());
+        qqReadLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        qqReadList.setLayoutManager(qqReadLayoutManager);
+        qqReadList.setNestedScrollingEnabled(false);
+        qqReadList.setAdapter(mQQReadAdapter);
 
     }
 
@@ -171,7 +179,8 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
         getQQReadListListener = new SubscriberOnNextListener<QQReadBean>() {
             @Override
             public void onNext(QQReadBean qqReadBean) {
-
+                mQQReadAdapter.setData(qqReadBean);
+                mQQReadAdapter.notifyDataSetChanged();
             }
         };
     }

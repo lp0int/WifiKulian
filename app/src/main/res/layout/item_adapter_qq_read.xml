@@ -3,12 +3,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="14dp"
+                android:background="@color/white"
                 android:layout_marginRight="14dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/img_gallery_function"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="55dp"
+        android:layout_height="74dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="9dp"/>
 
@@ -20,6 +21,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="7dp"
         android:layout_marginTop="7dp"
+        android:maxEms="5"
+        android:ellipsize="end"
         android:textColor="@color/text_color_recomment_title"
         android:textSize="10sp"/>
 

@@ -14,6 +14,7 @@ public class Constants {
     public static final String MINUTE = "分";
     public static final String QQREAD_URL = "http://ubook.3g.qq.com/";
     public static final String QQREAD_G_F = "100028";
+    public static final String QQREAD_BASE_IRL = "http://ubook.qq.com/8/intro.html?bid=";
     /**
      * 网络请求提示信息
      */
