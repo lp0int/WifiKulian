@@ -12,11 +12,15 @@ public class Constants {
     public static final String DAY = "日";
     public static final String HOUR = "时";
     public static final String MINUTE = "分";
+    public static final String QQREAD_URL = "http://ubook.3g.qq.com/";
+    public static final String QQREAD_G_F = "100028";
     /**
      * 网络请求提示信息
      */
     public static final String DEFAULT_PROGRESS_MESSAGE = "数据请求中，请稍等";
-    public static final String GET_GALLERY_FUNCTION_PROGRESS_MESSAGE = "更新功能按钮中";
+    public static final String GET_GALLERY_FUNCTION_PROGRESS_MESSAGE = "功能按钮数据更新中";
+    public static final String GET_RECOMMEND_TASK_LIST_PROGRESS_MESSAGE = "推荐任务信息更新中";
+    public static final String GET_QQ_READ_PROGRESS_MESSAGE = "阅读信息更新中";
     /**
      * otto的code值
      */
@@ -46,4 +50,9 @@ public class Constants {
      */
     public static final int AD_TYPE_GET_GALLERY_FUNCTION = 7;
     public static final int AD_ADVERTISING_GET_GALLERY_FUNCTION = 16;
+    public static final int AD_TYPE_GET_RECOMMEND_LIST = 3;
+    /**
+     * 相关控制字段
+     */
+    public static final String APPLIST = "AppList";
 }

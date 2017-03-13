@@ -101,6 +101,7 @@
                 android:textSize="13sp"/>
 
             <View
+                android:id="@+id/line_recommend_task"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_below="@+id/txt_recommend_task"
@@ -110,6 +111,14 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/view_color_split_line"
                 />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_recommend_task"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="@null"
+                android:background="@color/background_color"
+                android:layout_below="@+id/line_recommend_task"
+                android:scrollbars="vertical"/>
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
@@ -152,6 +161,7 @@
                 android:textSize="13sp"/>
 
             <View
+                android:id="@+id/line_qq_read"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_below="@+id/txt_read"
@@ -161,7 +171,14 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/view_color_split_line"
                 />
-
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_qq_read"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="@null"
+                android:background="@color/background_color"
+                android:layout_below="@+id/line_qq_read"
+                android:scrollbars="vertical"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

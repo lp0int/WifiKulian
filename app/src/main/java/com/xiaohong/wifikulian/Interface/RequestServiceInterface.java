@@ -1,9 +1,11 @@
 package com.xiaohong.wifikulian.Interface;
 
+import com.xiaohong.wifikulian.models.AdControlBean;
 import com.xiaohong.wifikulian.models.AdOrdersBean;
 import com.xiaohong.wifikulian.models.GetTabListBean;
 import com.xiaohong.wifikulian.models.GetVerifyCodeBean;
 import com.xiaohong.wifikulian.models.LoginBean;
+import com.xiaohong.wifikulian.models.QQReadBean;
 import com.xiaohong.wifikulian.models.RecommendListBean;
 import com.xiaohong.wifikulian.models.ResetPasswordBean;
 
@@ -31,8 +33,14 @@ public interface RequestServiceInterface {
     @GET("index.php/api/api/index")
     Observable<RecommendListBean> getRecommendList(@Query("p") String p);
 
-    @GET("/index.php/api/api/adOrder")
+    @GET("index.php/api/api/adOrder")
     Observable<AdOrdersBean> getAdOrder(@Query("p") String p);
+
+    @GET("index.php/api/api/control")
+    Observable<AdControlBean> getAdConirol(@Query("p") String p);
+
+    @GET("8/index")
+    Observable<QQReadBean> getQQRead(@Query("g_f") String g_f);
 
 
 }

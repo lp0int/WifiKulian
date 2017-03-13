@@ -4,6 +4,7 @@ import com.xiaohong.wifikulian.ApplicationInfo;
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.RequestServiceInterface;
 import com.xiaohong.wifikulian.Variable;
+import com.xiaohong.wifikulian.models.AdControlBean;
 import com.xiaohong.wifikulian.models.AdOrdersBean;
 import com.xiaohong.wifikulian.models.RecommendListBean;
 
@@ -60,7 +61,8 @@ public class NetworkRequestMethods3 {
         return NetworkRequestMethods3.SingletonHolder.INSTANCE;
     }
 
-    public void getRecommendList(Subscriber<RecommendListBean> subscriber, String p) {
+    public void getRecommendList(Subscriber<RecommendListBean> subscriber) {
+        String p = EncodeParameter.getRecommendList(Variable.userPhone);
         mRequestServiceInterface.getRecommendList(p)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -70,10 +72,18 @@ public class NetworkRequestMethods3 {
 
     public void getAdOrder(Subscriber<AdOrdersBean> subscriber, int adType, int adAdvertising) {
         String userPhone = Variable.userPhone;
-        String PL = Constants.PLATFORM;
-        int ver = Util.getVersionCode();
-        String p = EncodeParameter.getAdOrder(adType, adAdvertising, userPhone, PL, ver, ApplicationInfo.channel);
+        String p = EncodeParameter.getAdOrder(adType, adAdvertising, userPhone);
         mRequestServiceInterface.getAdOrder(p)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void getAdControl(Subscriber<AdControlBean> subscriber) {
+        String userPhone = Variable.userPhone;
+        String p = EncodeParameter.getAdControl(userPhone);
+        mRequestServiceInterface.getAdConirol(p)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

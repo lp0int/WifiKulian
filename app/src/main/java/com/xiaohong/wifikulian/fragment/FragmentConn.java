@@ -1,5 +1,6 @@
 package com.xiaohong.wifikulian.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -12,27 +13,40 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.AppBarStateChangeListener;
+import com.xiaohong.wifikulian.Interface.RecommendItemClickListener;
 import com.xiaohong.wifikulian.Interface.SubscriberOnNextListener;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
+import com.xiaohong.wifikulian.activity.ActivityWevView;
 import com.xiaohong.wifikulian.adapter.GalleryFunctionAdapter;
+import com.xiaohong.wifikulian.adapter.RecommendListFragmentConnAdapter;
 import com.xiaohong.wifikulian.base.BaseFragment;
+import com.xiaohong.wifikulian.models.AdControlBean;
 import com.xiaohong.wifikulian.models.AdOrdersBean;
+import com.xiaohong.wifikulian.models.QQReadBean;
 import com.xiaohong.wifikulian.models.RecommendListBean;
+import com.xiaohong.wifikulian.utils.EncodeParameter;
 import com.xiaohong.wifikulian.utils.NetworkRequestMethods3;
 import com.xiaohong.wifikulian.utils.PhoneInfo;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
 import com.xiaohong.wifikulian.utils.Util;
+import com.xiaohong.wifikulian.utils.view.NetworkRequestMethods;
 
 /**
  * Created by Lpoint on 2017/1/26.
  */
 
-public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+/**
+ * @time:2017-3-13 原本NestedScrollView嵌套RecycleView，会是的NestedScrollView滑动失去惯性，使用setNestedScrollingEnabled(false)
+ * 来恢复惯性，但是目前还存在卡顿的问题
+ */
+
+public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, RecommendItemClickListener {
     private AppBarLayout mAppBarLayout;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
@@ -40,10 +54,13 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     private AppBarStateChangeListener mAppBarStateChangeListener;
     private TextView txtConnCurrentSsid;
     private TextView txtSurplusCoin, txtSurplusTime;
-    private RecyclerView galleryFunction;
+    private RecyclerView galleryFunction, recommendTask,qqReadList;
     private SubscriberOnNextListener getGalleryFunctionListListener;
-    private GalleryFunctionAdapter mGalleryFunctionAdapter;
     private SubscriberOnNextListener getRecommendTaskListListener;
+    private SubscriberOnNextListener getAdControlListener;
+    private SubscriberOnNextListener getQQReadListListener;
+    private GalleryFunctionAdapter mGalleryFunctionAdapter;
+    private RecommendListFragmentConnAdapter mRecommendListFragmentConnAdapter;
 
 
     @Override
@@ -95,14 +112,25 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
         txtSurplusTime = (TextView) view.findViewById(R.id.txt_surplus_time);
         txtSurplusTime.setText(getContext().getResources().getString(R.string.surplus_time) + Util.formatSurplusTime(Variable.loginBean.getRemain_time()));
         galleryFunction = (RecyclerView) view.findViewById(R.id.gallery_function);
+        recommendTask = (RecyclerView) view.findViewById(R.id.list_recommend_task);
+        qqReadList = (RecyclerView) view.findViewById(R.id.list_qq_read);
     }
 
     private void initData() {
         mGalleryFunctionAdapter = new GalleryFunctionAdapter(getContext());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        galleryFunction.setLayoutManager(linearLayoutManager);
+        mRecommendListFragmentConnAdapter = new RecommendListFragmentConnAdapter(getContext());
+        mRecommendListFragmentConnAdapter.setOnItemClickListener(this);
+        LinearLayoutManager galleryLayoutManager = new LinearLayoutManager(getActivity());
+        galleryLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        galleryFunction.setLayoutManager(galleryLayoutManager);
+        galleryFunction.setNestedScrollingEnabled(false);
         galleryFunction.setAdapter(mGalleryFunctionAdapter);
+        LinearLayoutManager recommendTaskLayoutManager = new LinearLayoutManager(getActivity());
+        recommendTaskLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recommendTask.setLayoutManager(recommendTaskLayoutManager);
+        recommendTask.setNestedScrollingEnabled(false);
+        recommendTask.setAdapter(mRecommendListFragmentConnAdapter);
+
     }
 
     @Override
@@ -110,22 +138,49 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
         NetworkRequestMethods3.getInstance().getAdOrder(new ProgressSubscriber<AdOrdersBean>(getGalleryFunctionListListener, getActivity(),
                         Constants.GET_GALLERY_FUNCTION_PROGRESS_MESSAGE),
                 Constants.AD_TYPE_GET_GALLERY_FUNCTION, Constants.AD_ADVERTISING_GET_GALLERY_FUNCTION);
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     private void initRequestListener() {
         getGalleryFunctionListListener = new SubscriberOnNextListener<AdOrdersBean>() {
             @Override
             public void onNext(AdOrdersBean galleryFunctionList) {
-                mSwipeRefreshLayout.setRefreshing(false);
                 Variable.galleryFunctionList = galleryFunctionList;
                 mGalleryFunctionAdapter.notifyDataSetChanged();
+                NetworkRequestMethods3.getInstance().getRecommendList(new ProgressSubscriber<RecommendListBean>(getRecommendTaskListListener, getActivity(),
+                        Constants.GET_RECOMMEND_TASK_LIST_PROGRESS_MESSAGE));
             }
         };
         getRecommendTaskListListener = new SubscriberOnNextListener<RecommendListBean>() {
             @Override
             public void onNext(RecommendListBean recommendListBean) {
                 Variable.recommendListBean = recommendListBean;
+                NetworkRequestMethods3.getInstance().getAdControl(new ProgressSubscriber<AdControlBean>(getAdControlListener, getActivity(),
+                        Constants.GET_RECOMMEND_TASK_LIST_PROGRESS_MESSAGE));
             }
         };
+        getAdControlListener = new SubscriberOnNextListener<AdControlBean>() {
+            @Override
+            public void onNext(AdControlBean adControlBean) {
+                Variable.adControlBean = adControlBean;
+                mRecommendListFragmentConnAdapter.notifyDataSetChanged();
+                NetworkRequestMethods.getInstance().getQQRead(new ProgressSubscriber<QQReadBean>(getQQReadListListener, getActivity(),
+                        Constants.GET_QQ_READ_PROGRESS_MESSAGE));
+            }
+        };
+        getQQReadListListener = new SubscriberOnNextListener<QQReadBean>() {
+            @Override
+            public void onNext(QQReadBean qqReadBean) {
+
+            }
+        };
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), ActivityWevView.class);
+        intent.putExtra(Constants.EXTERNAL_URL, Variable.recommendListBean.getAppList().get(position).getUrl());
+        startActivity(intent);
     }
 }

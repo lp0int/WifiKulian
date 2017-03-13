@@ -20,6 +20,7 @@ import com.xiaohong.wifikulian.activity.ActivityWevView;
 import com.xiaohong.wifikulian.adapter.RecommendListAdapter;
 import com.xiaohong.wifikulian.base.BaseFragment;
 import com.xiaohong.wifikulian.models.RecommendListBean;
+import com.xiaohong.wifikulian.utils.EncodeParameter;
 import com.xiaohong.wifikulian.utils.NetworkRequestMethods3;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
 
@@ -27,7 +28,7 @@ import com.xiaohong.wifikulian.utils.ProgressSubscriber;
  * Created by Lpoint on 2017/2/7 18:34.
  */
 
-public class FragmentFindRecommendListView extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,RecommendItemClickListener {
+public class FragmentFindRecommendListView extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, RecommendItemClickListener {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private SubscriberOnNextListener getRecommendListListener;
@@ -69,7 +70,7 @@ public class FragmentFindRecommendListView extends BaseFragment implements Swipe
 
     @Override
     public void onRefresh() {
-        NetworkRequestMethods3.getInstance().getRecommendList(new ProgressSubscriber<RecommendListBean>(getRecommendListListener, getActivity(), "null"), "YtNJ1qw9ZM/1MivnQSG+1JHBZ3K5i6zcp+rrD2wVpz5/T+WdePzoLqCaH8yfkmy/RC3FFGw3mM8C4kjCAnAJTg==");
+        NetworkRequestMethods3.getInstance().getRecommendList(new ProgressSubscriber<RecommendListBean>(getRecommendListListener, getActivity(), "null"));
     }
 
     private void initRequestListener() {
@@ -88,7 +89,7 @@ public class FragmentFindRecommendListView extends BaseFragment implements Swipe
     public void onItemClick(View view, int position) {
         Intent intent = new Intent();
         intent.setClass(getActivity(), ActivityWevView.class);
-        intent.putExtra(Constants.EXTERNAL_URL,Variable.recommendListBean.getAppList().get(position).getUrl());
+        intent.putExtra(Constants.EXTERNAL_URL, Variable.recommendListBean.getAppList().get(position).getUrl());
         startActivity(intent);
     }
 }
