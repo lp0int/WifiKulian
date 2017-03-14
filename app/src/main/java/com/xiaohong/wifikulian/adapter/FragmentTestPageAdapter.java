@@ -29,7 +29,6 @@ public class FragmentTestPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
         if(Variable.tabListBean.getContent().get(position).getLink().startsWith("http"))
             return FragmentWebView.getInstance(Variable.tabListBean.getContent().get(position).getLink());
         if(Variable.tabListBean.getContent().get(position).getLink().startsWith("Native"))
