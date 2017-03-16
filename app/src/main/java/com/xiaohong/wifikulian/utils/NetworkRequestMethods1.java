@@ -1,5 +1,7 @@
 package com.xiaohong.wifikulian.utils;
 
+import android.content.Context;
+
 import com.xiaohong.wifikulian.Interface.RequestServiceInterface;
 import com.xiaohong.wifikulian.models.GetVerifyCodeBean;
 import com.xiaohong.wifikulian.models.LoginBean;
@@ -59,9 +61,9 @@ public class NetworkRequestMethods1 {
     }
 
     //登录
-    public void login(Subscriber<LoginBean> subscriber, String userName, String pwd) {
+    public void login(Subscriber<LoginBean> subscriber, String userName, String pwd, Context mContext) {
         String phone_mac = PhoneInfo.Mac();
-        String imei = PhoneInfo.IMEI();
+        String imei = PhoneInfo.IMEI(mContext);
         String model = PhoneInfo.PHONEMODEL();
         String ssid = PhoneInfo.SSID();
         String encrypt_str = EncodeParameter.getLoginParameter(userName, pwd, phone_mac, imei, model, ssid);

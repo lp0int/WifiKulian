@@ -142,6 +142,6 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
         String strUserName = edtUserName.getText().toString();
         String strPwd = edtPwd.getText().toString();
         Variable.userPhone = strUserName;
-        NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(LoginListener, ActivityLogin.this, "努力登陆中..."), strUserName, strPwd);
+        NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(LoginListener, ActivityLogin.this, "努力登陆中..."), strUserName, strPwd,this);
     }
 }
