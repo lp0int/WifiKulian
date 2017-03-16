@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Created by Lpoint on 2017/1/26.
  */
 
-public class ActivityHome extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener,NetChangeInterface{
+public class ActivityHome extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener, NetChangeInterface {
     private BottomNavigationBar bottomNavigationBar;
     private ArrayList<Fragment> fragments;
     private NetBroadcastReceiver mBroadcastReceiver;
@@ -42,9 +42,9 @@ public class ActivityHome extends BaseActivity implements BottomNavigationBar.On
 
     private void initView() {
         Variable.netChangeInterface = this;
-        if(mBroadcastReceiver == null) {
+        if (mBroadcastReceiver == null) {
             mBroadcastReceiver = new NetBroadcastReceiver();
-            registerReceiver(mBroadcastReceiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+            registerReceiver(mBroadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         }
         bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
         bottomNavigationBar
@@ -58,7 +58,7 @@ public class ActivityHome extends BaseActivity implements BottomNavigationBar.On
         initSelect();
     }
 
-    private void initFragment(){
+    private void initFragment() {
         fragments = new ArrayList<>();
         fragments.add(new FragmentConn());
         fragments.add(new FragmentFind());
@@ -77,14 +77,14 @@ public class ActivityHome extends BaseActivity implements BottomNavigationBar.On
      */
     @Override
     public void onTabSelected(int position) {
-        if(fragments != null){
+        if (fragments != null) {
             FragmentManager fm = this.getSupportFragmentManager();
             FragmentTransaction transaction = fm.beginTransaction();
-            Fragment fragment = fragments.get(position%fragments.size());
-            if(fragment.isAdded()){
+            Fragment fragment = fragments.get(position % fragments.size());
+            if (fragment.isAdded()) {
                 transaction.show(fragment);
-            }else{
-                transaction.add(R.id.lin_content,fragment);
+            } else {
+                transaction.add(R.id.lin_content, fragment);
                 transaction.show(fragment);
             }
             transaction.commitAllowingStateLoss();
@@ -93,10 +93,10 @@ public class ActivityHome extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void onTabUnselected(int position) {
-        if(fragments != null){
+        if (fragments != null) {
             FragmentManager fm = this.getSupportFragmentManager();
             FragmentTransaction transaction = fm.beginTransaction();
-            Fragment fragment = fragments.get(position%fragments.size());
+            Fragment fragment = fragments.get(position % fragments.size());
             transaction.hide(fragment);
             transaction.commit();
         }
@@ -107,12 +107,15 @@ public class ActivityHome extends BaseActivity implements BottomNavigationBar.On
 
     }
 
-    private void initSelect(){
+    private void initSelect() {
         onTabSelected(0);
     }
 
     @Override
     public void onNetChange(int networkType) {
         Utils.showDebugToast(this, networkType + "");
+        Bundle bundle = new Bundle();
+        bundle.putInt(Constants.WIFI_STATUS_CODE, networkType);
+        sendEventModel(Constants.CODE_CHANGE_NETWORK_STATUS, bundle);
     }
 }

@@ -17,6 +17,8 @@ public class Constants {
     public static final String QQREAD_URL = "http://ubook.3g.qq.com/";
     public static final String QQREAD_G_F = "100028";
     public static final String QQREAD_BASE_IRL = "http://ubook.qq.com/8/intro.html?bid=";
+    public static final String WIFI_STATUS_CODE = "wifiStatusCode";
+    public static final String CELLULAR_NETWORK = "蜂窝网络";
     /**
      * 广播
      */
@@ -48,6 +50,7 @@ public class Constants {
     public static final int CODE_LOGOUT = 0x000;
     public static final int CODE_REGISTER_OVER = 0x001;
     public static final int CODE_CHANGE_PWD = 0x002;
+    public static final int CODE_CHANGE_NETWORK_STATUS = 0x003;
     /**
      * ActivityLogin的相关数据
      */

@@ -195,4 +195,23 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
         intent.putExtra(Constants.EXTERNAL_URL, Variable.recommendListBean.getAppList().get(position).getUrl());
         startActivity(intent);
     }
+
+    @Override
+    protected void onAppBusEvent(int code, Bundle data) {
+        switch (code) {
+            case Constants.NETWORK_TYPE_OTHER_WIFI:
+                txtConnCurrentSsid.setText(PhoneInfo.SSID());
+                break;
+            case Constants.NETWORK_TYPE_CELLULAR:
+                txtConnCurrentSsid.setText(Constants.CELLULAR_NETWORK);
+                break;
+            case Constants.NETWORK_TYPE_HONGWIFI_UNVERIFY:
+                break;
+            case Constants.NETWORK_TYPE_HONGWIFI_VERIFIED:
+                txtConnCurrentSsid.setText(PhoneInfo.SSID());
+                break;
+            default:
+                break;
+        }
+    }
 }
