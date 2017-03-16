@@ -33,7 +33,7 @@ import javax.crypto.spec.SecretKeySpec;
  * Created by Lpoint on 2017/1/20 11:05.
  */
 
-public class Util {
+public class Utils {
     public static void hideActiconBar(Activity activity) {
         activity.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

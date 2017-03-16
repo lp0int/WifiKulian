@@ -8,10 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.xiaohong.wifikulian.Interface.RecommendItemClickListener;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
-import com.xiaohong.wifikulian.utils.Util;
 
 /**
  * Created by Lpoint on 2017/3/13 10:29.

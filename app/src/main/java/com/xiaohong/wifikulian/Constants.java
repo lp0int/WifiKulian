@@ -1,5 +1,7 @@
 package com.xiaohong.wifikulian;
 
+import java.util.ArrayList;
+
 /**
  * Created by Lpoint on 2017/1/24.
  */
@@ -15,6 +17,24 @@ public class Constants {
     public static final String QQREAD_URL = "http://ubook.3g.qq.com/";
     public static final String QQREAD_G_F = "100028";
     public static final String QQREAD_BASE_IRL = "http://ubook.qq.com/8/intro.html?bid=";
+    /**
+     * 广播
+     */
+    public static final String BROADCAST_RECEIVER_ACTION = "com.xiaohong.wifikulian.broadcast.NetBroadcastReceiver";
+    /**
+     * 网络状态的值
+     */
+    public static final int NETWORK_TYPE_CELLULAR = 0x200;
+    public static final int NETWORK_TYPE_OTHER_WIFI = 0x0201;
+    public static final int NETWORK_TYPE_HONGWIFI_UNVERIFY = 0x0202;
+    public static final int NETWORK_TYPE_HONGWIFI_VERIFIED = 0x0203;
+    public static final int NETWORK_TYPE_NO_NETWORK = 0x0204;
+
+    /**
+     * SSID标识
+     */
+    public static final String[] SSIDLIST = {"hongwifi","ruijie","小鸿","wo-lan","-wo"};
+
     /**
      * 网络请求提示信息
      */
@@ -52,6 +72,8 @@ public class Constants {
     public static final int AD_TYPE_GET_GALLERY_FUNCTION = 7;
     public static final int AD_ADVERTISING_GET_GALLERY_FUNCTION = 16;
     public static final int AD_TYPE_GET_RECOMMEND_LIST = 3;
+    public static final int AD_TYPE_GET_FIND_TAB_LIST = 8;
+    public static final int AD_ADVERTISING_GET_FIND_TAB_LIST = 17;
     /**
      * 相关控制字段
      */

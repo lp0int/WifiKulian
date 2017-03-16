@@ -11,7 +11,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.base.BaseFragment;
-import com.xiaohong.wifikulian.utils.Util;
+import com.xiaohong.wifikulian.utils.Utils;
 
 /**
  * Created by Lpoint on 2017/1/26.
@@ -39,6 +39,6 @@ public class FragmentMine extends BaseFragment {
     private void initData(){
         imgProtrait.setImageURI(Variable.loginBean.getIcon_url());
         txtNickname.setText(Variable.loginBean.getNick_name());
-        txtVersion.setText("WIFI酷连 V" + Util.getVersion() + "build" + Util.getVersionCode());
+        txtVersion.setText("WIFI酷连 V" + Utils.getVersion() + "build" + Utils.getVersionCode());
     }
 }

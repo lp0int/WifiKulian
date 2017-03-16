@@ -89,4 +89,14 @@ public class NetworkRequestMethods3 {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
+    public void getTabList(Subscriber<AdOrdersBean> subscriber,int adType,int adAdvertising){
+        String userPhone = Variable.userPhone;
+        String p = EncodeParameter.getAdOrder(adType, adAdvertising, userPhone);
+        mRequestServiceInterface.getAdOrder(p)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
 }

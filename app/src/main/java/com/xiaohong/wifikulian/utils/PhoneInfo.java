@@ -1,6 +1,7 @@
 package com.xiaohong.wifikulian.utils;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
@@ -16,6 +17,8 @@ public class PhoneInfo {
     public static WifiManager wifiManager = (WifiManager) Variable.BASECONTEXT.getSystemService(Context.WIFI_SERVICE);
     public static TelephonyManager telephonyManager = (TelephonyManager) Variable.BASECONTEXT.getSystemService(Context.TELEPHONY_SERVICE);
     public static WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+    public static ConnectivityManager connectivityManager = (ConnectivityManager) Variable.BASECONTEXT
+            .getSystemService(Context.CONNECTIVITY_SERVICE);
 
     public static String Mac() {
         String macAddress = "-1";

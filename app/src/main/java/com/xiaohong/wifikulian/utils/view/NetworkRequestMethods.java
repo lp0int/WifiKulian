@@ -2,10 +2,7 @@ package com.xiaohong.wifikulian.utils.view;
 
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.RequestServiceInterface;
-import com.xiaohong.wifikulian.models.GetTabListBean;
 import com.xiaohong.wifikulian.models.QQReadBean;
-import com.xiaohong.wifikulian.utils.NetworkRequestMethods2;
-import com.xiaohong.wifikulian.utils.Util;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;

@@ -25,7 +25,7 @@ import com.xiaohong.wifikulian.Interface.JsCallJavaInterface;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.base.BaseFragment;
 import com.xiaohong.wifikulian.utils.DialogUtils;
-import com.xiaohong.wifikulian.utils.Util;
+import com.xiaohong.wifikulian.utils.Utils;
 
 /**
  * Created by Lpoint on 2017/2/6 19:11.
@@ -83,7 +83,7 @@ public class FragmentWebView extends BaseFragment {
         webSettings.setAppCacheEnabled(false);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setUserAgentString(webView.getSettings().getUserAgentString() + "; Android/wifi_kulian/"
-                + Util.getVersion() + "/" + Util.getVersionCode());
+                + Utils.getVersion() + "/" + Utils.getVersionCode());
         webView.addJavascriptInterface(new JsCallJavaInterface(), "JsCallJavaInterface");
         webView.setWebChromeClient(new MyWebChromeClient());
         webView.setWebViewClient(new WebViewClient() {
@@ -99,7 +99,7 @@ public class FragmentWebView extends BaseFragment {
                         startActivity(intent);
                     } catch (ActivityNotFoundException e) {
                         if (url.startsWith("weixin://")) {
-                            Util.showToastStr(getActivity(), "未安装微信");
+                            Utils.showToastStr(getActivity(), "未安装微信");
                             webView.loadUrl("http://weixin.qq.com");
                             return false;
                         }

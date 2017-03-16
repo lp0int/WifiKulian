@@ -1,6 +1,7 @@
 package com.xiaohong.wifikulian.activity;
 
-import android.app.Activity;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,12 +10,16 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.xiaohong.wifikulian.Constants;
+import com.xiaohong.wifikulian.Interface.NetChangeInterface;
 import com.xiaohong.wifikulian.R;
+import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.base.BaseActivity;
+import com.xiaohong.wifikulian.broadcast.NetBroadcastReceiver;
 import com.xiaohong.wifikulian.fragment.FragmentConn;
 import com.xiaohong.wifikulian.fragment.FragmentFind;
 import com.xiaohong.wifikulian.fragment.FragmentMine;
-import com.xiaohong.wifikulian.utils.Util;
+import com.xiaohong.wifikulian.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -22,19 +27,25 @@ import java.util.ArrayList;
  * Created by Lpoint on 2017/1/26.
  */
 
-public class ActivityHome extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener{
+public class ActivityHome extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener,NetChangeInterface{
     private BottomNavigationBar bottomNavigationBar;
     private ArrayList<Fragment> fragments;
+    private NetBroadcastReceiver mBroadcastReceiver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Util.hideActiconBar(this);
+        Utils.hideActiconBar(this);
         setContentView(R.layout.activity_home);
         initView();
     }
 
     private void initView() {
+        Variable.netChangeInterface = this;
+        if(mBroadcastReceiver == null) {
+            mBroadcastReceiver = new NetBroadcastReceiver();
+            registerReceiver(mBroadcastReceiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
         bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
         bottomNavigationBar
                 .addItem(new BottomNavigationItem(R.mipmap.main_tab_conn, "连接"))
@@ -98,5 +109,10 @@ public class ActivityHome extends BaseActivity implements BottomNavigationBar.On
 
     private void initSelect(){
         onTabSelected(0);
+    }
+
+    @Override
+    public void onNetChange(int networkType) {
+        Utils.showDebugToast(this, networkType + "");
     }
 }

@@ -20,7 +20,7 @@ import com.xiaohong.wifikulian.models.GetVerifyCodeBean;
 import com.xiaohong.wifikulian.models.ResetPasswordBean;
 import com.xiaohong.wifikulian.utils.NetworkRequestMethods1;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
-import com.xiaohong.wifikulian.utils.Util;
+import com.xiaohong.wifikulian.utils.Utils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -50,7 +50,7 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Util.hideActiconBar(this);
+        Utils.hideActiconBar(this);
         setContentView(R.layout.activity_forget_pwd);
         initView();
         initData();
@@ -101,14 +101,14 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.btn_reset_pwd:
                 if (!edtPassword.getText().toString().equals(edtConfirmPassword.getText().toString()))
-                    Util.showToastStr(ActivityForgetPwd.this, Constants.PASSWORD_UNLIKELINESS);
+                    Utils.showToastStr(ActivityForgetPwd.this, Constants.PASSWORD_UNLIKELINESS);
                 else {
                     NetworkRequestMethods1.getInstance().resetPwd(new ProgressSubscriber<ResetPasswordBean>(resetPasswordListener, ActivityForgetPwd.this, "提交中..."), edtUserName.getText().toString(), edtPassword.getText().toString(), edtVerifyCode.getText().toString());
                 }
                 break;
             case R.id.btn_verify_code:
-                if (!Util.isChinaPhoneLegal(edtUserName.getText().toString())) {
-                    Util.showToastStr(ActivityForgetPwd.this, Constants.PHONENUMBER_WRONGFUL);
+                if (!Utils.isChinaPhoneLegal(edtUserName.getText().toString())) {
+                    Utils.showToastStr(ActivityForgetPwd.this, Constants.PHONENUMBER_WRONGFUL);
                     break;
                 }
                 NetworkRequestMethods1.getInstance().getVerifyCode(new ProgressSubscriber<GetVerifyCodeBean>(getVerifyCodeListener, ActivityForgetPwd.this, "正在获取验证码..."), edtUserName.getText().toString());
@@ -148,25 +148,25 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
             @Override
             public void onNext(GetVerifyCodeBean getVerifyCodeBean) {
                 if (getVerifyCodeBean.getRet_code() == 0) {
-                    Util.showToastStr(ActivityForgetPwd.this, "验证码已发送");
+                    Utils.showToastStr(ActivityForgetPwd.this, "验证码已发送");
                     waitSecond = 0;
                     handleTimeIntervalClick();
                 } else
-                    Util.showToastStr(ActivityForgetPwd.this, "验证码获取失败；" + getVerifyCodeBean.getRet_msg());
+                    Utils.showToastStr(ActivityForgetPwd.this, "验证码获取失败；" + getVerifyCodeBean.getRet_msg());
             }
         };
         resetPasswordListener = new SubscriberOnNextListener<ResetPasswordBean>() {
             @Override
             public void onNext(ResetPasswordBean resetPasswordBean) {
                 if (resetPasswordBean.getRet_code() == 0) {
-                    Util.showToastStr(ActivityForgetPwd.this, "密码修改成功");
+                    Utils.showToastStr(ActivityForgetPwd.this, "密码修改成功");
                     Bundle bundle = new Bundle();
                     bundle.putString(Constants.RESET_PWD_USERNAME,edtUserName.getText().toString());
                     bundle.putString(Constants.RESET_PWD_PASSWORD,edtPassword.getText().toString());
                     sendEventModel(Constants.CODE_CHANGE_PWD,bundle);
                     ActivityForgetPwd.this.finish();
                 } else {
-                    Util.showToastStr(ActivityForgetPwd.this, "密码修改失败：" + resetPasswordBean.getRet_msg());
+                    Utils.showToastStr(ActivityForgetPwd.this, "密码修改失败：" + resetPasswordBean.getRet_msg());
                 }
             }
         };

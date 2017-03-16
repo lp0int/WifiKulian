@@ -8,13 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.SubscriberOnNextListener;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.adapter.FragmentTestPageAdapter;
 import com.xiaohong.wifikulian.base.BaseFragment;
+import com.xiaohong.wifikulian.models.AdOrdersBean;
 import com.xiaohong.wifikulian.models.GetTabListBean;
 import com.xiaohong.wifikulian.utils.NetworkRequestMethods2;
+import com.xiaohong.wifikulian.utils.NetworkRequestMethods3;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
 
 /**
@@ -22,7 +25,7 @@ import com.xiaohong.wifikulian.utils.ProgressSubscriber;
  */
 
 public class FragmentFind extends BaseFragment {
-    private SubscriberOnNextListener<GetTabListBean> getTabListListener;
+    private SubscriberOnNextListener<AdOrdersBean> getTabListListener;
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
@@ -48,17 +51,18 @@ public class FragmentFind extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initRequestListener();
-        NetworkRequestMethods2.getInstance().getTabList(new ProgressSubscriber<GetTabListBean>(getTabListListener, getActivity(), "数据请求中，请稍等..."), Variable.userPhone);
+        NetworkRequestMethods3.getInstance().getTabList(new ProgressSubscriber<AdOrdersBean>(getTabListListener, getActivity(), "数据请求中，请稍等..."),
+                Constants.AD_TYPE_GET_FIND_TAB_LIST, Constants.AD_ADVERTISING_GET_FIND_TAB_LIST);
     }
 
     private void initRequestListener() {
-        getTabListListener = new SubscriberOnNextListener<GetTabListBean>() {
+        getTabListListener = new SubscriberOnNextListener<AdOrdersBean>() {
             @Override
-            public void onNext(GetTabListBean bean) {
+            public void onNext(AdOrdersBean bean) {
                 Variable.tabListBean = bean;
                 FragmentTestPageAdapter mFragmentPagerAdapter = new FragmentTestPageAdapter(FragmentFind.this.getActivity().getSupportFragmentManager(), FragmentFind.this.getActivity());
                 mViewPager.setAdapter(mFragmentPagerAdapter);
-                if (Variable.tabListBean.getContent().size() <= 3)
+                if (Variable.tabListBean.getAdOrder().size() <= 3)
                     mTabLayout.setTabMode(TabLayout.MODE_FIXED);
                 else
                     mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);

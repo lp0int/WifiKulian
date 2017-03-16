@@ -22,7 +22,7 @@ import com.xiaohong.wifikulian.Interface.JsCallJavaInterface;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.base.BaseActivity;
 import com.xiaohong.wifikulian.utils.DialogUtils;
-import com.xiaohong.wifikulian.utils.Util;
+import com.xiaohong.wifikulian.utils.Utils;
 
 /**
  * Created by Lpoint on 2017/2/9 14:43.
@@ -63,7 +63,7 @@ public class ActivityWevView extends BaseActivity {
         webSettings.setAppCacheEnabled(false);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setUserAgentString(webView.getSettings().getUserAgentString() + "; Android/wifi_kulian/"
-                + Util.getVersion() + "/" + Util.getVersionCode());
+                + Utils.getVersion() + "/" + Utils.getVersionCode());
         webView.addJavascriptInterface(new JsCallJavaInterface(), "JsCallJavaInterface");
         webView.setWebChromeClient(new MyWebChromeClient());
         webView.setWebViewClient(new WebViewClient() {
@@ -79,7 +79,7 @@ public class ActivityWevView extends BaseActivity {
                         startActivity(intent);
                     } catch (ActivityNotFoundException e) {
                         if (url.startsWith("weixin://")) {
-                            Util.showToastStr(ActivityWevView.this, "未安装微信");
+                            Utils.showToastStr(ActivityWevView.this, "未安装微信");
                             webView.loadUrl("http://weixin.qq.com");
                             return false;
                         }

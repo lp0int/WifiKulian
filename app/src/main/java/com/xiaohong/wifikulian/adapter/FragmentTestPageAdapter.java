@@ -22,16 +22,16 @@ public class FragmentTestPageAdapter extends FragmentPagerAdapter {
     public FragmentTestPageAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
-        titles = new String[Variable.tabListBean.getContent().size()];
-        COUNT = Variable.tabListBean.getContent().size();
+        titles = new String[Variable.tabListBean.getAdOrder().size()];
+        COUNT = Variable.tabListBean.getAdOrder().size();
         initTitles();
     }
 
     @Override
     public Fragment getItem(int position) {
-        if(Variable.tabListBean.getContent().get(position).getLink().startsWith("http"))
-            return FragmentWebView.getInstance(Variable.tabListBean.getContent().get(position).getLink());
-        if(Variable.tabListBean.getContent().get(position).getLink().startsWith("Native"))
+        if(Variable.tabListBean.getAdOrder().get(position).getUrl().startsWith("http"))
+            return FragmentWebView.getInstance(Variable.tabListBean.getAdOrder().get(position).getUrl());
+        if(Variable.tabListBean.getAdOrder().get(position).getUrl().startsWith("Native"))
             return new FragmentFindRecommendListView();
         return FragmentFindPageTest.newInstance(position + 1);
     }
@@ -47,8 +47,8 @@ public class FragmentTestPageAdapter extends FragmentPagerAdapter {
     }
 
     private void initTitles() {
-        for (int i = 0 ; i < Variable.tabListBean.getContent().size() ; i++){
-            titles[i] = Variable.tabListBean.getContent().get(i).getTabName();
+        for (int i = 0 ; i < Variable.tabListBean.getAdOrder().size() ; i++){
+            titles[i] = Variable.tabListBean.getAdOrder().get(i).getName();
         }
     }
 }

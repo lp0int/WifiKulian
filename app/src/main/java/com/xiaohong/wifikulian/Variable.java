@@ -3,6 +3,7 @@ package com.xiaohong.wifikulian;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.xiaohong.wifikulian.Interface.NetChangeInterface;
 import com.xiaohong.wifikulian.models.AdControlBean;
 import com.xiaohong.wifikulian.models.AdOrdersBean;
 import com.xiaohong.wifikulian.models.GetTabListBean;
@@ -30,8 +31,9 @@ public class Variable {
     /**
      * APP内需要展示的信息
      */
-    public static GetTabListBean tabListBean;
+    public static AdOrdersBean tabListBean;
     public static RecommendListBean recommendListBean;
     public static AdOrdersBean galleryFunctionList;
     public static AdControlBean adControlBean;
+    public static NetChangeInterface netChangeInterface;
 }

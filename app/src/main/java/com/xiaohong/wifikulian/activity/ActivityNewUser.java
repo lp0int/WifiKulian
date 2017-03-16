@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.base.BaseActivity;
-import com.xiaohong.wifikulian.utils.Util;
+import com.xiaohong.wifikulian.utils.Utils;
 
 /**
  * Created by Lpoint on 2017/1/20 13:29.
@@ -22,7 +22,7 @@ public class ActivityNewUser extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Util.hideActiconBar(this);
+        Utils.hideActiconBar(this);
         setContentView(R.layout.activity_new_user);
         initView();
     }

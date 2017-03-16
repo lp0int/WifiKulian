@@ -1,7 +1,5 @@
 package com.xiaohong.wifikulian.utils;
 
-import com.xiaohong.wifikulian.ApplicationInfo;
-import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.RequestServiceInterface;
 import com.xiaohong.wifikulian.models.GetVerifyCodeBean;
 import com.xiaohong.wifikulian.models.LoginBean;
@@ -85,7 +83,7 @@ public class NetworkRequestMethods1 {
     }
 
     public void resetPwd(Subscriber<ResetPasswordBean> subscriber, String userName, String newPwd, String verifyCode){
-        String encrypt_str = EncodeParameter.getResetPwdParameter(userName, Util.getMD5(newPwd),verifyCode);
+        String encrypt_str = EncodeParameter.getResetPwdParameter(userName, Utils.getMD5(newPwd),verifyCode);
         mRequestServiceInterface.resetPwd(encrypt_str)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

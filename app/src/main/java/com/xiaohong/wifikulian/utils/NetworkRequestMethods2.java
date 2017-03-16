@@ -58,7 +58,7 @@ public class NetworkRequestMethods2 {
     }
 
     public void getTabList(Subscriber<GetTabListBean> subscriber, String userPhone) {
-        mRequestServiceInterface.getTabList("List", userPhone, Constants.PLATFORM, Util.getVersionCode() + "")
+        mRequestServiceInterface.getTabList("List", userPhone, Constants.PLATFORM, Utils.getVersionCode() + "")
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

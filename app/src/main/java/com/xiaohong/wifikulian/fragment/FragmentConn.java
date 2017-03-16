@@ -1,6 +1,9 @@
 package com.xiaohong.wifikulian.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -13,11 +16,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.AppBarStateChangeListener;
+import com.xiaohong.wifikulian.Interface.NetChangeInterface;
 import com.xiaohong.wifikulian.Interface.RecommendItemClickListener;
 import com.xiaohong.wifikulian.Interface.SubscriberOnNextListener;
 import com.xiaohong.wifikulian.R;
@@ -27,15 +30,15 @@ import com.xiaohong.wifikulian.adapter.GalleryFunctionAdapter;
 import com.xiaohong.wifikulian.adapter.QQReadAdapter;
 import com.xiaohong.wifikulian.adapter.RecommendListFragmentConnAdapter;
 import com.xiaohong.wifikulian.base.BaseFragment;
+import com.xiaohong.wifikulian.broadcast.NetBroadcastReceiver;
 import com.xiaohong.wifikulian.models.AdControlBean;
 import com.xiaohong.wifikulian.models.AdOrdersBean;
 import com.xiaohong.wifikulian.models.QQReadBean;
 import com.xiaohong.wifikulian.models.RecommendListBean;
-import com.xiaohong.wifikulian.utils.EncodeParameter;
 import com.xiaohong.wifikulian.utils.NetworkRequestMethods3;
 import com.xiaohong.wifikulian.utils.PhoneInfo;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
-import com.xiaohong.wifikulian.utils.Util;
+import com.xiaohong.wifikulian.utils.Utils;
 import com.xiaohong.wifikulian.utils.view.NetworkRequestMethods;
 
 /**
@@ -112,7 +115,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
         txtSurplusCoin = (TextView) view.findViewById(R.id.txt_surplus_coin);
         txtSurplusCoin.setText(getContext().getResources().getString(R.string.surplus_coin) + "" + Variable.loginBean.getCoin_num());
         txtSurplusTime = (TextView) view.findViewById(R.id.txt_surplus_time);
-        txtSurplusTime.setText(getContext().getResources().getString(R.string.surplus_time) + Util.formatSurplusTime(Variable.loginBean.getRemain_time()));
+        txtSurplusTime.setText(getContext().getResources().getString(R.string.surplus_time) + Utils.formatSurplusTime(Variable.loginBean.getRemain_time()));
         galleryFunction = (RecyclerView) view.findViewById(R.id.gallery_function);
         recommendTask = (RecyclerView) view.findViewById(R.id.list_recommend_task);
         qqReadList = (RecyclerView) view.findViewById(R.id.list_qq_read);
