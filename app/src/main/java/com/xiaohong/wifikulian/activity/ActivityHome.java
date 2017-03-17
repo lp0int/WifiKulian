@@ -113,8 +113,7 @@ public class ActivityHome extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void onNetChange(int networkType) {
-        Utils.showDebugToast(this, networkType + "");
-        Bundle bundle = new Bundle();
+        Bundle bundle = new Bundle();;
         bundle.putInt(Constants.WIFI_STATUS_CODE, networkType);
         sendEventModel(Constants.CODE_CHANGE_NETWORK_STATUS, bundle);
     }

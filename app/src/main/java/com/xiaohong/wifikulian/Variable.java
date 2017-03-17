@@ -36,4 +36,5 @@ public class Variable {
     public static AdOrdersBean galleryFunctionList;
     public static AdControlBean adControlBean;
     public static NetChangeInterface netChangeInterface;
+    public static boolean havePermissions = false;
 }

@@ -19,6 +19,7 @@ public class Constants {
     public static final String QQREAD_BASE_IRL = "http://ubook.qq.com/8/intro.html?bid=";
     public static final String WIFI_STATUS_CODE = "wifiStatusCode";
     public static final String CELLULAR_NETWORK = "蜂窝网络";
+    public static final int GET_PERMISSIONS_REQUEST_CODE = 0x400;
     /**
      * 广播
      */

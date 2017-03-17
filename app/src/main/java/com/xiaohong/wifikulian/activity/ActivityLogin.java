@@ -3,6 +3,7 @@ package com.xiaohong.wifikulian.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Html;
@@ -21,6 +22,7 @@ import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.base.BaseActivity;
 import com.xiaohong.wifikulian.models.LoginBean;
 import com.xiaohong.wifikulian.utils.NetworkRequestMethods1;
+import com.xiaohong.wifikulian.utils.PermissionsUtils;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
 import com.xiaohong.wifikulian.utils.Utils;
 
@@ -40,6 +42,7 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         Utils.hideActiconBar(this);
         setContentView(R.layout.activity_login);
+        PermissionsUtils.getPermissions(this);
         initView();
     }
 
@@ -130,7 +133,7 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void onAppBusEvent(int code, Bundle data) {
-        switch (code){
+        switch (code) {
             case Constants.CODE_CHANGE_PWD:
                 edtUserName.setText(data.getString(Constants.RESET_PWD_USERNAME));
                 edtPwd.setText(data.getString(Constants.RESET_PWD_PASSWORD));
@@ -138,10 +141,25 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    private void doLogin(){
+    private void doLogin() {
+        if (!Variable.havePermissions) {
+            PermissionsUtils.getPermissions(this);
+            return;
+        }
         String strUserName = edtUserName.getText().toString();
         String strPwd = edtPwd.getText().toString();
         Variable.userPhone = strUserName;
-        NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(LoginListener, ActivityLogin.this, "努力登陆中..."), strUserName, strPwd,this);
+        NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(LoginListener, ActivityLogin.this, "努力登陆中..."), strUserName, strPwd, this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case Constants.GET_PERMISSIONS_REQUEST_CODE:
+                Variable.havePermissions = true;
+                break;
+            default:
+                break;
+        }
     }
 }
