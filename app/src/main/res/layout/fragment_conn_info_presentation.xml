@@ -34,8 +34,21 @@
         android:id="@+id/rel_banner"
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:layout_below="@+id/rel_scroll_msg"
-        android:background="@mipmap/banner"></RelativeLayout>
+        android:layout_below="@+id/rel_scroll_msg">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpage_banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <LinearLayout
+            android:id="@+id/points"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="6dp"
+            android:orientation="horizontal" >
+        </LinearLayout>
+    </RelativeLayout>
 
 
     <android.support.v7.widget.CardView

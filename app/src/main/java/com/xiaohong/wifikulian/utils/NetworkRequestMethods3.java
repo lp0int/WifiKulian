@@ -99,4 +99,5 @@ public class NetworkRequestMethods3 {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
 }

@@ -1,36 +1,38 @@
 package com.xiaohong.wifikulian.fragment;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.AppBarStateChangeListener;
-import com.xiaohong.wifikulian.Interface.NetChangeInterface;
 import com.xiaohong.wifikulian.Interface.RecommendItemClickListener;
 import com.xiaohong.wifikulian.Interface.SubscriberOnNextListener;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.activity.ActivityWevView;
+import com.xiaohong.wifikulian.adapter.BannerAdapter;
 import com.xiaohong.wifikulian.adapter.GalleryFunctionAdapter;
 import com.xiaohong.wifikulian.adapter.QQReadAdapter;
 import com.xiaohong.wifikulian.adapter.RecommendListFragmentConnAdapter;
 import com.xiaohong.wifikulian.base.BaseFragment;
-import com.xiaohong.wifikulian.broadcast.NetBroadcastReceiver;
 import com.xiaohong.wifikulian.models.AdControlBean;
 import com.xiaohong.wifikulian.models.AdOrdersBean;
 import com.xiaohong.wifikulian.models.QQReadBean;
@@ -41,6 +43,15 @@ import com.xiaohong.wifikulian.utils.ProgressSubscriber;
 import com.xiaohong.wifikulian.utils.Utils;
 import com.xiaohong.wifikulian.utils.view.NetworkRequestMethods;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by Lpoint on 2017/1/26.
  */
@@ -50,7 +61,8 @@ import com.xiaohong.wifikulian.utils.view.NetworkRequestMethods;
  * 来恢复惯性，但是目前还存在卡顿的问题
  */
 
-public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, RecommendItemClickListener {
+public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, RecommendItemClickListener,
+        ViewPager.OnPageChangeListener, View.OnTouchListener {
     private AppBarLayout mAppBarLayout;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
@@ -59,14 +71,22 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     private TextView txtConnCurrentSsid;
     private TextView txtSurplusCoin, txtSurplusTime;
     private RecyclerView galleryFunction, recommendTask, qqReadList;
-    private SubscriberOnNextListener getGalleryFunctionListListener;
-    private SubscriberOnNextListener getRecommendTaskListListener;
-    private SubscriberOnNextListener getAdControlListener;
-    private SubscriberOnNextListener getQQReadListListener;
+    private SubscriberOnNextListener getBannerListListener, getGalleryFunctionListListener, getRecommendTaskListListener,
+            getAdControlListener, getQQReadListListener;
     private GalleryFunctionAdapter mGalleryFunctionAdapter;
     private RecommendListFragmentConnAdapter mRecommendListFragmentConnAdapter;
     private QQReadAdapter mQQReadAdapter;
-
+    /**
+     * Banner相关
+     */
+    private ViewPager viewpagerBanner;
+    private List<SimpleDraweeView> mList;
+    private LinearLayout linPoints;
+    private BannerAdapter mBannerAdapter;
+    private int pointIndex = 0;
+    private boolean isStop = false;
+    View pointView;
+    LinearLayout.LayoutParams pointParams;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,6 +139,9 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
         galleryFunction = (RecyclerView) view.findViewById(R.id.gallery_function);
         recommendTask = (RecyclerView) view.findViewById(R.id.list_recommend_task);
         qqReadList = (RecyclerView) view.findViewById(R.id.list_qq_read);
+        //初始化Banner相关
+        viewpagerBanner = (ViewPager) view.findViewById(R.id.viewpage_banner);
+        linPoints = (LinearLayout) view.findViewById(R.id.points);
     }
 
     private void initData() {
@@ -141,18 +164,29 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
         qqReadList.setLayoutManager(qqReadLayoutManager);
         qqReadList.setNestedScrollingEnabled(false);
         qqReadList.setAdapter(mQQReadAdapter);
-
+        viewpagerBanner.setOnTouchListener(this);
+        handlerIntervalBanerSwitch();
     }
 
     @Override
     public void onRefresh() {
-        NetworkRequestMethods3.getInstance().getAdOrder(new ProgressSubscriber<AdOrdersBean>(getGalleryFunctionListListener, getActivity(),
-                        Constants.GET_GALLERY_FUNCTION_PROGRESS_MESSAGE),
-                Constants.AD_TYPE_GET_GALLERY_FUNCTION, Constants.AD_ADVERTISING_GET_GALLERY_FUNCTION);
+        NetworkRequestMethods3.getInstance().getAdOrder(new ProgressSubscriber<AdOrdersBean>(getBannerListListener, getActivity(),
+                        Constants.GET_BANNER_PROGRESS_MESSAGE),
+                Constants.AD_TYPE_GET_BANNER, Constants.AD_ADVERTISING_GET_BANNER);
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
     private void initRequestListener() {
+        getBannerListListener = new SubscriberOnNextListener<AdOrdersBean>() {
+            @Override
+            public void onNext(AdOrdersBean bannerList) {
+                Variable.bannerList = bannerList;
+                initBannerAction();
+                NetworkRequestMethods3.getInstance().getAdOrder(new ProgressSubscriber<AdOrdersBean>(getGalleryFunctionListListener, getActivity(),
+                                Constants.GET_GALLERY_FUNCTION_PROGRESS_MESSAGE),
+                        Constants.AD_TYPE_GET_GALLERY_FUNCTION, Constants.AD_ADVERTISING_GET_GALLERY_FUNCTION);
+            }
+        };
         getGalleryFunctionListListener = new SubscriberOnNextListener<AdOrdersBean>() {
             @Override
             public void onNext(AdOrdersBean galleryFunctionList) {
@@ -196,6 +230,47 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
         startActivity(intent);
     }
 
+    private void initBannerAction() {
+        linPoints.removeAllViews();
+        mList = new ArrayList<SimpleDraweeView>();
+        for (int i = 0; i < Variable.bannerList.getAdOrder().size(); i++) {
+            //设置Banner图片
+            SimpleDraweeView simpleDraweeView = new SimpleDraweeView(getActivity());
+            simpleDraweeView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT));
+            simpleDraweeView.setImageURI(Variable.bannerList.getAdOrder().get(i).getPic1());
+            mList.add(simpleDraweeView);
+            //设置point
+            pointView = new View(getActivity());
+            pointParams = new LinearLayout.LayoutParams(Utils.dip2px(getActivity(), 6f), Utils.dip2px(getActivity(), 6f));
+            pointParams.leftMargin = 10;
+            pointView.setBackgroundResource(R.drawable.point_bg);
+            pointView.setLayoutParams(pointParams);
+            pointView.setEnabled(false);
+            linPoints.addView(pointView);
+        }
+        mBannerAdapter = new BannerAdapter(mList);
+        viewpagerBanner.setAdapter(mBannerAdapter);
+
+        viewpagerBanner.setOnPageChangeListener(this);
+        viewpagerBanner.setCurrentItem(0);
+        linPoints.getChildAt(pointIndex).setEnabled(true);
+    }
+
+    private void handlerIntervalBanerSwitch() {
+        Observable bannerObservable = Observable.interval(Constants.BANNER_SWITCH_INTERVAL, TimeUnit.SECONDS);
+        bannerObservable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1() {
+                    @Override
+                    public void call(Object o) {
+                        if (Variable.bannerList != null) {
+                            viewpagerBanner.setCurrentItem((viewpagerBanner.getCurrentItem() + 1) % Variable.bannerList.getAdOrder().size());
+                        }
+                    }
+                });
+    }
+
     @Override
     protected void onAppBusEvent(int code, Bundle data) {
         switch (code) {
@@ -223,5 +298,45 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        int newPosition = position % Variable.bannerList.getAdOrder().size();
+        linPoints.getChildAt(newPosition).setEnabled(true);
+        linPoints.getChildAt(pointIndex).setEnabled(false);
+        pointIndex = newPosition;
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        Log.i("info", state + "");
+    }
+
+    @Override
+    public void onDestroy() {
+        isStop = true;
+        super.onDestroy();
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (v.getId()) {
+            case R.id.viewpage_banner:
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    mSwipeRefreshLayout.setEnabled(true);
+                } else {
+                    mSwipeRefreshLayout.setEnabled(false);
+                }
+                break;
+            default:
+                break;
+        }
+        return false;
     }
 }

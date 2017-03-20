@@ -21,6 +21,7 @@ public class Constants {
     public static final String CELLULAR_NETWORK = "蜂窝网络";
     public static final String CELLULAR_NO_NETWORK = "无网络";
     public static final int GET_PERMISSIONS_REQUEST_CODE = 0x400;
+    public static final int BANNER_SWITCH_INTERVAL = 5;
     /**
      * 广播
      */
@@ -43,6 +44,7 @@ public class Constants {
      * 网络请求提示信息
      */
     public static final String DEFAULT_PROGRESS_MESSAGE = "数据请求中，请稍等";
+    public static final String GET_BANNER_PROGRESS_MESSAGE = "滚动广告更新中";
     public static final String GET_GALLERY_FUNCTION_PROGRESS_MESSAGE = "功能按钮数据更新中";
     public static final String GET_RECOMMEND_TASK_LIST_PROGRESS_MESSAGE = "推荐任务信息更新中";
     public static final String GET_QQ_READ_PROGRESS_MESSAGE = "阅读信息更新中";
@@ -79,6 +81,8 @@ public class Constants {
     public static final int AD_TYPE_GET_RECOMMEND_LIST = 3;
     public static final int AD_TYPE_GET_FIND_TAB_LIST = 8;
     public static final int AD_ADVERTISING_GET_FIND_TAB_LIST = 17;
+    public static final int AD_TYPE_GET_BANNER = 11;
+    public static final int AD_ADVERTISING_GET_BANNER = 19;
     /**
      * 相关控制字段
      */
