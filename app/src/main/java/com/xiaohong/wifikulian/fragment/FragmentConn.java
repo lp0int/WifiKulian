@@ -201,7 +201,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
         switch (code) {
             case Constants.CODE_CHANGE_NETWORK_STATUS:
                 int networkType = data.getInt(Constants.WIFI_STATUS_CODE);
-                switch (networkType){
+                switch (networkType) {
                     case Constants.NETWORK_TYPE_OTHER_WIFI:
                         txtConnCurrentSsid.setText(PhoneInfo.SSID());
                         break;
@@ -213,9 +213,12 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                     case Constants.NETWORK_TYPE_HONGWIFI_VERIFIED:
                         txtConnCurrentSsid.setText(PhoneInfo.SSID());
                         break;
+                    case Constants.NETWORK_TYPE_NO_NETWORK:
+                        txtConnCurrentSsid.setText(Constants.CELLULAR_NO_NETWORK);
+                        break;
                     default:
                         break;
-                };
+                }
                 break;
             default:
                 break;
