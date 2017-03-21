@@ -23,6 +23,13 @@ public class Constants {
     public static final int GET_PERMISSIONS_REQUEST_CODE = 0x400;
     public static final int BANNER_SWITCH_INTERVAL = 5;
     /**
+     * SharedPreferences相关数据
+     */
+    public static final String LOGIN_STATUS = "loginStatus";
+    public static final String AUTO_LOGIN ="autoLogin";
+    public static final String USER_NAME = "userName";
+    public static final String PASSWORD = "password";
+    /**
      * 广播
      */
     public static final String BROADCAST_RECEIVER_ACTION = "com.xiaohong.wifikulian.broadcast.NetBroadcastReceiver";

@@ -25,6 +25,7 @@ import com.xiaohong.wifikulian.models.LoginBean;
 import com.xiaohong.wifikulian.utils.NetworkRequestMethods1;
 import com.xiaohong.wifikulian.utils.PermissionsUtils;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
+import com.xiaohong.wifikulian.utils.SharedPreferencesUtils;
 import com.xiaohong.wifikulian.utils.Utils;
 
 public class ActivityLogin extends BaseActivity implements View.OnClickListener {
@@ -34,6 +35,8 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
     private TextView txtNewUser;
     private TextView txtForgetPwd;
     private Button btnLogin;
+    private boolean autoLogin;
+    private boolean createView = false;
 
     private SubscriberOnNextListener LoginListener;
 
@@ -41,9 +44,21 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PermissionsUtils.getPermissions(this);
+        checkAutoLogin();
+        if(autoLogin){
+            doLogin();
+            return;
+        }
+        createView();
+    }
+
+    private void createView(){
+        if(createView)
+            return;;
+        createView = true;
         Utils.hideActiconBar(this);
         setContentView(R.layout.activity_login);
-        PermissionsUtils.getPermissions(this);
         initView();
     }
 
@@ -101,13 +116,20 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
             public void onNext(LoginBean loginBean) {
                 if (loginBean.getRet_code() == 0) {
                     Variable.loginBean = loginBean;
+                    if(!autoLogin) {
+                        SharedPreferencesUtils.setBooleanValue(ActivityLogin.this, Constants.LOGIN_STATUS, Constants.AUTO_LOGIN, true);
+                        SharedPreferencesUtils.setStringValue(ActivityLogin.this, Constants.LOGIN_STATUS, Constants.USER_NAME, edtUserName.getText().toString());
+                        SharedPreferencesUtils.setStringValue(ActivityLogin.this, Constants.LOGIN_STATUS, Constants.PASSWORD, edtPwd.getText().toString());
+                    }
                     Toast.makeText(ActivityLogin.this, "登录成功", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
                     intent.setClass(ActivityLogin.this, ActivityHome.class);
                     startActivity(intent);
                     finish();
-                } else
-                    Utils.showToastStr(ActivityLogin.this, "登录失败；" + loginBean.getRet_msg());
+                } else {
+                    Utils.showToastStr(ActivityLogin.this, "登录失败:" + loginBean.getRet_msg());
+                    createView();
+                }
             }
         };
     }
@@ -147,8 +169,17 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
             PermissionsUtils.getPermissions(this);
             return;
         }
-        String strUserName = edtUserName.getText().toString();
-        String strPwd = edtPwd.getText().toString();
+        if (LoginListener == null)
+            initRequestListenter();
+        String strUserName;
+        String strPwd ;
+        if(autoLogin){
+            strUserName = SharedPreferencesUtils.getStringValue(this,Constants.LOGIN_STATUS,Constants.USER_NAME,"null");
+            strPwd = SharedPreferencesUtils.getStringValue(this,Constants.LOGIN_STATUS,Constants.PASSWORD,"null");
+        }else {
+            strUserName = edtUserName.getText().toString();
+            strPwd = edtPwd.getText().toString();
+        }
         Variable.userPhone = strUserName;
         NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(LoginListener, ActivityLogin.this, "努力登陆中..."), strUserName, strPwd, this);
     }
@@ -157,15 +188,19 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case Constants.GET_PERMISSIONS_REQUEST_CODE:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Variable.havePermissions = true;
                     doLogin();
-                }else{
+                } else {
                     PermissionsUtils.getPermissions(this);
                 }
                 break;
             default:
                 break;
         }
+    }
+
+    private void checkAutoLogin() {
+        autoLogin = SharedPreferencesUtils.getBooleanValue(this, Constants.LOGIN_STATUS, Constants.AUTO_LOGIN, false);
     }
 }

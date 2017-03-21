@@ -102,6 +102,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
         initRequestListener();
         initView(view);
         initData();
+        onRefresh();
         return view;
     }
 

@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -67,6 +68,7 @@ public class ActivityWevView extends BaseActivity {
         webView.addJavascriptInterface(new JsCallJavaInterface(), "JsCallJavaInterface");
         webView.setWebChromeClient(new MyWebChromeClient());
         webView.setWebViewClient(new WebViewClient() {
+
             // 重写此方法表明点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 mUrl = url;
@@ -221,4 +223,5 @@ public class ActivityWevView extends BaseActivity {
         if (webView != null)
             webView.loadUrl("javascript:OnResume()");
     }
+
 }
