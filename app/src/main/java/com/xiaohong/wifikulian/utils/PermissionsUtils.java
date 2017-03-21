@@ -21,10 +21,10 @@ public class PermissionsUtils {
             //进入到这里代表没有权限.
             Variable.havePermissions = false;
             if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) mContext, Manifest.permission.READ_PHONE_STATE)) {
+                ActivityCompat.requestPermissions((Activity) mContext, new String[]{Manifest.permission.READ_PHONE_STATE}, Constants.GET_PERMISSIONS_REQUEST_CODE);
+            } else {
                 //已经禁止提示了
                 Utils.showToastStr(mContext, "请前往设置中打开相关权限");
-            } else {
-                ActivityCompat.requestPermissions((Activity) mContext, new String[]{Manifest.permission.READ_PHONE_STATE}, Constants.GET_PERMISSIONS_REQUEST_CODE);
             }
         }else{
             Variable.havePermissions = true;

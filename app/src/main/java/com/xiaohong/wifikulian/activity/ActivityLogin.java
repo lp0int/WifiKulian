@@ -2,6 +2,7 @@ package com.xiaohong.wifikulian.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
@@ -156,7 +157,12 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case Constants.GET_PERMISSIONS_REQUEST_CODE:
-                Variable.havePermissions = true;
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Variable.havePermissions = true;
+                    doLogin();
+                }else{
+                    PermissionsUtils.getPermissions(this);
+                }
                 break;
             default:
                 break;
