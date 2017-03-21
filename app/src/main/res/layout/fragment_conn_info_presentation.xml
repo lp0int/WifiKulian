@@ -19,6 +19,7 @@
             android:background="@mipmap/icon_notice"/>
 
         <com.xiaohong.wifikulian.utils.view.AutoScrollTextView
+            android:id="@+id/txt_scroll_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -26,7 +27,6 @@
             android:layout_toRightOf="@+id/img_icon_notice"
             android:lines="1"
             android:singleLine="true"
-            android:text="WIFI重置时间为每日00:00，活动期间您只需要消耗100金币即可畅享极速宽带体验。"
             android:marqueeRepeatLimit="marquee_forever"
             android:ellipsize="marquee"
             android:textColor="@color/text_color_current_connect"

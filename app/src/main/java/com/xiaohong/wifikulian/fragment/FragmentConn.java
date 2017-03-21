@@ -41,6 +41,7 @@ import com.xiaohong.wifikulian.utils.NetworkRequestMethods3;
 import com.xiaohong.wifikulian.utils.PhoneInfo;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
 import com.xiaohong.wifikulian.utils.Utils;
+import com.xiaohong.wifikulian.utils.view.AutoScrollTextView;
 import com.xiaohong.wifikulian.utils.view.NetworkRequestMethods;
 
 import java.util.ArrayList;
@@ -70,9 +71,10 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     private AppBarStateChangeListener mAppBarStateChangeListener;
     private TextView txtConnCurrentSsid;
     private TextView txtSurplusCoin, txtSurplusTime;
+    private AutoScrollTextView txtScrollMsg;
     private RecyclerView galleryFunction, recommendTask, qqReadList;
     private SubscriberOnNextListener getBannerListListener, getGalleryFunctionListListener, getRecommendTaskListListener,
-            getAdControlListener, getQQReadListListener;
+            getAdControlListener, getQQReadListListener, getScrollMsgListener;
     private GalleryFunctionAdapter mGalleryFunctionAdapter;
     private RecommendListFragmentConnAdapter mRecommendListFragmentConnAdapter;
     private QQReadAdapter mQQReadAdapter;
@@ -84,9 +86,9 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     private LinearLayout linPoints;
     private BannerAdapter mBannerAdapter;
     private int pointIndex = 0;
-    private boolean isStop = false;
-    View pointView;
-    LinearLayout.LayoutParams pointParams;
+    private Observable bannerObservable;
+    private View pointView;
+    private LinearLayout.LayoutParams pointParams;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,6 +121,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                 }
             }
         };
+        txtScrollMsg = (AutoScrollTextView) view.findViewById(R.id.txt_scroll_msg);
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mToolbar.setTitle("");
         ((AppCompatActivity) getContext()).setSupportActionBar(mToolbar);
@@ -170,13 +173,24 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
-        NetworkRequestMethods3.getInstance().getAdOrder(new ProgressSubscriber<AdOrdersBean>(getBannerListListener, getActivity(),
-                        Constants.GET_BANNER_PROGRESS_MESSAGE),
-                Constants.AD_TYPE_GET_BANNER, Constants.AD_ADVERTISING_GET_BANNER);
+        NetworkRequestMethods3.getInstance().getAdOrder(new ProgressSubscriber<AdOrdersBean>(getScrollMsgListener, getActivity(),
+                        Constants.GET_SCROLL_MSG_PROGRESS_MESSAGE),
+                Constants.AD_TYPE_GET_SCROLL_MSG, Constants.AD_ADVERTISING_GET_SCROLL_MSG);
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
     private void initRequestListener() {
+        getScrollMsgListener = new SubscriberOnNextListener<AdOrdersBean>() {
+            @Override
+            public void onNext(AdOrdersBean adOrdersBean) {
+                Variable.scrollMsgList = adOrdersBean;
+                initScrollMsg();
+                NetworkRequestMethods3.getInstance().getAdOrder(new ProgressSubscriber<AdOrdersBean>(getBannerListListener, getActivity(),
+                                Constants.GET_BANNER_PROGRESS_MESSAGE),
+                        Constants.AD_TYPE_GET_BANNER, Constants.AD_ADVERTISING_GET_BANNER);
+            }
+        };
+
         getBannerListListener = new SubscriberOnNextListener<AdOrdersBean>() {
             @Override
             public void onNext(AdOrdersBean bannerList) {
@@ -230,6 +244,16 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
         startActivity(intent);
     }
 
+    private void initScrollMsg() {
+        txtScrollMsg.setText("");
+        for (AdOrdersBean.AdOrderBean adOrderbean :
+                Variable.scrollMsgList.getAdOrder()) {
+            if (Variable.scrollMsgList.getAdOrder().size() != 0) {
+                txtScrollMsg.setText(txtScrollMsg.getText() + adOrderbean.getContent() + "                            ");
+            }
+        }
+    }
+
     private void initBannerAction() {
         linPoints.removeAllViews();
         mList = new ArrayList<SimpleDraweeView>();
@@ -254,11 +278,12 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
 
         viewpagerBanner.setOnPageChangeListener(this);
         viewpagerBanner.setCurrentItem(0);
+        pointIndex = 0;
         linPoints.getChildAt(pointIndex).setEnabled(true);
     }
 
     private void handlerIntervalBanerSwitch() {
-        Observable bannerObservable = Observable.interval(Constants.BANNER_SWITCH_INTERVAL, TimeUnit.SECONDS);
+        bannerObservable = Observable.interval(Constants.BANNER_SWITCH_INTERVAL, TimeUnit.SECONDS);
         bannerObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1() {
@@ -320,8 +345,8 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onDestroy() {
-        isStop = true;
-        super.onDestroy();
+        if (bannerObservable != null)
+            super.onDestroy();
     }
 
     @Override

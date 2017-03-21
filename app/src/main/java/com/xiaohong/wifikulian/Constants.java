@@ -44,6 +44,7 @@ public class Constants {
      * 网络请求提示信息
      */
     public static final String DEFAULT_PROGRESS_MESSAGE = "数据请求中，请稍等";
+    public static final String GET_SCROLL_MSG_PROGRESS_MESSAGE = "滚动消息更新中";
     public static final String GET_BANNER_PROGRESS_MESSAGE = "滚动广告更新中";
     public static final String GET_GALLERY_FUNCTION_PROGRESS_MESSAGE = "功能按钮数据更新中";
     public static final String GET_RECOMMEND_TASK_LIST_PROGRESS_MESSAGE = "推荐任务信息更新中";
@@ -83,6 +84,8 @@ public class Constants {
     public static final int AD_ADVERTISING_GET_FIND_TAB_LIST = 17;
     public static final int AD_TYPE_GET_BANNER = 11;
     public static final int AD_ADVERTISING_GET_BANNER = 19;
+    public static final int AD_TYPE_GET_SCROLL_MSG = 9;
+    public static final int AD_ADVERTISING_GET_SCROLL_MSG = 18;
     /**
      * 相关控制字段
      */
