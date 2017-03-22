@@ -1,10 +1,12 @@
 package com.xiaohong.wifikulian.models;
 
+import java.io.Serializable;
+
 /**
  * Created by Lpoint on 2017/2/3.
  */
 
-public class GetVerifyCodeBean {
+public class GetVerifyCodeBean implements Serializable {
 
     /**
      * ret_code : 0

@@ -35,11 +35,14 @@ import com.xiaohong.wifikulian.adapter.RecommendListFragmentConnAdapter;
 import com.xiaohong.wifikulian.base.BaseFragment;
 import com.xiaohong.wifikulian.models.AdControlBean;
 import com.xiaohong.wifikulian.models.AdOrdersBean;
+import com.xiaohong.wifikulian.models.LoginBean;
 import com.xiaohong.wifikulian.models.QQReadBean;
 import com.xiaohong.wifikulian.models.RecommendListBean;
+import com.xiaohong.wifikulian.utils.NetworkRequestMethods1;
 import com.xiaohong.wifikulian.utils.NetworkRequestMethods3;
 import com.xiaohong.wifikulian.utils.PhoneInfo;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
+import com.xiaohong.wifikulian.utils.SharedPreferencesUtils;
 import com.xiaohong.wifikulian.utils.Utils;
 import com.xiaohong.wifikulian.utils.view.AutoScrollTextView;
 import com.xiaohong.wifikulian.utils.view.NetworkRequestMethods;
@@ -74,7 +77,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     private AutoScrollTextView txtScrollMsg;
     private RecyclerView galleryFunction, recommendTask, qqReadList;
     private SubscriberOnNextListener getBannerListListener, getGalleryFunctionListListener, getRecommendTaskListListener,
-            getAdControlListener, getQQReadListListener, getScrollMsgListener;
+            getAdControlListener, getQQReadListListener, getScrollMsgListener, loginListener;
     private GalleryFunctionAdapter mGalleryFunctionAdapter;
     private RecommendListFragmentConnAdapter mRecommendListFragmentConnAdapter;
     private QQReadAdapter mQQReadAdapter;
@@ -100,6 +103,12 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_conn, container, false);
         initRequestListener();
+        if (Variable.loginBean == null) {
+            if (SharedPreferencesUtils.getBooleanValue(getActivity(), Constants.LOGIN_STATUS, Constants.AUTO_LOGIN, false)) {
+                reLogin();
+            }
+            return view;
+        }
         initView(view);
         initData();
         onRefresh();
@@ -133,13 +142,9 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                 android.R.color.holo_blue_light,
                 android.R.color.holo_green_light,
                 android.R.color.holo_red_light);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
         txtConnCurrentSsid = (TextView) view.findViewById(R.id.txt_conn_current_ssid);
-        txtConnCurrentSsid.setText(PhoneInfo.SSID());
         txtSurplusCoin = (TextView) view.findViewById(R.id.txt_surplus_coin);
-        txtSurplusCoin.setText(getContext().getResources().getString(R.string.surplus_coin) + "" + Variable.loginBean.getCoin_num());
         txtSurplusTime = (TextView) view.findViewById(R.id.txt_surplus_time);
-        txtSurplusTime.setText(getContext().getResources().getString(R.string.surplus_time) + Utils.formatSurplusTime(Variable.loginBean.getRemain_time()));
         galleryFunction = (RecyclerView) view.findViewById(R.id.gallery_function);
         recommendTask = (RecyclerView) view.findViewById(R.id.list_recommend_task);
         qqReadList = (RecyclerView) view.findViewById(R.id.list_qq_read);
@@ -149,6 +154,10 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     private void initData() {
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        txtConnCurrentSsid.setText(PhoneInfo.SSID());
+        txtSurplusCoin.setText(getContext().getResources().getString(R.string.surplus_coin) + "" + Variable.loginBean.getCoin_num());
+        txtSurplusTime.setText(getContext().getResources().getString(R.string.surplus_time) + Utils.formatSurplusTime(Variable.loginBean.getRemain_time()));
         mGalleryFunctionAdapter = new GalleryFunctionAdapter(getContext());
         mRecommendListFragmentConnAdapter = new RecommendListFragmentConnAdapter(getContext());
         mQQReadAdapter = new QQReadAdapter(getActivity());
@@ -181,6 +190,23 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     private void initRequestListener() {
+        loginListener = new SubscriberOnNextListener<LoginBean>() {
+            @Override
+            public void onNext(LoginBean loginBean) {
+                if (loginBean.getRet_code() == 0) {
+                    Variable.loginBean = loginBean;
+                    initData();
+                    onRefresh();
+                } else {
+                    Intent i = getActivity().getPackageManager()
+                            .getLaunchIntentForPackage(getActivity().getPackageName());
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    getActivity().startActivity(i);
+                }
+
+            }
+        };
+
         getScrollMsgListener = new SubscriberOnNextListener<AdOrdersBean>() {
             @Override
             public void onNext(AdOrdersBean adOrdersBean) {
@@ -364,5 +390,12 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                 break;
         }
         return false;
+    }
+
+    private void reLogin() {
+        String strUserName = SharedPreferencesUtils.getStringValue(getActivity(), Constants.LOGIN_STATUS, Constants.USER_NAME, "null");
+        String strPwd = SharedPreferencesUtils.getStringValue(getActivity(), Constants.LOGIN_STATUS, Constants.PASSWORD, "null");
+        Variable.userPhone = strUserName;
+        NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(loginListener, getActivity(), "努力登陆中..."), strUserName, strPwd, getActivity());
     }
 }

@@ -1,10 +1,12 @@
 package com.xiaohong.wifikulian.models;
 
+import java.io.Serializable;
+
 /**
  * Created by Lpoint on 2017/2/4 13:00.
  */
 
-public class ResetPasswordBean {
+public class ResetPasswordBean implements Serializable {
 
     /**
      * coin_num : 44157

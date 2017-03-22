@@ -1,12 +1,13 @@
 package com.xiaohong.wifikulian.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Lpoint on 2017/2/6 14:16.
  */
 
-public class GetTabListBean {
+public class GetTabListBean implements Serializable {
 
     /**
      * StatusCode : 300

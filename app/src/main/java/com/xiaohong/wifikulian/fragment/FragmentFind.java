@@ -62,6 +62,7 @@ public class FragmentFind extends BaseFragment {
                 Variable.tabListBean = bean;
                 FragmentTestPageAdapter mFragmentPagerAdapter = new FragmentTestPageAdapter(FragmentFind.this.getActivity().getSupportFragmentManager(), FragmentFind.this.getActivity());
                 mViewPager.setAdapter(mFragmentPagerAdapter);
+                mViewPager.setOffscreenPageLimit(Variable.tabListBean.getAdOrder().size());
                 if (Variable.tabListBean.getAdOrder().size() <= 3)
                     mTabLayout.setTabMode(TabLayout.MODE_FIXED);
                 else

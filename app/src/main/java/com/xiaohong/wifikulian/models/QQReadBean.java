@@ -1,12 +1,13 @@
 package com.xiaohong.wifikulian.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Lpoint on 2017/3/13 16:25.
  */
 
-public class QQReadBean {
+public class QQReadBean implements Serializable {
 
     private boolean isLogin;
     private int stGuest;

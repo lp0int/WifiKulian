@@ -1,12 +1,13 @@
 package com.xiaohong.wifikulian.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Lpoint on 2017/3/13 11:10.
  */
 
-public class AdOrdersBean {
+public class AdOrdersBean implements Serializable {
 
     /**
      * AdOrder : [{"name":"滚动消息-Android","id":54,"pic1":"http://cms.jinkechen.com:8080/","pic2":"http://cms.jinkechen.com:8080/","pic3":"http://cms.jinkechen.com:8080/","url":"","file":null,"exposure_url":"http://www.mobdsp.com/cb/v?k=54&m1=[M_MAC]&m2=[M_IDFA]&m3=[M_IMEI]&phone=[PHONE]&o=","click_url":null,"h5_zip":"http://cms.jinkechen.com:8080/","is_title":1,"h5_zip_md5":null,"content":"签到有惊喜","apk_md5":null,"app_id":0}]

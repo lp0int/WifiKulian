@@ -1,12 +1,13 @@
 package com.xiaohong.wifikulian.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Lpoint on 2017/3/13 14:51.
  */
 
-public class AdControlBean {
+public class AdControlBean implements Serializable {
 
     /**
      * Control : [{"class_name":"cycleList","enable":1,"show_time":"600"},{"class_name":"AppList","enable":1,"show_time":"3"}]

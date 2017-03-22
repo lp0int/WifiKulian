@@ -3,6 +3,7 @@ package com.xiaohong.wifikulian.activity;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,6 +20,7 @@ import com.xiaohong.wifikulian.broadcast.NetBroadcastReceiver;
 import com.xiaohong.wifikulian.fragment.FragmentConn;
 import com.xiaohong.wifikulian.fragment.FragmentFind;
 import com.xiaohong.wifikulian.fragment.FragmentMine;
+import com.xiaohong.wifikulian.models.LoginBean;
 import com.xiaohong.wifikulian.utils.Utils;
 
 import java.util.ArrayList;

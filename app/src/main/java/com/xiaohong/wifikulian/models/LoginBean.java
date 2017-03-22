@@ -1,10 +1,12 @@
 package com.xiaohong.wifikulian.models;
 
+import java.io.Serializable;
+
 /**
  * Created by Lpoint on 2017/1/20 14:18.
  */
 
-public class LoginBean {
+public class LoginBean implements Serializable {
 
     /**
      * account : 100
