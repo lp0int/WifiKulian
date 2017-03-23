@@ -5,10 +5,16 @@ import android.os.Looper;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 
+import com.xiaohong.wifikulian.ApplicationInfo;
+import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Variable;
+import com.xiaohong.wifikulian.models.appProcess.AndroidAppProcess;
+import com.xiaohong.wifikulian.models.appProcess.ProcessManager;
 import com.xiaohong.wifikulian.utils.DialogUtils;
 import com.xiaohong.wifikulian.utils.PhoneInfo;
 import com.xiaohong.wifikulian.utils.Utils;
+
+import java.util.List;
 
 public class JsCallJavaInterface {
 
@@ -46,5 +52,36 @@ public class JsCallJavaInterface {
     public String GetVersionName() {
         return Utils.getVersion();
     }
+
+    @JavascriptInterface
+    public String GetVersionCode(){
+        return Utils.getVersionCode() + "";
+    }
+
+    @JavascriptInterface
+    public String GetMac(){
+        return PhoneInfo.Mac();
+    }
+
+    @JavascriptInterface
+    public String GetPlatform(){
+        return Constants.PLATFORM;
+    }
+
+    @JavascriptInterface
+    public String GetChannel(){
+        return ApplicationInfo.channel;
+    }
+
+    @JavascriptInterface
+    public String GetRunningApplication() {
+        String str = "";
+        List<AndroidAppProcess> tasks = ProcessManager.getRunningAppProcesses();
+        for (AndroidAppProcess androidAppProcess : tasks) {
+            str += androidAppProcess.name + "</br>";
+        }
+        return str;
+    }
+
 
 }
