@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.xiaohong.wifikulian.Constants;
+import com.xiaohong.wifikulian.Variable;
 
 /**
  * Created by Lpoint on 2017/3/16 14:28.
@@ -16,8 +17,11 @@ public class NetUtils {
                 .getActiveNetworkInfo();
         if (activeNetworkInfo != null && activeNetworkInfo.isConnected()) {
             if (activeNetworkInfo.getType() == (ConnectivityManager.TYPE_WIFI)) {
-                if (PhoneInfo.SSID().startsWith("hongWifi"))
-                    return Constants.NETWORK_TYPE_HONGWIFI_VERIFIED;
+                if (PhoneInfo.SSID().startsWith("hongWifi")) {
+                    if (Utils.pingBaidu(Variable.BASECONTEXT))
+                        return Constants.NETWORK_TYPE_HONGWIFI_VERIFIED;
+                    return Constants.NETWORK_TYPE_HONGWIFI_UNVERIFY;
+                }
                 return Constants.NETWORK_TYPE_OTHER_WIFI;
             } else if (activeNetworkInfo.getType() == (ConnectivityManager.TYPE_MOBILE)) {
                 return Constants.NETWORK_TYPE_CELLULAR;

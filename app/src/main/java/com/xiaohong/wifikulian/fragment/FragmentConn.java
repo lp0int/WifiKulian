@@ -65,14 +65,14 @@ import rx.schedulers.Schedulers;
  */
 
 public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, RecommendItemClickListener,
-        ViewPager.OnPageChangeListener, View.OnTouchListener {
+        ViewPager.OnPageChangeListener, View.OnTouchListener, View.OnClickListener {
     private AppBarLayout mAppBarLayout;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
     private Toolbar mToolbar;
     private AppBarStateChangeListener mAppBarStateChangeListener;
     private TextView txtConnCurrentSsid;
-    private TextView txtSurplusCoin, txtSurplusTime;
+    private TextView txtSurplusCoin, txtSurplusTime, txtRead;
     private AutoScrollTextView txtScrollMsg;
     private RecyclerView galleryFunction, recommendTask, qqReadList;
     private SubscriberOnNextListener getBannerListListener, getGalleryFunctionListListener, getRecommendTaskListListener,
@@ -130,6 +130,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                 }
             }
         };
+        txtRead = (TextView) view.findViewById(R.id.txt_read);
         txtScrollMsg = (AutoScrollTextView) view.findViewById(R.id.txt_scroll_msg);
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mToolbar.setTitle("");
@@ -153,6 +154,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     private void initData() {
+        txtRead.setOnClickListener(this);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         txtConnCurrentSsid.setText(PhoneInfo.SSID());
         txtSurplusCoin.setText(getContext().getResources().getString(R.string.surplus_coin) + "" + Variable.loginBean.getCoin_num());
@@ -336,6 +338,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                         txtConnCurrentSsid.setText(Constants.CELLULAR_NETWORK);
                         break;
                     case Constants.NETWORK_TYPE_HONGWIFI_UNVERIFY:
+                        txtConnCurrentSsid.setText("未认证网络");
                         break;
                     case Constants.NETWORK_TYPE_HONGWIFI_VERIFIED:
                         txtConnCurrentSsid.setText(PhoneInfo.SSID());
@@ -397,5 +400,19 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
         String strPwd = SharedPreferencesUtils.getStringValue(getActivity(), Constants.LOGIN_STATUS, Constants.PASSWORD, "null");
         Variable.userPhone = strUserName;
         NetworkRequestMethods1.getInstance().login(new ProgressSubscriber<LoginBean>(loginListener, getActivity(), "努力登陆中..."), strUserName, strPwd, getActivity());
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.txt_read:
+                Intent intent = new Intent();
+                intent.setClass(getContext(), ActivityWebView.class);
+                intent.putExtra(Constants.EXTERNAL_URL, Constants.QQREAD_URL_WITH_CID);
+                getContext().startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 }

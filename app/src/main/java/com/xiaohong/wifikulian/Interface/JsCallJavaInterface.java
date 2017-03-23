@@ -112,4 +112,9 @@ public class JsCallJavaInterface {
     public int GetH5TaskId(){
         return Variable.clickH5TaskId;
     }
+
+    @JavascriptInterface
+    public void setPakeageName(String packageName){
+        Variable.packageName = packageName;
+    }
 }

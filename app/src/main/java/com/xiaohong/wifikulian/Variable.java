@@ -40,5 +40,6 @@ public class Variable {
     public static NetChangeInterface netChangeInterface;
     public static boolean havePermissions = false;
 
+    public static String packageName = "";
     public static int clickH5TaskId = -1;
 }

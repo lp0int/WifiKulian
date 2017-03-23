@@ -15,6 +15,7 @@ public class Constants {
     public static final String HOUR = "时";
     public static final String MINUTE = "分";
     public static final String QQREAD_URL = "http://ubook.3g.qq.com/";
+    public static final String QQREAD_URL_WITH_CID = "http://ubook.qq.com/?g_f=100028";
     public static final String QQREAD_G_F = "100028";
     public static final String QQREAD_BASE_IRL = "http://ubook.qq.com/8/intro.html?bid=";
     public static final String WIFI_STATUS_CODE = "wifiStatusCode";
