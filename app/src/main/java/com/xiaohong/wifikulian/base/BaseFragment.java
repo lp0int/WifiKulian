@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.squareup.otto.Subscribe;
+import com.trello.rxlifecycle.components.support.RxFragment;
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.models.AppEventModel;
 
@@ -11,7 +12,7 @@ import com.xiaohong.wifikulian.models.AppEventModel;
  * Created by Lpoint on 2017/1/26.
  */
 
-public class BaseFragment extends Fragment {
+public class BaseFragment extends RxFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

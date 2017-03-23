@@ -2,7 +2,6 @@ package com.xiaohong.wifikulian.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -21,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.trello.rxlifecycle.RxLifecycle;
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.AppBarStateChangeListener;
 import com.xiaohong.wifikulian.Interface.RecommendItemClickListener;
