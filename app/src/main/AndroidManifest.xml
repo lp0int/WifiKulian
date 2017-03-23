@@ -37,7 +37,7 @@
             android:name=".activity.ActivityHome"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".activity.ActivityWevView"
+            android:name=".activity.ActivityWebView"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <meta-data

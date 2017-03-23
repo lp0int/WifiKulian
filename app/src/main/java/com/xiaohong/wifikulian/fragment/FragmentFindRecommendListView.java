@@ -16,11 +16,10 @@ import com.xiaohong.wifikulian.Interface.RecommendItemClickListener;
 import com.xiaohong.wifikulian.Interface.SubscriberOnNextListener;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
-import com.xiaohong.wifikulian.activity.ActivityWevView;
+import com.xiaohong.wifikulian.activity.ActivityWebView;
 import com.xiaohong.wifikulian.adapter.RecommendListAdapter;
 import com.xiaohong.wifikulian.base.BaseFragment;
 import com.xiaohong.wifikulian.models.RecommendListBean;
-import com.xiaohong.wifikulian.utils.EncodeParameter;
 import com.xiaohong.wifikulian.utils.NetworkRequestMethods3;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
 
@@ -87,8 +86,9 @@ public class FragmentFindRecommendListView extends BaseFragment implements Swipe
 
     @Override
     public void onItemClick(View view, int position) {
+        Variable.clickH5TaskId = Variable.recommendListBean.getAppList().get(position).getId();
         Intent intent = new Intent();
-        intent.setClass(getActivity(), ActivityWevView.class);
+        intent.setClass(getActivity(), ActivityWebView.class);
         intent.putExtra(Constants.EXTERNAL_URL, Variable.recommendListBean.getAppList().get(position).getUrl());
         startActivity(intent);
     }

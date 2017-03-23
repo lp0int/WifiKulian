@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -29,7 +28,7 @@ import com.xiaohong.wifikulian.utils.Utils;
  * Created by Lpoint on 2017/2/9 14:43.
  */
 
-public class ActivityWevView extends BaseActivity {
+public class ActivityWebView extends BaseActivity {
     private WebView webView;
     private String mUrl = "";
     private ProgressBar webViewProgressBar;
@@ -81,7 +80,7 @@ public class ActivityWevView extends BaseActivity {
                         startActivity(intent);
                     } catch (ActivityNotFoundException e) {
                         if (url.startsWith("weixin://")) {
-                            Utils.showToastStr(ActivityWevView.this, "未安装微信");
+                            Utils.showToastStr(ActivityWebView.this, "未安装微信");
                             webView.loadUrl("http://weixin.qq.com");
                             return false;
                         }
@@ -107,7 +106,7 @@ public class ActivityWevView extends BaseActivity {
 
         @Override
         public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
-            DialogUtils.getDialog(ActivityWevView.this, "提示信息", message, "确认", new DialogInterface.OnClickListener() {
+            DialogUtils.getDialog(ActivityWebView.this, "提示信息", message, "确认", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     result.cancel();
@@ -120,7 +119,7 @@ public class ActivityWevView extends BaseActivity {
         @Override
         public boolean onJsConfirm(WebView arg0, String url, String message, final JsResult result) {
             // TODO Auto-generated method stub
-            DialogUtils.getDialog(ActivityWevView.this, "提示信息", message, "确认", new DialogInterface.OnClickListener() {
+            DialogUtils.getDialog(ActivityWebView.this, "提示信息", message, "确认", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     result.confirm();

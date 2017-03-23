@@ -1,5 +1,6 @@
 package com.xiaohong.wifikulian.Interface;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -54,22 +55,22 @@ public class JsCallJavaInterface {
     }
 
     @JavascriptInterface
-    public String GetVersionCode(){
+    public String GetVersionCode() {
         return Utils.getVersionCode() + "";
     }
 
     @JavascriptInterface
-    public String GetMac(){
+    public String GetMac() {
         return PhoneInfo.Mac();
     }
 
     @JavascriptInterface
-    public String GetPlatform(){
+    public String GetPlatform() {
         return Constants.PLATFORM;
     }
 
     @JavascriptInterface
-    public String GetChannel(){
+    public String GetChannel() {
         return ApplicationInfo.channel;
     }
 
@@ -83,5 +84,32 @@ public class JsCallJavaInterface {
         return str;
     }
 
+    @JavascriptInterface
+    public String GetToken() {
+        return Variable.loginBean.getToken();
+    }
 
+    @JavascriptInterface
+    public String CheckAppIsRunning(String packageName) {
+        List<AndroidAppProcess> tasks = ProcessManager.getRunningAppProcesses();
+        for (AndroidAppProcess androidAppProcess : tasks)
+            if (androidAppProcess.name.contains(packageName))
+                return "true";
+        return "false";
+    }
+
+    @JavascriptInterface
+    public void OpenApplication(String ApplicationName) {
+        try {
+            Intent intent = Variable.BASECONTEXT.getPackageManager().getLaunchIntentForPackage(ApplicationName);
+            Variable.BASECONTEXT.startActivity(intent);
+        } catch (Exception e) {
+            ToastMsg("尚未安装应用");
+        }
+    }
+
+    @JavascriptInterface
+    public int GetH5TaskId(){
+        return Variable.clickH5TaskId;
+    }
 }

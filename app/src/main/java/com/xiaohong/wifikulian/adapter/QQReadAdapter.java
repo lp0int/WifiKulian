@@ -12,7 +12,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
-import com.xiaohong.wifikulian.activity.ActivityWevView;
+import com.xiaohong.wifikulian.activity.ActivityWebView;
 import com.xiaohong.wifikulian.models.QQReadBean;
 
 /**
@@ -56,7 +56,7 @@ public class QQReadAdapter extends RecyclerView.Adapter<QQReadAdapter.QQReadView
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent();
-                    intent.setClass(mContext, ActivityWevView.class);
+                    intent.setClass(mContext, ActivityWebView.class);
                     intent.putExtra(Constants.EXTERNAL_URL, Constants.QQREAD_BASE_IRL + idSource);
                     mContext.startActivity(intent);
                 }

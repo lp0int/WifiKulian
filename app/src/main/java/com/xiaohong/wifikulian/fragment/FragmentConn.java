@@ -20,14 +20,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.trello.rxlifecycle.RxLifecycle;
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.AppBarStateChangeListener;
 import com.xiaohong.wifikulian.Interface.RecommendItemClickListener;
 import com.xiaohong.wifikulian.Interface.SubscriberOnNextListener;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
-import com.xiaohong.wifikulian.activity.ActivityWevView;
+import com.xiaohong.wifikulian.activity.ActivityWebView;
 import com.xiaohong.wifikulian.adapter.BannerAdapter;
 import com.xiaohong.wifikulian.adapter.GalleryFunctionAdapter;
 import com.xiaohong.wifikulian.adapter.QQReadAdapter;
@@ -265,8 +264,9 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onItemClick(View view, int position) {
+        Variable.clickH5TaskId = Variable.recommendListBean.getAppList().get(position).getId();
         Intent intent = new Intent();
-        intent.setClass(getActivity(), ActivityWevView.class);
+        intent.setClass(getActivity(), ActivityWebView.class);
         intent.putExtra(Constants.EXTERNAL_URL, Variable.recommendListBean.getAppList().get(position).getUrl());
         startActivity(intent);
     }

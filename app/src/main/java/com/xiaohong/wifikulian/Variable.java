@@ -39,4 +39,6 @@ public class Variable {
     public static AdOrdersBean scrollMsgList;
     public static NetChangeInterface netChangeInterface;
     public static boolean havePermissions = false;
+
+    public static int clickH5TaskId = -1;
 }
