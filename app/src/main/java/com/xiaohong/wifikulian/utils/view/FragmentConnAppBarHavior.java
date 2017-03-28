@@ -72,7 +72,7 @@ public class FragmentConnAppBarHavior extends CoordinatorLayout.Behavior<View> {
     }
 
     private void setControlWidth(View child, View dependency) {
-        LinearLayout relControl = (LinearLayout) ((AppBarLayout) dependency).findViewById(R.id.rel_control);
+        LinearLayout relControl = (LinearLayout) ((AppBarLayout) dependency).findViewById(R.id.lin_control);
         float ratio = Math.abs((float) dependency.getTop()) / Math.abs((float) Utils.dip2px(Variable.BASECONTEXT, DEPENDENCY_Y_END_LOCATION_DP));
         CoordinatorLayout.MarginLayoutParams layoutParams = (CoordinatorLayout.MarginLayoutParams) relControl.getLayoutParams();
         layoutParams.leftMargin = (int) (relControlWidthOffset * ratio);

@@ -36,7 +36,7 @@
                     fresco:placeholderImage="@mipmap/link_success"/>
 
                 <include
-                    android:id="@+id/rel_control"
+                    android:id="@+id/lin_control"
                     layout="@layout/fragment_conn_show_coin"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
@@ -79,7 +79,7 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <include
-                android:id="@+id/rel_control"
+                android:id="@+id/lin_control"
                 layout="@layout/fragment_conn_info_presentation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -14,6 +14,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
+import com.xiaohong.wifikulian.activity.ActivityMessage;
 import com.xiaohong.wifikulian.activity.ActivityWebView;
 import com.xiaohong.wifikulian.base.BaseFragment;
 import com.xiaohong.wifikulian.utils.Utils;
@@ -28,7 +29,7 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
     private TextView txtVersion;
     private TextView txtCoin;
     private LinearLayout linControl;
-    private RelativeLayout relFrequentlyAskedQuestions;
+    private RelativeLayout relFrequentlyAskedQuestions, relGetCoin, relMessageCenter;
 
     @Nullable
     @Override
@@ -43,9 +44,11 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
         imgProtrait = (SimpleDraweeView) view.findViewById(R.id.img_portrait);
         txtNickname = (TextView) view.findViewById(R.id.txt_nickname);
         txtVersion = (TextView) view.findViewById(R.id.txt_version);
-        linControl = (LinearLayout) view.findViewById(R.id.rel_control);
+        linControl = (LinearLayout) view.findViewById(R.id.lin_control);
         txtCoin = (TextView) linControl.findViewById(R.id.txt_coin);
+        relGetCoin = (RelativeLayout) linControl.findViewById(R.id.rel_get_coin);
         relFrequentlyAskedQuestions = (RelativeLayout) view.findViewById(R.id.rel_frequently_asked_questions);
+        relMessageCenter = (RelativeLayout) view.findViewById(R.id.rel_message_center);
     }
 
     private void initData() {
@@ -54,15 +57,24 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
         txtVersion.setText("WIFI酷连 V" + Utils.getVersion() + "build" + Utils.getVersionCode());
         txtCoin.setText(Variable.loginBean.getCoin_num() + "");
         relFrequentlyAskedQuestions.setOnClickListener(this);
+        relGetCoin.setOnClickListener(this);
+        relMessageCenter.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
+        Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.rel_frequently_asked_questions:
-                Intent intent = new Intent();
                 intent.setClass(getActivity(), ActivityWebView.class);
                 intent.putExtra(Constants.EXTERNAL_URL, Constants.FAQ_URL);
+                startActivity(intent);
+                break;
+            case R.id.rel_get_coin:
+                sendEventModel(Constants.CODE_JUMP_TO_RECOMMEND_TASK);
+                break;
+            case R.id.rel_message_center:
+                intent.setClass(getActivity(), ActivityMessage.class);
                 startActivity(intent);
                 break;
             default:
