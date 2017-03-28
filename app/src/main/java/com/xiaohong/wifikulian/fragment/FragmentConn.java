@@ -20,6 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.trello.rxlifecycle.android.ActivityEvent;
+import com.trello.rxlifecycle.android.FragmentEvent;
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.AppBarStateChangeListener;
 import com.xiaohong.wifikulian.Interface.RecommendItemClickListener;
@@ -179,7 +181,6 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
         qqReadList.setNestedScrollingEnabled(false);
         qqReadList.setAdapter(mQQReadAdapter);
         viewpagerBanner.setOnTouchListener(this);
-        handlerIntervalBanerSwitch();
     }
 
     @Override
@@ -203,7 +204,11 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                             .getLaunchIntentForPackage(getActivity().getPackageName());
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     getActivity().startActivity(i);
+                    getActivity().finish();
                 }
+            }
+            @Override
+            public void onError(Throwable e) {
 
             }
         };
@@ -217,6 +222,10 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                                 Constants.GET_BANNER_PROGRESS_MESSAGE),
                         Constants.AD_TYPE_GET_BANNER, Constants.AD_ADVERTISING_GET_BANNER);
             }
+            @Override
+            public void onError(Throwable e) {
+
+            }
         };
 
         getBannerListListener = new SubscriberOnNextListener<AdOrdersBean>() {
@@ -228,6 +237,10 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                                 Constants.GET_GALLERY_FUNCTION_PROGRESS_MESSAGE),
                         Constants.AD_TYPE_GET_GALLERY_FUNCTION, Constants.AD_ADVERTISING_GET_GALLERY_FUNCTION);
             }
+            @Override
+            public void onError(Throwable e) {
+
+            }
         };
         getGalleryFunctionListListener = new SubscriberOnNextListener<AdOrdersBean>() {
             @Override
@@ -237,6 +250,10 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                 NetworkRequestMethods3.getInstance().getRecommendList(new ProgressSubscriber<RecommendListBean>(getRecommendTaskListListener, getActivity(),
                         Constants.GET_RECOMMEND_TASK_LIST_PROGRESS_MESSAGE));
             }
+            @Override
+            public void onError(Throwable e) {
+
+            }
         };
         getRecommendTaskListListener = new SubscriberOnNextListener<RecommendListBean>() {
             @Override
@@ -244,6 +261,10 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                 Variable.recommendListBean = recommendListBean;
                 NetworkRequestMethods3.getInstance().getAdControl(new ProgressSubscriber<AdControlBean>(getAdControlListener, getActivity(),
                         Constants.GET_RECOMMEND_TASK_LIST_PROGRESS_MESSAGE));
+            }
+            @Override
+            public void onError(Throwable e) {
+
             }
         };
         getAdControlListener = new SubscriberOnNextListener<AdControlBean>() {
@@ -254,12 +275,20 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                 NetworkRequestMethods.getInstance().getQQRead(new ProgressSubscriber<QQReadBean>(getQQReadListListener, getActivity(),
                         Constants.GET_QQ_READ_PROGRESS_MESSAGE));
             }
+            @Override
+            public void onError(Throwable e) {
+
+            }
         };
         getQQReadListListener = new SubscriberOnNextListener<QQReadBean>() {
             @Override
             public void onNext(QQReadBean qqReadBean) {
                 mQQReadAdapter.setData(qqReadBean);
                 mQQReadAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onError(Throwable e) {
+
             }
         };
     }
@@ -312,8 +341,9 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     private void handlerIntervalBanerSwitch() {
-        bannerObservable = Observable.interval(Constants.BANNER_SWITCH_INTERVAL, TimeUnit.SECONDS);
+        bannerObservable = Observable.interval(3, TimeUnit.SECONDS);
         bannerObservable.subscribeOn(Schedulers.io())
+                .compose(this.<Long>bindUntilEvent(FragmentEvent.PAUSE))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1() {
                     @Override
@@ -375,8 +405,18 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onDestroy() {
-        if (bannerObservable != null)
-            super.onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        handlerIntervalBanerSwitch();
     }
 
     @Override
@@ -404,7 +444,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.txt_read:
                 Intent intent = new Intent();
                 intent.setClass(getContext(), ActivityWebView.class);

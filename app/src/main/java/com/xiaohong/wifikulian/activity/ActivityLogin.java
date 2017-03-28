@@ -45,6 +45,7 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PermissionsUtils.getPermissions(this);
+        Utils.hideActiconBar(this);
         checkAutoLogin();
         if(autoLogin){
             doLogin();
@@ -57,7 +58,6 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
         if(createView)
             return;;
         createView = true;
-        Utils.hideActiconBar(this);
         setContentView(R.layout.activity_login);
         initView();
     }
@@ -130,6 +130,11 @@ public class ActivityLogin extends BaseActivity implements View.OnClickListener 
                     Utils.showToastStr(ActivityLogin.this, "登录失败:" + loginBean.getRet_msg());
                     createView();
                 }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                createView();
             }
         };
     }

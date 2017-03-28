@@ -80,6 +80,10 @@ public class FragmentFindRecommendListView extends BaseFragment implements Swipe
                 mSwipeRefreshLayout.setRefreshing(false);
                 mRecommendListAdapter.notifyDataSetChanged();
             }
+            @Override
+            public void onError(Throwable e) {
+
+            }
         };
     }
 

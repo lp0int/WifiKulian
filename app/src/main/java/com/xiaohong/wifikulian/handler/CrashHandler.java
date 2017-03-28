@@ -23,6 +23,9 @@ import android.os.Environment;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.xiaohong.wifikulian.Constants;
+
 /**
  * Created by Lpoint on 2017/3/22 13:50.
  */
@@ -175,7 +178,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             String time = formatter.format(new Date());
             String fileName = "crash-" + time + "-" + timestamp + ".log";
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                String path = "/sdcard/kulianCrash/";
+                String path = Constants.BASE_FILE_PATH + "crash/";
                 File dir = new File(path);
                 if (!dir.exists()) {
                     dir.mkdirs();

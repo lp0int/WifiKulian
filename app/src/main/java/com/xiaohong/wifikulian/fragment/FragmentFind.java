@@ -68,6 +68,10 @@ public class FragmentFind extends BaseFragment {
                 else
                     mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
             }
+            @Override
+            public void onError(Throwable e) {
+
+            }
         };
     }
 }

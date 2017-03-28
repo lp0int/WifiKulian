@@ -1,5 +1,7 @@
 package com.xiaohong.wifikulian;
 
+import android.os.Environment;
+
 import java.util.ArrayList;
 
 /**
@@ -23,6 +25,7 @@ public class Constants {
     public static final String CELLULAR_NO_NETWORK = "无网络";
     public static final int GET_PERMISSIONS_REQUEST_CODE = 0x400;
     public static final int BANNER_SWITCH_INTERVAL = 5;
+    public static String BASE_FILE_PATH = Environment.getExternalStorageDirectory() + "/kulian/";
     /**
      * SharedPreferences相关数据
      */

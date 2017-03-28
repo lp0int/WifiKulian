@@ -154,6 +154,10 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
                 } else
                     Utils.showToastStr(ActivityForgetPwd.this, "验证码获取失败；" + getVerifyCodeBean.getRet_msg());
             }
+            @Override
+            public void onError(Throwable e) {
+
+            }
         };
         resetPasswordListener = new SubscriberOnNextListener<ResetPasswordBean>() {
             @Override
@@ -168,6 +172,10 @@ public class ActivityForgetPwd extends BaseActivity implements View.OnClickListe
                 } else {
                     Utils.showToastStr(ActivityForgetPwd.this, "密码修改失败：" + resetPasswordBean.getRet_msg());
                 }
+            }
+            @Override
+            public void onError(Throwable e) {
+
             }
         };
     }

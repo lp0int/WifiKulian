@@ -59,6 +59,7 @@ public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCanc
     public void onError(Throwable throwable) {
         dismissProgressDialog();
         Utils.showDebugToast(mContext, "error:" + throwable.getMessage());
+        mSubscriberOnNextListener.onError(throwable);
     }
 
     @Override
