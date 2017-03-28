@@ -127,7 +127,7 @@
             android:layout_below="@+id/img_buy_coin"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="12dp"
-            android:text="@string/get_coin"
+            android:text="@string/buy"
             android:textColor="@color/buy_coin_txt_color"
             android:textSize="14sp"/>
     </RelativeLayout>

@@ -56,6 +56,7 @@
     <string name="sign_in_everyday">每日签到</string>
     <string name="coin_hint">000</string>
     <string name="get_coin">赚金币</string>
+    <string name="buy">购买</string>
     <string name="my_invite_code">我的邀请码</string>
     <string name="binding_wechat">绑定微信</string>
     <string name="un_binding_wechat">未绑定微信</string>
