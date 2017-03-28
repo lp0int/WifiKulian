@@ -42,4 +42,5 @@ public class Variable {
 
     public static String packageName = "";
     public static int clickH5TaskId = -1;
+    public static int recommendPageNum = 0;
 }

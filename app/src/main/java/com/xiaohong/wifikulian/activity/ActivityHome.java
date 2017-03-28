@@ -1,5 +1,6 @@
 package com.xiaohong.wifikulian.activity;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -115,8 +117,33 @@ public class ActivityHome extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void onNetChange(int networkType) {
-        Bundle bundle = new Bundle();;
+        Bundle bundle = new Bundle();
         bundle.putInt(Constants.WIFI_STATUS_CODE, networkType);
         sendEventModel(Constants.CODE_CHANGE_NETWORK_STATUS, bundle);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent home = new Intent(Intent.ACTION_MAIN);
+            home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            home.addCategory(Intent.CATEGORY_HOME);
+            startActivity(home);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onAppBusEvent(int code, Bundle data) {
+        super.onAppBusEvent(code, data);
+        switch (code){
+            case Constants.CODE_JUMP_TO_RECOMMEND_TASK:
+                bottomNavigationBar.selectTab(1);
+                break;
+            default:
+                break;
+        }
+
     }
 }

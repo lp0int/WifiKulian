@@ -10,10 +10,19 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="12dp"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center|left"
+            android:background="@null"
+            android:src="@mipmap/left_arrow"/>
+
 
         <TextView
             android:id="@+id/toolbar_title"
@@ -24,5 +33,14 @@
             android:text="@string/login_title"
             android:textColor="@color/colorTitleWhite"
             android:textSize="18sp"/>
+
+        <ImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center|right"
+            android:background="@null"
+            android:src="@mipmap/close_webview"
+            android:visibility="gone"/>
     </android.support.v7.widget.Toolbar>
 </android.support.design.widget.AppBarLayout>

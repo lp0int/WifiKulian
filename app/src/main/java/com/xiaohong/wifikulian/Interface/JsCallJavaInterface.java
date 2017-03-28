@@ -1,5 +1,7 @@
 package com.xiaohong.wifikulian.Interface;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
@@ -18,6 +20,11 @@ import com.xiaohong.wifikulian.utils.Utils;
 import java.util.List;
 
 public class JsCallJavaInterface {
+    private Context mContext;
+
+    public JsCallJavaInterface(Context context) {
+        mContext = context;
+    }
 
     @JavascriptInterface
     public String GetUserPhone() {
@@ -109,12 +116,20 @@ public class JsCallJavaInterface {
     }
 
     @JavascriptInterface
-    public int GetH5TaskId(){
+    public int GetH5TaskId() {
         return Variable.clickH5TaskId;
     }
 
     @JavascriptInterface
-    public void setPakeageName(String packageName){
+    public void setPakeageName(String packageName) {
         Variable.packageName = packageName;
+    }
+
+    @JavascriptInterface
+    public void finishWebActivity() {
+        String contextString = mContext.toString();
+        String activityName = contextString.substring(contextString.lastIndexOf(".") + 1, contextString.indexOf("@"));
+        if ("ActivityWebView".equals(activityName))
+            ((Activity) mContext).finish();
     }
 }

@@ -84,7 +84,7 @@ public class FragmentWebView extends BaseFragment {
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setUserAgentString(webView.getSettings().getUserAgentString() + "; Android/wifi_kulian/"
                 + Utils.getVersion() + "/" + Utils.getVersionCode());
-        webView.addJavascriptInterface(new JsCallJavaInterface(), "JsCallJavaInterface");
+        webView.addJavascriptInterface(new JsCallJavaInterface(getContext()), "JsCallJavaInterface");
         webView.setWebChromeClient(new MyWebChromeClient());
         webView.setWebViewClient(new WebViewClient() {
             // 重写此方法表明点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边

@@ -17,6 +17,6 @@ public class KulianApplication extends Application {
         Variable.BASECONTEXT = getBaseContext();
         Fresco.initialize(this);
         QbSdk.initX5Environment(this, null);
-        CrashHandler.getInstance().init(getApplicationContext());
+//        CrashHandler.getInstance().init(getApplicationContext());
     }
 }

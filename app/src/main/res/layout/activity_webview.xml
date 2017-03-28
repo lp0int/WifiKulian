@@ -4,17 +4,25 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/app_toolbar">
+    </include>
+
     <com.tencent.smtt.sdk.WebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/top_bar"
         />
+
     <ProgressBar
         android:id="@+id/webview_progress"
         style="?android:attr/progressBarStyleHorizontal"
+        android:layout_below="@id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="3dip"
         android:progressDrawable="@drawable/webview_progress_bg"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
 </RelativeLayout>

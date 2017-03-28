@@ -82,6 +82,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     private GalleryFunctionAdapter mGalleryFunctionAdapter;
     private RecommendListFragmentConnAdapter mRecommendListFragmentConnAdapter;
     private QQReadAdapter mQQReadAdapter;
+    private TextView txtRecommendTask;
     /**
      * Banner相关
      */
@@ -132,6 +133,8 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                 }
             }
         };
+        txtRecommendTask = (TextView) view.findViewById(R.id.txt_recommend_task);
+        txtRecommendTask.setOnClickListener(this);
         txtRead = (TextView) view.findViewById(R.id.txt_read);
         txtScrollMsg = (AutoScrollTextView) view.findViewById(R.id.txt_scroll_msg);
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
@@ -341,7 +344,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     private void handlerIntervalBanerSwitch() {
-        bannerObservable = Observable.interval(3, TimeUnit.SECONDS);
+        bannerObservable = Observable.interval(Constants.BANNER_SWITCH_INTERVAL, TimeUnit.SECONDS);
         bannerObservable.subscribeOn(Schedulers.io())
                 .compose(this.<Long>bindUntilEvent(FragmentEvent.PAUSE))
                 .observeOn(AndroidSchedulers.mainThread())
@@ -450,6 +453,9 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                 intent.setClass(getContext(), ActivityWebView.class);
                 intent.putExtra(Constants.EXTERNAL_URL, Constants.QQREAD_URL_WITH_CID);
                 getContext().startActivity(intent);
+                break;
+            case R.id.txt_recommend_task:
+                sendEventModel(Constants.CODE_JUMP_TO_RECOMMEND_TASK);
                 break;
             default:
                 break;

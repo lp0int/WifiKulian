@@ -26,6 +26,7 @@ public class Constants {
     public static final int GET_PERMISSIONS_REQUEST_CODE = 0x400;
     public static final int BANNER_SWITCH_INTERVAL = 5;
     public static String BASE_FILE_PATH = Environment.getExternalStorageDirectory() + "/kulian/";
+    public static String FAQ_URL = "http://120.193.39.115:8010/upload/web/FAQ/wen_zhou/index.html?titleDefinition=haveBackButton|常见问题";
     /**
      * SharedPreferences相关数据
      */
@@ -67,6 +68,7 @@ public class Constants {
     public static final int CODE_REGISTER_OVER = 0x001;
     public static final int CODE_CHANGE_PWD = 0x002;
     public static final int CODE_CHANGE_NETWORK_STATUS = 0x003;
+    public static final int CODE_JUMP_TO_RECOMMEND_TASK = 0x004;
     /**
      * ActivityLogin的相关数据
      */
@@ -101,4 +103,8 @@ public class Constants {
      * 相关控制字段
      */
     public static final String APPLIST = "AppList";
+    /**
+     * 页面跳转相关控制字段
+     */
+    public static final String JUMP_TO_RANKTABACTIVITY = "rankTabActivity:";
 }

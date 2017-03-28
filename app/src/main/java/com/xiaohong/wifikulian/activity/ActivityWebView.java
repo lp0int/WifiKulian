@@ -8,8 +8,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.tencent.smtt.export.external.interfaces.JsResult;
 import com.tencent.smtt.sdk.ValueCallback;
@@ -28,24 +32,58 @@ import com.xiaohong.wifikulian.utils.Utils;
  * Created by Lpoint on 2017/2/9 14:43.
  */
 
-public class ActivityWebView extends BaseActivity {
+public class ActivityWebView extends BaseActivity implements View.OnClickListener {
     private WebView webView;
     private String mUrl = "";
     private ProgressBar webViewProgressBar;
     private ValueCallback<Uri> uploadMessage;
     private ValueCallback<Uri[]> uploadMessageAboveL;
+    private AppBarLayout topBar;
+    private Toolbar toolbar;
+    private TextView txtTitle;
+    private ImageButton btnBack,btnClose;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.hideActiconBar(this);
         setContentView(R.layout.activity_webview);
         mUrl = getIntent().getStringExtra(Constants.EXTERNAL_URL);
         initView();
+        initToolBar(mUrl);
         if (webView != null)
             webView.loadUrl("javascript:OnCreate()");
     }
 
+    private void initToolBar(String url) {
+        String[] uris = url.split("titleDefinition=");
+        btnBack.setOnClickListener(this);
+        if (uris.length > 1) {
+            toolbar.setVisibility(View.VISIBLE);
+            if (uris[1].startsWith("haveBackButton|")) {
+                txtTitle.setText(uris[1].replaceAll("haveBackButton\\|", ""));
+                return;
+            }
+            if (uris[1].startsWith("haveCloseButton|")) {
+                txtTitle.setText(uris[1].replaceAll("haveCloseButton\\|", ""));
+                btnClose = (ImageButton) findViewById(R.id.btn_close);
+                btnClose.setVisibility(View.VISIBLE);
+                btnClose.setOnClickListener(this);
+                return;
+            }
+        }
+        topBar.setVisibility(View.GONE);
+    }
+
     private void initView() {
+        topBar = (AppBarLayout) findViewById(R.id.top_bar);
+        btnBack = (ImageButton) findViewById(R.id.btn_back);
+        btnClose = (ImageButton) findViewById(R.id.btn_close);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        txtTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+
         webView = (WebView) findViewById(R.id.webview);
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.setVerticalScrollBarEnabled(false);
@@ -64,7 +102,7 @@ public class ActivityWebView extends BaseActivity {
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setUserAgentString(webView.getSettings().getUserAgentString() + "; Android/wifi_kulian/"
                 + Utils.getVersion() + "/" + Utils.getVersionCode());
-        webView.addJavascriptInterface(new JsCallJavaInterface(), "JsCallJavaInterface");
+        webView.addJavascriptInterface(new JsCallJavaInterface(this), "JsCallJavaInterface");
         webView.setWebChromeClient(new MyWebChromeClient());
         webView.setWebViewClient(new WebViewClient() {
 
@@ -90,6 +128,24 @@ public class ActivityWebView extends BaseActivity {
             }
         });
         webView.loadUrl(mUrl);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_close:
+                finish();
+                break;
+            case R.id.btn_back:
+                if (webView.canGoBack()) {
+                    webView.goBack();
+                    break;
+                }
+                finish();
+                break;
+            default:
+                break;
+        }
     }
 
     private class MyWebChromeClient extends WebChromeClient {

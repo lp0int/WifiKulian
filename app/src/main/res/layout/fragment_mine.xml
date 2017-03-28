@@ -60,50 +60,12 @@
             android:layout_height="match_parent">
 
             <RelativeLayout
-                android:id="@+id/rel_invite_code"
+                android:id="@+id/rel_binding_wechat"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/app_task_item_bg_with_shadow">
-
-                <ImageView
-                    android:id="@+id/img_invite_code"
-                    android:layout_width="13dp"
-                    android:layout_height="16dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="17dp"
-                    android:src="@mipmap/invite_code"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
-                    android:layout_toRightOf="@+id/img_invite_code"
-                    android:text="@string/my_invite_code"
-                    android:textColor="@color/text_color_gray_deep"
-                    android:textSize="15sp"/>
-
-                <TextView
-                    android:id="@+id/txt_invite_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="14dp"
-                    android:textColor="@color/text_color_blue"
-                    android:textSize="12sp"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rel_binding_wechat"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_below="@+id/rel_invite_code"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:background="@drawable/app_task_item_bg_with_shadow">
 
                 <ImageView

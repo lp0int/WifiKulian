@@ -74,4 +74,16 @@ public class FragmentFind extends BaseFragment {
             }
         };
     }
+
+    @Override
+    protected void onAppBusEvent(int code, Bundle data) {
+        super.onAppBusEvent(code, data);
+        switch (code){
+            case Constants.CODE_JUMP_TO_RECOMMEND_TASK:
+                mViewPager.setCurrentItem(Variable.recommendPageNum);
+                break;
+            default:
+                break;
+        }
+    }
 }

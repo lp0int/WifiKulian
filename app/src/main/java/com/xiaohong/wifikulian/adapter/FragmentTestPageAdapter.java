@@ -31,8 +31,10 @@ public class FragmentTestPageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         if(Variable.tabListBean.getAdOrder().get(position).getUrl().startsWith("http"))
             return FragmentWebView.getInstance(Variable.tabListBean.getAdOrder().get(position).getUrl());
-        if(Variable.tabListBean.getAdOrder().get(position).getUrl().startsWith("Native"))
+        if(Variable.tabListBean.getAdOrder().get(position).getUrl().startsWith("Native")) {
+            Variable.recommendPageNum = position;
             return new FragmentFindRecommendListView();
+        }
         return FragmentFindPageTest.newInstance(position + 1);
     }
 
