@@ -1,4 +1,4 @@
-package com.xiaohong.wifikulian.utils.view;
+package com.xiaohong.wifikulian.utils.view.widget;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

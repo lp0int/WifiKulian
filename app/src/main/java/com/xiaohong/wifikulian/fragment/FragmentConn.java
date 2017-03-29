@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.trello.rxlifecycle.android.ActivityEvent;
 import com.trello.rxlifecycle.android.FragmentEvent;
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.AppBarStateChangeListener;
@@ -45,8 +44,8 @@ import com.xiaohong.wifikulian.utils.PhoneInfo;
 import com.xiaohong.wifikulian.utils.ProgressSubscriber;
 import com.xiaohong.wifikulian.utils.SharedPreferencesUtils;
 import com.xiaohong.wifikulian.utils.Utils;
-import com.xiaohong.wifikulian.utils.view.AutoScrollTextView;
-import com.xiaohong.wifikulian.utils.view.NetworkRequestMethods;
+import com.xiaohong.wifikulian.utils.view.widget.AutoScrollTextView;
+import com.xiaohong.wifikulian.utils.NetworkRequestMethods;
 
 import java.util.ArrayList;
 import java.util.List;

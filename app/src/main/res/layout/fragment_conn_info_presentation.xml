@@ -18,7 +18,7 @@
             android:layout_marginLeft="15dp"
             android:background="@mipmap/icon_notice"/>
 
-        <com.xiaohong.wifikulian.utils.view.AutoScrollTextView
+        <com.xiaohong.wifikulian.utils.view.widget.AutoScrollTextView
             android:id="@+id/txt_scroll_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

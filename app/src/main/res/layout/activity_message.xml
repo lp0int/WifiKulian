@@ -6,12 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:cacheColorHint="@null"
-        android:background="@color/background_color"
-        android:scrollbars="vertical"/>
+        android:layout_height="match_parent">
 
+        <include
+            android:id="@+id/top_bar"
+            layout="@layout/app_toolbar">
+        </include>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_below="@id/top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background_color"
+            android:cacheColorHint="@null"
+            android:scrollbars="vertical"/>
+    </RelativeLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

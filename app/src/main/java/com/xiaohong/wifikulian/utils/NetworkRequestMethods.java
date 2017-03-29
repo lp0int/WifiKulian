@@ -1,4 +1,4 @@
-package com.xiaohong.wifikulian.utils.view;
+package com.xiaohong.wifikulian.utils;
 
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.RequestServiceInterface;

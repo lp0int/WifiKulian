@@ -61,6 +61,7 @@ public class Constants {
     public static final String GET_GALLERY_FUNCTION_PROGRESS_MESSAGE = "功能按钮数据更新中";
     public static final String GET_RECOMMEND_TASK_LIST_PROGRESS_MESSAGE = "推荐任务信息更新中";
     public static final String GET_QQ_READ_PROGRESS_MESSAGE = "阅读信息更新中";
+    public static final String GET_MESSAGE_LIST_PROGRESS_MESSAGE = "消息列表获取中";
     /**
      * otto的code值
      */
@@ -99,6 +100,8 @@ public class Constants {
     public static final int AD_ADVERTISING_GET_BANNER = 19;
     public static final int AD_TYPE_GET_SCROLL_MSG = 9;
     public static final int AD_ADVERTISING_GET_SCROLL_MSG = 18;
+    public static final int AD_TYPE_GET_MESSAGE_LIST = 10;
+    public static final int AD_ADVERTISING_GET_MESSAGE_LIST = 15;
     /**
      * 相关控制字段
      */
