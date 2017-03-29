@@ -77,7 +77,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     private AutoScrollTextView txtScrollMsg;
     private RecyclerView galleryFunction, recommendTask, qqReadList;
     private SubscriberOnNextListener getBannerListListener, getGalleryFunctionListListener, getRecommendTaskListListener,
-            getAdControlListener, getQQReadListListener, getScrollMsgListener, loginListener;
+            getAdControlListener, getQQReadListListener, getScrollMsgListener, loginListener,getMessageListListener;
     private GalleryFunctionAdapter mGalleryFunctionAdapter;
     private RecommendListFragmentConnAdapter mRecommendListFragmentConnAdapter;
     private QQReadAdapter mQQReadAdapter;
@@ -287,6 +287,18 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
             public void onNext(QQReadBean qqReadBean) {
                 mQQReadAdapter.setData(qqReadBean);
                 mQQReadAdapter.notifyDataSetChanged();
+                NetworkRequestMethods3.getInstance().getAdOrder(new ProgressSubscriber<AdOrdersBean>(getMessageListListener, getContext(), Constants.GET_MESSAGE_LIST_PROGRESS_MESSAGE)
+                        , Constants.AD_TYPE_GET_MESSAGE_LIST, Constants.AD_ADVERTISING_GET_MESSAGE_LIST);
+            }
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        };
+        getMessageListListener = new SubscriberOnNextListener<AdOrdersBean>() {
+            @Override
+            public void onNext(AdOrdersBean adOrdersBean) {
+                Variable.messageList = adOrdersBean;
             }
             @Override
             public void onError(Throwable e) {
