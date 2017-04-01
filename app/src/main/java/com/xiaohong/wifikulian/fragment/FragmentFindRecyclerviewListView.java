@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xiaohong.wifikulian.Constants;
-import com.xiaohong.wifikulian.Interface.RecommendItemClickListener;
+import com.xiaohong.wifikulian.Interface.RecyclerviewItemClickListener;
 import com.xiaohong.wifikulian.Interface.SubscriberOnNextListener;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
@@ -27,7 +27,7 @@ import com.xiaohong.wifikulian.utils.ProgressSubscriber;
  * Created by Lpoint on 2017/2/7 18:34.
  */
 
-public class FragmentFindRecommendListView extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, RecommendItemClickListener {
+public class FragmentFindRecyclerviewListView extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, RecyclerviewItemClickListener {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private SubscriberOnNextListener getRecommendListListener;

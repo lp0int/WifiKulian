@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.xiaohong.wifikulian.Interface.RecommendItemClickListener;
+import com.xiaohong.wifikulian.Interface.RecyclerviewItemClickListener;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
 
@@ -18,7 +18,7 @@ import com.xiaohong.wifikulian.Variable;
 
 public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdapter.RecommendViewHolder> {
     private Context mContext;
-    private RecommendItemClickListener mRecommendItemClickListener;
+    private RecyclerviewItemClickListener mRecommendItemClickListener;
 
     public RecommendListAdapter(Context context) {
         mContext = context;
@@ -54,7 +54,7 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
         }
     }
 
-    public void setOnItemClickListener(RecommendItemClickListener listener) {
+    public void setOnItemClickListener(RecyclerviewItemClickListener listener) {
         this.mRecommendItemClickListener = listener;
     }
 
@@ -64,9 +64,9 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
         TextView txtSize;
         TextView txtGetCoin;
         SimpleDraweeView imgIcon;
-        RecommendItemClickListener mOnClickListener;
+        RecyclerviewItemClickListener mOnClickListener;
 
-        public RecommendViewHolder(View view, RecommendItemClickListener mOnClickListener) {
+        public RecommendViewHolder(View view, RecyclerviewItemClickListener mOnClickListener) {
             super(view);
             txtTitle = (TextView) view.findViewById(R.id.txt_title);
             txtSummary = (TextView) view.findViewById(R.id.txt_summary);

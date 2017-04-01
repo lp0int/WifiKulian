@@ -10,6 +10,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -145,8 +146,15 @@ public class Utils {
     }
 
     public static void showDebugToast(Context context, String s) {
-        if (Constants.DEBUG_MODE)
+        if (Constants.DEBUG_MODE) {
             showToastStr(context, s);
+        }
+    }
+
+    public static void showDebugLog(String tag,String info){
+        if (Constants.DEBUG_MODE){
+            Log.i(tag,info);
+        }
     }
 
     /**

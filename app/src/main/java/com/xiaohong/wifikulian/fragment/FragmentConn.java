@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,7 +22,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.trello.rxlifecycle.android.FragmentEvent;
 import com.xiaohong.wifikulian.Constants;
 import com.xiaohong.wifikulian.Interface.AppBarStateChangeListener;
-import com.xiaohong.wifikulian.Interface.RecommendItemClickListener;
+import com.xiaohong.wifikulian.Interface.RecyclerviewItemClickListener;
 import com.xiaohong.wifikulian.Interface.SubscriberOnNextListener;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
@@ -65,7 +64,7 @@ import rx.schedulers.Schedulers;
  * 来恢复惯性，但是目前还存在卡顿的问题
  */
 
-public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, RecommendItemClickListener,
+public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, RecyclerviewItemClickListener,
         ViewPager.OnPageChangeListener, View.OnTouchListener, View.OnClickListener {
     private AppBarLayout mAppBarLayout;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -77,7 +76,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
     private AutoScrollTextView txtScrollMsg;
     private RecyclerView galleryFunction, recommendTask, qqReadList;
     private SubscriberOnNextListener getBannerListListener, getGalleryFunctionListListener, getRecommendTaskListListener,
-            getAdControlListener, getQQReadListListener, getScrollMsgListener, loginListener,getMessageListListener;
+            getAdControlListener, getQQReadListListener, getScrollMsgListener, loginListener, getMessageListListener;
     private GalleryFunctionAdapter mGalleryFunctionAdapter;
     private RecommendListFragmentConnAdapter mRecommendListFragmentConnAdapter;
     private QQReadAdapter mQQReadAdapter;
@@ -209,6 +208,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                     getActivity().finish();
                 }
             }
+
             @Override
             public void onError(Throwable e) {
 
@@ -224,6 +224,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                                 Constants.GET_BANNER_PROGRESS_MESSAGE),
                         Constants.AD_TYPE_GET_BANNER, Constants.AD_ADVERTISING_GET_BANNER);
             }
+
             @Override
             public void onError(Throwable e) {
 
@@ -239,6 +240,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                                 Constants.GET_GALLERY_FUNCTION_PROGRESS_MESSAGE),
                         Constants.AD_TYPE_GET_GALLERY_FUNCTION, Constants.AD_ADVERTISING_GET_GALLERY_FUNCTION);
             }
+
             @Override
             public void onError(Throwable e) {
 
@@ -252,6 +254,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                 NetworkRequestMethods3.getInstance().getRecommendList(new ProgressSubscriber<RecommendListBean>(getRecommendTaskListListener, getActivity(),
                         Constants.GET_RECOMMEND_TASK_LIST_PROGRESS_MESSAGE));
             }
+
             @Override
             public void onError(Throwable e) {
 
@@ -264,6 +267,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                 NetworkRequestMethods3.getInstance().getAdControl(new ProgressSubscriber<AdControlBean>(getAdControlListener, getActivity(),
                         Constants.GET_RECOMMEND_TASK_LIST_PROGRESS_MESSAGE));
             }
+
             @Override
             public void onError(Throwable e) {
 
@@ -277,6 +281,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                 NetworkRequestMethods.getInstance().getQQRead(new ProgressSubscriber<QQReadBean>(getQQReadListListener, getActivity(),
                         Constants.GET_QQ_READ_PROGRESS_MESSAGE));
             }
+
             @Override
             public void onError(Throwable e) {
 
@@ -290,6 +295,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
                 NetworkRequestMethods3.getInstance().getAdOrder(new ProgressSubscriber<AdOrdersBean>(getMessageListListener, getContext(), Constants.GET_MESSAGE_LIST_PROGRESS_MESSAGE)
                         , Constants.AD_TYPE_GET_MESSAGE_LIST, Constants.AD_ADVERTISING_GET_MESSAGE_LIST);
             }
+
             @Override
             public void onError(Throwable e) {
 
@@ -300,6 +306,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
             public void onNext(AdOrdersBean adOrdersBean) {
                 Variable.messageList = adOrdersBean;
             }
+
             @Override
             public void onError(Throwable e) {
 
@@ -414,7 +421,7 @@ public class FragmentConn extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        Log.i("info", state + "");
+        Utils.showDebugLog("info", state + "");
     }
 
     @Override

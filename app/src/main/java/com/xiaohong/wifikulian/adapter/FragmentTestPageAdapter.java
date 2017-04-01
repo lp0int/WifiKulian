@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.xiaohong.wifikulian.Variable;
 import com.xiaohong.wifikulian.fragment.FragmentFindPageTest;
-import com.xiaohong.wifikulian.fragment.FragmentFindRecommendListView;
+import com.xiaohong.wifikulian.fragment.FragmentFindRecyclerviewListView;
 import com.xiaohong.wifikulian.fragment.FragmentWebView;
 
 /**
@@ -33,7 +33,7 @@ public class FragmentTestPageAdapter extends FragmentPagerAdapter {
             return FragmentWebView.getInstance(Variable.tabListBean.getAdOrder().get(position).getUrl());
         if(Variable.tabListBean.getAdOrder().get(position).getUrl().startsWith("Native")) {
             Variable.recommendPageNum = position;
-            return new FragmentFindRecommendListView();
+            return new FragmentFindRecyclerviewListView();
         }
         return FragmentFindPageTest.newInstance(position + 1);
     }

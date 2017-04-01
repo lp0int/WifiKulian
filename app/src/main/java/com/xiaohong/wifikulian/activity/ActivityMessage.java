@@ -11,7 +11,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.lpoint.customdialog.CustomDialog;
 import com.xiaohong.wifikulian.Constants;
+import com.xiaohong.wifikulian.Interface.RecyclerviewItemClickListener;
 import com.xiaohong.wifikulian.Interface.SubscriberOnNextListener;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
@@ -26,12 +28,14 @@ import com.xiaohong.wifikulian.utils.Utils;
  * Created by Lpoint on 2017/3/28 20:12.
  */
 
-public class ActivityMessage extends BaseActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class ActivityMessage extends BaseActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, RecyclerviewItemClickListener {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private SubscriberOnNextListener getMessageListListener;
     private ImageButton btnBack;
     private MessageListAdapter mMessageListAdapter;
+    private CustomDialog cd;
+    private TextView txtMsgDetail;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,11 +63,15 @@ public class ActivityMessage extends BaseActivity implements View.OnClickListene
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        cd = (CustomDialog) findViewById(R.id.msg_detail);
+        txtMsgDetail = (TextView) cd.getCustomView().findViewById(R.id.txt_msg_detail);
+        txtMsgDetail.setOnClickListener(this);
     }
 
     private void initData() {
         initRequestListener();
         mMessageListAdapter = new MessageListAdapter(this);
+        mMessageListAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mMessageListAdapter);
     }
 
@@ -74,6 +82,7 @@ public class ActivityMessage extends BaseActivity implements View.OnClickListene
                 Variable.messageList = adOrdersBean;
                 mMessageListAdapter.notifyDataSetChanged();
             }
+
             @Override
             public void onError(Throwable e) {
 
@@ -87,6 +96,9 @@ public class ActivityMessage extends BaseActivity implements View.OnClickListene
             case R.id.btn_back:
                 finish();
                 break;
+            case R.id.txt_msg_detail:
+                cd.hide();
+                break;
             default:
                 break;
         }
@@ -97,5 +109,11 @@ public class ActivityMessage extends BaseActivity implements View.OnClickListene
         NetworkRequestMethods3.getInstance().getAdOrder(new ProgressSubscriber<AdOrdersBean>(getMessageListListener, this, Constants.GET_MESSAGE_LIST_PROGRESS_MESSAGE)
                 , Constants.AD_TYPE_GET_MESSAGE_LIST, Constants.AD_ADVERTISING_GET_MESSAGE_LIST);
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        txtMsgDetail.setText(Variable.messageList.getAdOrder().get(position).getContent());
+        cd.show();
     }
 }

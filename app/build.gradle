@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 24
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "com.xiaohong.wifikulian"
@@ -49,5 +49,6 @@ dependencies {
     //此依赖需要API16以上的SDK，所以将minSdkVersion更改为16
     //    compile 'com.airbnb.android:lottie:1.0.1'
     compile 'com.android.support:cardview-v7:24.0.0'
+    compile 'com.github.lp0int:UtilsWidget:0.1'
     compile files('libs/tbs_sdk_thirdapp_v3.0.0.1038_43000_sharewithdownload_obfs_20170110_144724.jar')
 }

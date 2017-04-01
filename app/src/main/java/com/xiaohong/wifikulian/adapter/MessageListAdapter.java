@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.xiaohong.wifikulian.Interface.RecyclerviewItemClickListener;
 import com.xiaohong.wifikulian.R;
 import com.xiaohong.wifikulian.Variable;
 
@@ -14,8 +16,9 @@ import com.xiaohong.wifikulian.Variable;
  * Created by Lpoint on 2017/3/29 16:37.
  */
 
-public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.MessageListViewHolder> {
+public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.MessageListViewHolder>{
     private Context mContext;
+    private RecyclerviewItemClickListener mMsgItemClickListener;
 
     public MessageListAdapter(Context context) {
         mContext = context;
@@ -24,7 +27,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
     @Override
     public MessageListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         MessageListViewHolder holder = new MessageListViewHolder(LayoutInflater.from(mContext)
-                .inflate(R.layout.item_adapter_message_list, parent, false));
+                .inflate(R.layout.item_adapter_message_list, parent, false), mMsgItemClickListener);
         return holder;
     }
 
@@ -41,12 +44,27 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
         return Variable.messageList.getAdOrder().size();
     }
 
-    class MessageListViewHolder extends RecyclerView.ViewHolder {
-        TextView txtMessage;
+    public void setOnItemClickListener(RecyclerviewItemClickListener listener) {
+        this.mMsgItemClickListener = listener;
+    }
 
-        public MessageListViewHolder(View itemView) {
+    class MessageListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView txtMessage;
+        RelativeLayout relItem;
+        RecyclerviewItemClickListener mItemClickListener;
+
+        public MessageListViewHolder(View itemView, RecyclerviewItemClickListener itemClickListener) {
             super(itemView);
             txtMessage = (TextView) itemView.findViewById(R.id.txt_message);
+            relItem = (RelativeLayout) itemView.findViewById(R.id.rel_item);
+            this.mItemClickListener = itemClickListener;
+            relItem.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mMsgItemClickListener != null)
+                mMsgItemClickListener.onItemClick(v, getPosition());
         }
     }
 }
